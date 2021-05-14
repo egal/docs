@@ -33,19 +33,6 @@ const filter = [
      operator: 'lt',
      value: 30
    }
- },
- {
-   left: {
-     field: 'name',
-     operator: 'gt',
-     value: 'name1'
-   },
-   type: 'and',
-   right: {
-     field: 'age',
-     operator: 'lt',
-     value: 20
-   }
  }
 ];
  
@@ -57,7 +44,7 @@ messageTest.socketConnect()
 ```
 Что происходит в примере:
 
-в переменных *orders* и *filter* хранятся параметры, которые нужно передать вместе с запросом. Вид этих параметров фиксированный и всегда должен быть таким, как указано.
+В переменных *orders* и *filter* хранятся параметры, которые нужно передать вместе с запросом. Вид этих параметров фиксированный и всегда должен быть таким, как указано.
 
 Массив *orders* хранит массивы с указанием названия сортируемого поля и порядком сортировки (asc: от меньшего к большему, desc: от большего к меньшему).
 
@@ -149,7 +136,10 @@ deleteRawAction.socketConnect()
 
 Для того чтобы инициализировать нужную модель нужно сделать следующее:
  ```
-let newModel = new Model('User')
+let newModel = new Model('User',
+RabbitUsername,
+RabbitPassword
+)
 ```
 
 
@@ -193,28 +183,13 @@ const filter = [
       operator: 'lt',
       value: 30
     }
-  },
-  {
-    left: {
-      field: 'name',
-      operator: 'gt',
-      value: 'name1'
-    },
-    type: 'and',
-    right: {
-      field: 'age',
-      operator: 'lt',
-      value: 20
-    }
   }
 ];
- 
- 
 let page = 2
 let perPage = 25
 let withs = ['user', 'roles']
  
-let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', with, filter, orders, page, perPage)
+let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', perPage, page, filter, with, orders )
 ```
 
 Что происходит в примере:
