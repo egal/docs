@@ -6,7 +6,7 @@
 
 ## Первые шаги
 
-1. Создаем новый репозитория
+1. Создаем новый репозиторий
 2. Клонируем его в нужную нам директорию и открываем в IDE
 3. Создаем файл `.env`, содержанием которого на данном шаге будет:
 
@@ -81,32 +81,32 @@ Hello, it's project/web-service!
 ```yaml
 # Нужен для работы сервисов, которые взаимодействуют с базой данных
 # На данном шаге нужен только для auth-service
-database:
-  container_name: ${PROJECT_NAME}-database
-  image: egalbox/postgres:2.0.0
-  restart: always
-  ports:
-    - ${RABBITMQ_PORT:-5432}:5432
-  environment:
-  POSTGRES_MULTIPLE_DATABASES: auth
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
+  database:
+    container_name: ${PROJECT_NAME}-database
+    image: egalbox/postgres:2.0.0
+    restart: always
+    ports:
+      - ${RABBITMQ_PORT:-5432}:5432
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: auth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
 
-auth-service:
-  container_name: ${PROJECT_NAME}-auth-service
-  image: egalbox/auth-service:2.0.0beta20
-  environment:
-    APP_SERVICE_NAME: auth
-    APP_SERVICE_KEY: uZsLnAJz35FWUTVx@eg#Xirv6I*jcw2Y
-    DB_HOST: ${PROJECT_NAME}-database
-    DB_PASSWORD: ${DATABASE_PASSWORD:-password}
-    RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
-    RABBITMQ_USER: ${RABBITMQ_USERNAME:-admin}
-    RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
-    WAIT_HOSTS: ${PROJECT_NAME}-rabbitmq:5672, ${PROJECT_NAME}-database:5432
-  depends_on:
-    - rabbitmq
-    - database
+  auth-service:
+    container_name: ${PROJECT_NAME}-auth-service
+    image: egalbox/auth-service:2.0.0beta20
+    environment:
+      APP_SERVICE_NAME: auth
+      APP_SERVICE_KEY: uZsLnAJz35FWUTVx@eg#Xirv6I*jcw2Y
+      DB_HOST: ${PROJECT_NAME}-database
+      DB_PASSWORD: ${DATABASE_PASSWORD:-password}
+      RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
+      RABBITMQ_USER: ${RABBITMQ_USERNAME:-admin}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
+      WAIT_HOSTS: ${PROJECT_NAME}-rabbitmq:5672, ${PROJECT_NAME}-database:5432
+    depends_on:
+      - rabbitmq
+      - database
 ```
 
 2. Запустим сервисы:
@@ -145,33 +145,33 @@ composer create-project egal/egal monolit-service
 # Нужен для работы сервисов, которые взаимодействуют с базой данных
 # На данном шаге нужен только для auth-service
 # Если у вас уже есть database - можно просто добавить название новой базы данных в POSTGRES_MULTIPLE_DATABASES переменной через запятую
-database:
-  container_name: ${PROJECT_NAME}-database
-  image: egalbox/postgres:2.0.0
-  restart: always
-  ports:
-    - ${RABBITMQ_PORT:-5432}:5432
-  environment:
-  POSTGRES_MULTIPLE_DATABASES: monolit
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
+  database:
+    container_name: ${PROJECT_NAME}-database
+    image: egalbox/postgres:2.0.0
+    restart: always
+    ports:
+      - ${RABBITMQ_PORT:-5432}:5432
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: monolit
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
 
-monolit-service:
-  container_name: ${PROJECT_NAME}-auth-service
-  build:
-    context: monolit-service
-  environment:
-    APP_SERVICE_NAME: monolit
-    APP_SERVICE_KEY: uiA3ZsU#x@ecwgJrv6ITjLV*nzX5FW2Y
-    DB_HOST: ${PROJECT_NAME}-database
-    DB_PASSWORD: ${DATABASE_PASSWORD:-password}
-    RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
-    RABBITMQ_USER: ${RABBITMQ_USERNAME:-admin}
-    RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
-    WAIT_HOSTS: ${PROJECT_NAME}-rabbitmq:5672, ${PROJECT_NAME}-database:5432
-  depends_on:
-    - rabbitmq
-    - database
+  monolit-service:
+    container_name: ${PROJECT_NAME}-monolit-service
+    build:
+      context: monolit-service
+    environment:
+      APP_SERVICE_NAME: monolit
+      APP_SERVICE_KEY: uiA3ZsU#x@ecwgJrv6ITjLV*nzX5FW2Y
+      DB_HOST: ${PROJECT_NAME}-database
+      DB_PASSWORD: ${DATABASE_PASSWORD:-password}
+      RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
+      RABBITMQ_USER: ${RABBITMQ_USERNAME:-admin}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
+      WAIT_HOSTS: ${PROJECT_NAME}-rabbitmq:5672, ${PROJECT_NAME}-database:5432
+    depends_on:
+      - rabbitmq
+      - database
 ```
 
 3. Запустим сервисы:
