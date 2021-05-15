@@ -356,9 +356,10 @@ php artisan egal:make:migration-create WorkingTime
 class CreateSpeakersTable extends Migration
 {
     public function up()
-    {
         Schema::create('speakers', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uid')
+                ->unique();
             $table->string('name');
             $table->string('surname');
             $table->string('avatar')
@@ -386,7 +387,6 @@ class CreateWorkingTimesTable extends Migration
     {
         Schema::create('working_times', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('speaker_id');
             $table->foreignId('speaker_id')
                 ->constrained()
                 ->onDelete('cascade');
