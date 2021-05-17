@@ -136,10 +136,7 @@ deleteRawAction.socketConnect()
 
 Для того чтобы инициализировать нужную модель нужно сделать следующее:
  ```
-let newModel = new Model('User',
-RabbitUsername,
-RabbitPassword
-)
+let newModel = new Model('User',RabbitUsername,RabbitPassword)
 ```
 
 
@@ -200,7 +197,7 @@ let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', perPage,
 
 Массив *filter* хранит объекты с указанием фильтруемого поля, типа фильтрации и значения для фильтрации.
 
-Все типы фильтрации указаны здесь: (ССЫЛКА НА СПИСОК ФИЛЬТРОВ).
+Все типы фильтрации указаны [здесь](/server/crud/filters)
 
 Вместо вызова метода **socketConnect()** или **axiosConnect()**, в параметрах указывается тип подключения: ‘socket’ или ‘axios’.
 
