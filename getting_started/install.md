@@ -119,7 +119,7 @@ docker-compose up -d
 3. Проверим работоспособность `auth-service`
 
 ```shell
-curl localhost:80/auth/User/test
+curl localhost:80/auth/User/getItems
 ```
 
 Мы должны получить ответ, содержащий `action_result` или `action_error`, это будет означать, что наш сервис ответил.
