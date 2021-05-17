@@ -33,19 +33,6 @@ const filter = [
      operator: 'lt',
      value: 30
    }
- },
- {
-   left: {
-     field: 'name',
-     operator: 'gt',
-     value: 'name1'
-   },
-   type: 'and',
-   right: {
-     field: 'age',
-     operator: 'lt',
-     value: 20
-   }
  }
 ];
  
@@ -57,7 +44,7 @@ messageTest.socketConnect()
 ```
 Что происходит в примере:
 
-в переменных *orders* и *filter* хранятся параметры, которые нужно передать вместе с запросом. Вид этих параметров фиксированный и всегда должен быть таким, как указано.
+В переменных *orders* и *filter* хранятся параметры, которые нужно передать вместе с запросом. Вид этих параметров фиксированный и всегда должен быть таким, как указано.
 
 Массив *orders* хранит массивы с указанием названия сортируемого поля и порядком сортировки (asc: от меньшего к большему, desc: от большего к меньшему).
 
@@ -109,7 +96,7 @@ let updateAction = new CRUDAction('auth', 'User', 'updateMany', updateParams)
 updateAction.socketConnect()
 ```
 
-**deleteMany:*
+**deleteMany:**
  ```
 let deleteParams = ['', '', '']
 let deleteAction = new CRUDAction('auth', 'User', 'deleteMany', deleteParams)
@@ -121,16 +108,18 @@ deleteAction.socketConnect()
 
 **updateManyRaw:**
  ```
-let actionFilters = [{
-    field: 'name',
-    type: 'eq',
-    value: 'noname1'
-},
+let actionFilters = [
+    {
+        field: 'name',
+        type: 'eq',
+        value: 'noname1'
+    },
     {
         field: 'name',
         type: 'eq',
         value: 'noname2'
-    }]
+    }
+]
  
 let paramsUpdateRaw = { attributes: { name: 'yesname' }, filter: [...actionFilters] }
 let updateRawAction = new CRUDAction('auth', 'User', 'updateManyRaw', paramsUpdateRaw)
@@ -149,7 +138,7 @@ deleteRawAction.socketConnect()
 
 Для того чтобы инициализировать нужную модель нужно сделать следующее:
  ```
-let newModel = new Model('User')
+let newModel = new Model('User', RabbitUsername, RabbitPassword)
 ```
 
 
@@ -193,28 +182,13 @@ const filter = [
       operator: 'lt',
       value: 30
     }
-  },
-  {
-    left: {
-      field: 'name',
-      operator: 'gt',
-      value: 'name1'
-    },
-    type: 'and',
-    right: {
-      field: 'age',
-      operator: 'lt',
-      value: 20
-    }
   }
 ];
- 
- 
 let page = 2
 let perPage = 25
 let withs = ['user', 'roles']
  
-let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', with, filter, orders, page, perPage)
+let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', perPage, page, filter, with, orders )
 ```
 
 Что происходит в примере:
@@ -225,7 +199,7 @@ let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', with, fi
 
 Массив *filter* хранит объекты с указанием фильтруемого поля, типа фильтрации и значения для фильтрации.
 
-Все типы фильтрации указаны здесь: (ССЫЛКА НА СПИСОК ФИЛЬТРОВ).
+Все типы фильтрации указаны [здесь](/server/crud/filters)
 
 Вместо вызова метода **socketConnect()** или **axiosConnect()**, в параметрах указывается тип подключения: ‘socket’ или ‘axios’.
 
