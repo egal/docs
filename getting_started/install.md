@@ -188,25 +188,29 @@ curl localhost:80/monolit/User/test
 
 5. Превращаем `monolit-service` директорию в git submodule:
 
-```shell
-mv monolit-service/ temp/
-```
-
-```shell
-git submodule init
-```
-
-```shell
-git submodule add [URL] monolit-service
-```
-
-```shell
-rsync -r ./temp/ ./monolit-service/
-```
-
-```shell
-rm -r temp
-```
-
+    1. Перемещаем кодовую базу во временную директорию:
+        ```shell
+        mv monolit-service/ temp/
+        ```
+    2. Делаем commit текущего репозитория без `/temp` директории.
+       > В изменениях должно отображаться удаление директории `/monolit-service`
+    3. Инициализируем git submodules, если ранее не были инициализированы:
+        ```shell
+        git submodule init
+        ```
+    4. Инициализируем monolit-service submodule:
+        ```shell
+        git submodule add [URL] monolit-service
+        ```
+        > Где URL - HTTP или SSH ссылка на Git репозиторий Monolit Service. Репозиторий должен быть не пустым.
+    5. Актуализируем кодовую базу Monolit Service репозитория:
+        ```shell
+        rsync -r ./temp/ ./monolit-service/
+        ```
+    6. Удаляем временную `/temp` директорию:
+        ```shell
+        rm -r temp
+        ```
+       
 На данном этапе, если вы используете IDE - её лучше перезапустить, чтобы проиндексировались git submodules.
 Далее делаем commit и push всех новых файлов.
