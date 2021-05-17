@@ -108,16 +108,18 @@ deleteAction.socketConnect()
 
 **updateManyRaw:**
  ```
-let actionFilters = [{
-    field: 'name',
-    type: 'eq',
-    value: 'noname1'
-},
+let actionFilters = [
+    {
+        field: 'name',
+        type: 'eq',
+        value: 'noname1'
+    },
     {
         field: 'name',
         type: 'eq',
         value: 'noname2'
-    }]
+    }
+]
  
 let paramsUpdateRaw = { attributes: { name: 'yesname' }, filter: [...actionFilters] }
 let updateRawAction = new CRUDAction('auth', 'User', 'updateManyRaw', paramsUpdateRaw)
@@ -136,7 +138,7 @@ deleteRawAction.socketConnect()
 
 Для того чтобы инициализировать нужную модель нужно сделать следующее:
  ```
-let newModel = new Model('User',RabbitUsername,RabbitPassword)
+let newModel = new Model('User', RabbitUsername, RabbitPassword)
 ```
 
 
