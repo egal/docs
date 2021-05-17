@@ -190,27 +190,42 @@ curl localhost:80/monolit/User/test
 5. Превращаем `monolit-service` директорию в git submodule Develop репозитория:
 
     1. Перемещаем кодовую базу во временную директорию:
+       
         ```shell
         mv monolit-service/ temp/
         ```
+       
     2. Делаем commit текущего репозитория без `/temp` директории.
+       
        > В изменениях должно отображаться удаление директории `/monolit-service`
+
     3. Инициализируем git submodules, если ранее не были инициализированы:
+       
         ```shell
         git submodule init
         ```
+       
     4. Инициализируем monolit-service submodule:
+
         ```shell
         git submodule add [URL] monolit-service
         ```
         > Где URL - HTTP или SSH ссылка на Git репозиторий Monolit Service. Репозиторий должен быть не пустым.
+
+        > Если вы используете IDE JetBrains PhpStorm - на данном этапе его лучше перезапустить,
+        > чтобы прошла заново индексация проекта.
+
     5. Актуализируем кодовую базу Monolit Service репозитория:
+       
         ```shell
         rsync -r ./temp/ ./monolit-service/
         ```
+       
     6. Удаляем временную `/temp` директорию:
+       
         ```shell
         rm -r temp
         ```
+       
     7. Далее делаем commit всех новых файлов как в Develop, так и в Monolit Service.
     
