@@ -96,7 +96,7 @@ let updateAction = new CRUDAction('auth', 'User', 'updateMany', updateParams)
 updateAction.socketConnect()
 ```
 
-**deleteMany:*
+**deleteMany:**
  ```
 let deleteParams = ['', '', '']
 let deleteAction = new CRUDAction('auth', 'User', 'deleteMany', deleteParams)
