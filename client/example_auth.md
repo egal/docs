@@ -34,20 +34,21 @@ createAccount() {
 ```
 let observer = new EventObserver()
 observer.subscribe('User', (data, actionName) => {
-if (data !== 'Start Processing' && actionName !== 'error') {
-switch (actionName) {
-case 'registerByEmailAndPassword':
-let userData = {email: this.email, password: this.password}
-auth.authUser(userData);
-break;
-case 'loginByEmailAndPassword':
-let userCred = {service_name: 'monolit', token: data[0]}
-auth.loginToService(userCred)
-break;
-case 'loginToService':
-// some user action
-}
-} else if (actionName === 'error') {
-this.errorAlert(data)
-}})
+    if (data !== 'Start Processing' && actionName !== 'error') {
+        switch (actionName) {
+            case 'registerByEmailAndPassword':
+                let userData = {email: this.email, password: this.password}
+                auth.authUser(userData);
+            break;
+            case 'loginByEmailAndPassword':
+                let userCred = {service_name: 'monolit', token: data[0]}
+                auth.loginToService(userCred)
+            break;
+            case 'loginToService':
+                // some user action
+        }
+    } else if (actionName === 'error') {
+        this.errorAlert(data)
+    }
+})
 ```
