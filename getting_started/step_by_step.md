@@ -1,7 +1,7 @@
 # Пример по шагам
 
 Рассмотрим пример создания части проекта Skilltoria.
-Для простоты рассмотрим создание сущностей `WorkingTime` и `Speaker`.
+Возьмем создание сущностей `WorkingTime` и `Speaker`.
 
 > Сам проект представляет собой платформу для организации и проведения видео-уроков.
 
@@ -28,8 +28,8 @@ monolit-service/
 docker-compose.yml
 assistent             скрипт помощник для работы с проектом
 .gitignore
-.gitmodules           файл в котором храниться описание существующих подмодулей
-.git                  системная директория вашего репозитория
+.gitmodules           файл в котором хранится описание существующих подмодулей
+.git                  системная директория репозитория
 .env                  файл конфигурации в котором хранится часть переменных окружения
 ```
 
@@ -41,8 +41,8 @@ docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) 
 
 Настраиваем docker-compose.yml
 
-Удаляем закомментированные сервисы в начале файле (такие, как pgadmin, k6, php-documentor), они нам сейчас не нужны.
-Сейчас содержимое файла должно быть таким
+Удаляем закомментированные сервисы в начале файле (такие, как pgadmin, k6, php-documentor), они сейчас не нужны.
+Содержимое файла должно быть таким
 
 ```yaml
 version: "3.6"
@@ -60,8 +60,8 @@ services:
       - ${RABBITMQ_MANAGER_PORT:-15672}:15672
 ```
 
-И далее добавляем в конец то что нам пригодится.
-Во-первых, нам нужна база данных.
+Добавляем в конец то что пригодится:
+Во-первых, нужна база данных.
 
 ```yaml
     database:
@@ -76,7 +76,7 @@ services:
         POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
 ```
 
-Далее указываем сервисы поставляемые с `egal-box`
+Указываем сервисы поставляемые с `egal-box`
 
 ```yaml
  web-service:
@@ -111,7 +111,7 @@ services:
     - database
 ```
 
-Осталось описать наш сервис `monolit`
+Осталось описать сервис `monolit`
 
 ```yaml
  monolit-service:
@@ -135,7 +135,7 @@ services:
 
 ### Настройка .env
 
-Основное, что нам нужно настроить это переменная `PROJECT_NAME`, но она уже настроена на этапе установки через скрип install.
+Основное что нужно настроить - переменная `PROJECT_NAME`, но она уже настроена на этапе установки через скрип install.
 
 > PROJECT_NAME=testProject
 
@@ -145,19 +145,19 @@ services:
 
 ### Запуск проекта
 
-Запуск производится одной простой командой
+Запуск производится одной простой командой.
 
 ```shell
 docker-compose up -d
 ```
 
-Далее нужно проверить все ли запустилось. Для этого выполним команду вывода списка работающих контейнеров.
+Далее проверяем все ли запустилось. Для этого выполним команду вывода списка работающих контейнеров.
 
 ```shell
 docker-compose ps
 ```
 
-Должны получить что-то подобное
+Должны получить что-то подобное:
 
 ```text
             Name                           Command               State                                             Ports                                           
@@ -170,29 +170,29 @@ testProject-web-service         /bin/sh -c /wait && /usr/b ...   Up      0.0.0.0
 
 ```
 
-Сделаем запрос для проверки.
+Сделаем запрос для проверки:
 
 ```shell
 curl http://localhost:81
 ```
-В ответ получим
+В ответ получим:
 
 ```text
 Hello, it's testProject/web-service!
 ```
-На этом разворот можно считать законченным.
+На этом разворот считаем законченным.
 
 ## 2. Создание сущностей
 
 Начнем с генерации модели `Speaker`.
-Зайдем в контейнер и создадим модель
+Зайдем в контейнер и создадим модель:
 
 ```shell
 docker-compose exec monolit-service bash
 php artisan egal:make:model Speaker
 ```
 
-После выполнения этой команды у нас сгенерировалась модель со следующим содержимым
+После выполнения этой команды у нас сгенерировалась модель со следующим содержимым.
 
 ```php
 <?php
@@ -219,19 +219,19 @@ class Speaker extends EgalModel
 
 }
 ```
-Аналогично создадим сущность `WorkingTime`.
+Аналогично создадим сущность `WorkingTime`:
 
 ```shell
 php artisan egal:make:model WorkingTime
 ```
 
-Внесем следующие правки.
-
+Внесем следующие правки:
+<!-- Необходимо как то переформулировать.  -->
 - пока что для удобства сделаем публичными все роуты.
 - проставим типы полей и валидацию
 - Укажем связанные сущности. Для `WorkingTime` это `speaker`, для `Speaker` это `workingTimes`.
 
-В итоге получаем
+В итоге получаем:
 
 `app/Models/Speaker.php`
 
@@ -342,14 +342,14 @@ class WorkingTime extends EgalModel
 
 ```
 
-Далее нам нужно сгенерировать миграции для этих сущностей
+Далее необходимо сгенерировать миграции для этих сущностей:
 
 ```shell
 php artisan egal:make:migration-create Speaker
 php artisan egal:make:migration-create WorkingTime
 ```
 
-Немного подправим их, т.к. нужно прописать связи на таблицы
+Немного подправим их, т.к. необходимо прописать связи на таблицы:
 
 `database/migrations/2021_04_27_064152_create_speakers_table.php`
 ```php
@@ -399,26 +399,26 @@ class CreateWorkingTimesTable extends Migration
 }
 ```
 
-Осталось перезапустить микросервис `monolit`, чтобы выполнились миграции и применился новый код.
+Осталось перезапустить микросервис `monolit`, чтобы выполнились миграции и применился новый код:
 
 ```shell
 docker-coompose restart monolit-service
 ```
 
-Для проверки работоспособности сделаем пару запросов на создание спикеров и рабочего времени.
+Для проверки работоспособности сделаем пару запросов на создание спикеров и рабочего времени:
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"attributes": {"name": "Ivan", "surname": "Ivanov"}}' http://localhost:81/monolit/Speaker/create
 curl -iLXPOST -H "Content-Type: application/json" -d '{"attributes": {"speaker_id": "1", "starts_at": "2021-04-27 03:23:57", "ends_at": "2021-04-28 03:23:57"}}' http://localhost:81/monolit/WorkingTime/create
 ```
 
-Сделаем запросы на получение созданных данных
+Сделаем запросы на получение созданных данных:
 
 ```shell
 curl http://localhost:81/monolit/Speaker/getItems
 ```
 
-Результат
+Результат:
 
 ```json
 {
@@ -478,12 +478,12 @@ curl http://localhost:81/monolit/Speaker/getItems
 }
 ```
 
-Создание рабочего времени
+Создание рабочего времени:
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"attributes": {"speaker_id": "1", "starts_at": "2021-04-27 03:23:57", "ends_at": "2021-04-28 03:23:57"}}' http://localhost:81/monolit/WorkingTime/create
 ```
 
-Получаем результат
+Получаем результат:
 ```shell
 curl http://localhost:81/monolit/WorkingTime/getItems
 ```
@@ -492,10 +492,10 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 
 Теперь настало время прикрыть доступ для незарегистрированных пользователей.
 
-Уберем у каждой модели разрешения для guest. Соответственно меняем 
+Уберем у каждой модели разрешения для guest. Соответственно меняем:
 `{@statuses-access guest,logged}` на `{@statuses-access logged}`
 
-Далее нам нужно зарегистрировать нового пользователя.
+Далее регистрируем нового пользователя:
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/register
@@ -503,17 +503,17 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", 
 
 Т.к. это "чистый" проект, то сервис авторизации не знает о существовании сервиса `monolit`.
 
-Заходим в контейнер
+Заходим в контейнер:
 ```shell
 docker-compose exec auth-service bash
 ```
 
-Регистрируем `monolit`
+Регистрируем `monolit`:
 ```shell
 php artisan egal:register:service monolit B#J5mUWKh8FqzQ6Tj0XtYruIcSwpb@ed
 ```
 
-Получаем master token 
+Получаем master token:
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/loginByEmailAndPassword
 ```
@@ -579,12 +579,12 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", 
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4
 ```
 
-Теперь нам нужно получить service token для того чтобы мы могли делать запросы на защищенные роуты нешего микросервиса
+Теперь нужно получить service token для того чтобы мы могли делать запросы на защищенные роуты микросервиса:
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4", "service_name": "monolit"}' http://localhost:81/auth/User/loginToService
 ```
 
-Ответ
+Ответ:
 
 ```json
 {
@@ -640,7 +640,7 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1Q
 }
 ```
 
-Теперь попробуем сделать запрос в наш сервис с полученным токеном:
+Теперь попробуем сделать запрос в сервис с полученным токеном:
 
 ```shell
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOltdfSwiYWxpdmVfdW50aWwiOiIyMDIxLTA0LTI4VDA4OjExOjM1LjIyMzUzNFoifQ.oonpQvvOAycWg5W2Bkh_fvETQofLs6Wc0J3Y5eT3c04" http://localhost:81/monolit/Speaker/getItems
