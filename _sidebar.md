@@ -18,9 +18,8 @@
   * [Примеры](/client/examples.md)
   * [Полный список классов](/client/classes.md)
     * [Подключение авторизации](/client/example_auth.md)
-
-
 * **Серверная часть**
+  * [Запуск проекта](/server/ways_to_start_and_stop_service.md)
   * [Базовый CRUD](/server/crud/index.md)
     * [*Фильтрация*](/server/crud/filters.md)
   * [Авторизация](/server/autorization.md)
