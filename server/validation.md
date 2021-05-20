@@ -48,11 +48,11 @@ class ExampleRule extends EgalRule
 ```
 
 Для использования сформированного правила валидации используйте
-[вызов через класс](https://laravel.com/docs/master/validation#using-rule-objects)
+[вызов через класс](https://laravel.com/docs/master/validation#using-rule-objects),
 либо как строку.
 
 При определении правила через строку берется атрибут `rule` у класса,
-либо если он не указан берется название класса без постфикса `Rule` в
+либо если он не указан, берется название класса без постфикса `Rule` в
 snake регистре (Класс - `App\Rules\UpperCaseRule`, строка определения
 правила - `upper_case`).
 

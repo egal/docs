@@ -4,7 +4,7 @@
 |    PUT    | `/[ServiceName]/[ModelName]/updateMany`    |
 |    PUT    | `/[ServiceName]/[ModelName]/updateManyRaw` |
 
-Пример обновления сущности работник `domain/Service/Employee/update`
+Пример обновления сущности работник `domain/Service/Employee/update`.
 
 JSON payload:
 

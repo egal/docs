@@ -6,8 +6,8 @@
 
 ## Первые шаги
 
-1. Создаем новый репозиторий
-2. Клонируем в нужную директорию и открываем в IDE
+1. Создаем новый репозиторий;
+2. Клонируем в нужную директорию и открываем в IDE;
 3. Создаем файл `.env`, содержанием которого на данном шаге будет:
 
 ```dotenv
@@ -115,7 +115,7 @@ auth-service:
 docker-compose up -d
 ```
 
-3. Проверим работоспособность `auth-service`
+3. Проверим работоспособность `auth-service`:
 
 ```shell
 curl localhost:80/auth/User/test
@@ -180,7 +180,7 @@ monolit-service:
 docker-compose up -d
 ```
 
-4. Проверим работоспособность `monolit-service`
+4. Проверим работоспособность `monolit-service`:
 
 ```shell
 curl localhost:80/monolit/User/test

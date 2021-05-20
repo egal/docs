@@ -29,7 +29,8 @@ class ExampleModel extends EgalModel {
 
 ## Определение обработчиков событий
 
-Для определения обработчиков нам потребуется файл `app/Providers/EventServiceProvider`. Если данного файла не обнаружено - [сгенерируйте его](#Генерация-файла-eventserviceprovider).
+Для определения обработчиков потребуется файл `app/Providers/EventServiceProvider`. 
+Если данного файла не обнаружено - [сгенерируйте его](#Генерация-файла-eventserviceprovider).
 
 В следующем блоке определяются локальные события и их обработчики:
 ```php
@@ -84,7 +85,7 @@ class EventServiceProvider extends ServiceProvider
 
 ## Обработка событий
 
-При возникновении события вызывается метод `handle()` у обработчика события. Всю логику обработки события нужно разместить в данном методе.
+При возникновении события вызывается метод `handle()` у обработчика события. Всю логику обработки события необходимо разместить в данном методе:
 ```php
 namespace App\Listeners;
 
@@ -120,7 +121,7 @@ php artisan egal:make:event-service-provider
 ```bash
 php artisan egal:make:event Example
 ```
-Или эта команда, для генерации файла глобольного события:
+Или эта команда, для генерации файла глобального события:
 ```bash
 php artisan egal:make:event Example --global
 ```
@@ -135,7 +136,7 @@ php artisan egal:make:event Example --global
 ```bash
 php artisan egal:make:listener Example
 ```
-Или эта команда, для генерации файла обработчика глобольного события:
+Или эта команда, для генерации файла обработчика глобального события:
 ```bash
 php artisan egal:make:listener Example --global
 ```

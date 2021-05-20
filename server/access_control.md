@@ -67,7 +67,7 @@ class Example extends EgalModel
 > статус авторизации пользователя, он должен быть `logged` (см.
 > [Статусы аутентификации](#Статусы-аутентификации)).
 
-### Permission'ы
+### Permissions
 
 Для указания доступа к действию в зависимости от разрешений используйте
 следующий код в блоке описания действия:
@@ -106,13 +106,13 @@ class Example extends EgalModel
 событие. В реакции на который можно изменить информацию о пользователе.
 
 Пример добавления роли пользователю:
-1. Создадим обработчика события `AddingRoleToUserServiceToken`.
+1. Создадим обработчика события `AddingRoleToUserServiceToken`:
 
 ```bash
 php artisan egal:make:listener AddingRoleToUserServiceToken
 ```
 
-2. Зарегистрируем обработчика события в `EventServiceProvider`
+2. Зарегистрируем обработчика события в `EventServiceProvider`:
 
 ```php
 namespace App\Providers;
@@ -136,13 +136,13 @@ class EventServiceProvider extends ServiceProvider
 }
 ```
 
-> Если нет класса `EventServiceProvider` его можно создать командой
+> Если нет класса `EventServiceProvider` его можно создать командой:
 >
 > ```bash
 > php artisan egal:make:event-service-provider
 > ```
 
-3. Реализуем в обработчике добавление роли пользователю
+3. Реализуем в обработчике добавление роли пользователю:
 
 ```php
 namespace App\Listeners;
