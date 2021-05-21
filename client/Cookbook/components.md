@@ -40,7 +40,7 @@ mounted() {
                 filter, // передаем фильтры
                 withs // передаем with
             );
-        },
+        }
         
         acceptInvite() { // пример update запроса
             let dataForUpdate = {
@@ -50,5 +50,4 @@ mounted() {
             this.lessonRequestModel.actionUpdate('monolit', 'update', 'axios', dataForUpdate);
         }
     }
-}
 ````
