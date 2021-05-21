@@ -7,8 +7,9 @@
   * [Первый Endpoint](/getting_started/first_endpoint.md)
   * [Пример по шагам](/getting_started/step_by_step.md)
   * [Конфигурация](/getting_started/configuration.md)
-* **Концепции архитектуры**
-  * [Жизненный цикл запроса к серверу](/architecture_concepts/request_to_server_lifecycle.md)
+* **Концепции**
+  * [Архитектура](/concepts/architecture.md)
+  * [Жизненный цикл запроса к серверу](/concepts/request_to_server_lifecycle.md)
 * **Клиентская часть**
   * [Введение](/client/intro.md)
   * [Начало работы](/client/start.md)
@@ -18,9 +19,8 @@
   * [Примеры](/client/examples.md)
   * [Полный список классов](/client/classes.md)
     * [Подключение авторизации](/client/example_auth.md)
-
-
 * **Серверная часть**
+  * [Запуск проекта](/server/ways_to_start_and_stop_service.md)
   * [Базовый CRUD](/server/crud/index.md)
     * [*Фильтрация*](/server/crud/filters.md)
   * [Авторизация](/server/autorization.md)

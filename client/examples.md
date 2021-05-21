@@ -33,6 +33,19 @@ const filter = [
      operator: 'lt',
      value: 30
    }
+ },
+ {
+   left: {
+     field: 'name',
+     operator: 'gt',
+     value: 'name1'
+   },
+   type: 'and',
+   right: {
+     field: 'age',
+     operator: 'lt',
+     value: 20
+   }
  }
 ];
  
@@ -108,16 +121,18 @@ deleteAction.socketConnect()
 
 **updateManyRaw:**
  ```
-let actionFilters = [{
-    field: 'name',
-    type: 'eq',
-    value: 'noname1'
-},
+let actionFilters = [
+    {
+        field: 'name',
+        type: 'eq',
+        value: 'noname1'
+    },
     {
         field: 'name',
         type: 'eq',
         value: 'noname2'
-    }]
+    }
+]
  
 let paramsUpdateRaw = { attributes: { name: 'yesname' }, filter: [...actionFilters] }
 let updateRawAction = new CRUDAction('auth', 'User', 'updateManyRaw', paramsUpdateRaw)
@@ -136,7 +151,7 @@ deleteRawAction.socketConnect()
 
 Для того чтобы инициализировать нужную модель нужно сделать следующее:
  ```
-let newModel = new Model('User',RabbitUsername,RabbitPassword)
+let newModel = new Model('User', RabbitUsername, RabbitPassword)
 ```
 
 
@@ -180,8 +195,23 @@ const filter = [
       operator: 'lt',
       value: 30
     }
+  },
+  {
+    left: {
+      field: 'name',
+      operator: 'gt',
+      value: 'name1'
+    },
+    type: 'and',
+    right: {
+      field: 'age',
+      operator: 'lt',
+      value: 20
+    }
   }
 ];
+ 
+ 
 let page = 2
 let perPage = 25
 let withs = ['user', 'roles']
