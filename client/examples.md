@@ -33,6 +33,19 @@ const filter = [
      operator: 'lt',
      value: 30
    }
+ },
+ {
+   left: {
+     field: 'name',
+     operator: 'gt',
+     value: 'name1'
+   },
+   type: 'and',
+   right: {
+     field: 'age',
+     operator: 'lt',
+     value: 20
+   }
  }
 ];
  
@@ -182,8 +195,23 @@ const filter = [
       operator: 'lt',
       value: 30
     }
+  },
+  {
+    left: {
+      field: 'name',
+      operator: 'gt',
+      value: 'name1'
+    },
+    type: 'and',
+    right: {
+      field: 'age',
+      operator: 'lt',
+      value: 20
+    }
   }
 ];
+ 
+ 
 let page = 2
 let perPage = 25
 let withs = ['user', 'roles']

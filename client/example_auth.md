@@ -1,54 +1,49 @@
-## Подключение авторизации:
+## Реализация авторизации
 
-1. Импортируются нужные классы:
-```
-import {AuthAction} from "@egal/model/compile/build/index.js";
-import {EventObserver} from "@egal/model/compile/build/index"
-```
-- инициализируется новый объект модели, принимающий в себя параметры:
-    - username: требуется для установки подключения к rabbitmq, должен быть определен в .env файле.
-    - password: требуется для установки подключения к rabbitmq, должен быть определен в .env файле.
-    - имя модели
-    - способ подключения (сейчас доступен только аксиос, позже можно будет использовать сокеты)
-    - и устанавливается нужный url
-```
-const auth = new AuthAction('User', 'axios')
-auth.setBaseURL(host.authUrl)
-```
+1) Инициализируем экземпляр класса авторизации в нужном компоненте:
 
-2. Метод авторизации выглядит следующим образом:
-```
-auth() {
-   let userAuth = {email: this.email, password: this.password}
-   auth.authUser(userAuth)
-}
-```
-3. Метод регистрации следующим:
-```
-createAccount() {
-   let userReg = {email: this.email, password: this.password}
-   auth.registerNewUser(userReg)
-}
-```
-4. Observer:
-```
-let observer = new EventObserver()
-observer.subscribe('User', (data, actionName) => {
+````javascript
+import { AuthAction } from '@egal/model/compile/index.js';
+import { EventObserver } from '@egal/model/compile/index.js';
+import { Model } from '@egal/model/compile/index';
+
+const auth = new AuthAction(
+    process.env.VUE_APP_USERNAME, // нужен для подключения к rabbitmq
+    process.env.VUE_APP_PASSWORD, // нужен для подключения к rabbitmq
+    'User',
+    'axios'
+);
+````
+
+2) Устанавливаем url и инициализируем Observer:
+
+````javascript
+auth.setBaseURL(process.env.VUE_APP_HTTP_DOMAIN);
+const authObserver = new EventObserver();
+````
+
+3) Подписываемся на Observer нужной модели и слушаем получаемые им события:
+````javascript
+    authObserver.subscribe('User', (data, actionName) => {
+    let userData;
     if (data !== 'Start Processing' && actionName !== 'error') {
         switch (actionName) {
-            case 'registerByEmailAndPassword':
-                let userData = {email: this.email, password: this.password}
+            case 'registerByEmailAndPassword': // авторизуем пользователя после успешной регистрации
+                userData = { email: this.email, password: this.password };
                 auth.authUser(userData);
-            break;
-            case 'loginByEmailAndPassword':
-                let userCred = {service_name: 'monolit', token: data[0]}
-                auth.loginToService(userCred)
-            break;
+                break;
+            case 'loginByEmailAndPassword': // авторизуем пользователя в нужном микросервисе
+                userData = { service_name: 'monolit', token: data[0] };
+                auth.loginToService(userCred); 
+                break;
             case 'loginToService':
-                // some user action
+                // выполняем нужные действия после авторизации пользователя в микросервисе
         }
     } else if (actionName === 'error') {
-        this.errorAlert(data)
+        this.$toasted.show(data, {
+            type: 'error',
+            duration: 2000
+        });
     }
-})
-```
+});
+````

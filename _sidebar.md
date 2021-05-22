@@ -17,7 +17,10 @@
   * [Actions](/client/actions.md)
   * [Models](/client/model.md)
   * [Примеры](/client/examples.md)
-  * [Полный список классов](/client/classes.md)
+  * Cookbook
+    * [Components](/client/cookbook/components.md)
+    * [Observer](/client/cookbook/observer.md)
+  * Полный список классов
     * [Подключение авторизации](/client/example_auth.md)
 * **Серверная часть**
   * [Запуск проекта](/server/ways_to_start_and_stop_service.md)
