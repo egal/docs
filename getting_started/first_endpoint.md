@@ -29,5 +29,5 @@ php artisan egal:run
 ```
 
 7. Вызовите нужный Endpoint с помощью Web Service, либо с помощью
-   [сообщения в RabbitMQ](/architecture_concepts/request_to_server_lifecycle.md).
+   [сообщения в RabbitMQ](/concepts/request_to_server_lifecycle.md).
 
