@@ -7,11 +7,18 @@
 <p align="center" style="font-size: 18px; font-weight: bold;">Документация проекта Egal</p>
 
 [comment]: <> (Replase badges)
-[![](https://img.shields.io/website?url=https%3A%2F%2Fsmartworldteam.github.io%2Fegal-docs%2F%23%2F)](https://smartworldteam.github.io/egal-docs/#/)
-[![](https://img.shields.io/github/last-commit/smartworldteam/egal-docs)](https://github.com/smartworldteam/egal-docs)
-[![](https://img.shields.io/github/license/smartworldteam/egal-docs)](https://github.com/smartworldteam/egal-docs)
 
-
+<p align="center">
+<a href="https://github.com/smartworldteam/egal-docs">
+  <img src="https://img.shields.io/website?url=https%3A%2F%2Fsmartworldteam.github.io%2Fegal-docs%2F%23%2F"></img>
+</a>
+<a href="https://github.com/smartworldteam/egal-docs">
+  <img src="https://img.shields.io/github/last-commit/smartworldteam/egal-docs"></img>
+</a>
+<a href="https://github.com/smartworldteam/egal-docs">
+  <img src="https://img.shields.io/github/license/smartworldteam/egal-docs"></img>
+</a>
+</p>
 
 ## Новости
 
