@@ -1,6 +1,6 @@
 ## Пример инициализации модели и вызова ее методов в компоненте:
 
-1) В `mounted()` инициализируем нужную модель и ставим слушатель на получение данных:
+1) В `mounted()` инициализируем модель и активируем слушателя для получения данных:
 
 ````javascript
 import {Model} from '@egal/model/compile/index';
@@ -18,19 +18,19 @@ mounted() {
 }
 ````
 
-2) Пример описания запросов к серверу:
+2) Запрос к серверу:
 
 ````javascript
     methods: {
         getSpeakerLessons() { // получаем данные о существующих уроках
-            let filter = [ // указываем нужные фильтры
+            let filter = [ // указываем фильтры
                 {
                     field: 'speaker_id',
                     operator: 'eq',
                     value: this.$store.state.userData.id
                 }
             ];
-            let withs = ['speaker', 'school', 'messages']; // указываем нужные with
+            let withs = ['speaker', 'school', 'messages']; // указываем with
             this.lessonModel.actionGetItems(
                 'monolit', // название микросервиса
                 'getItems', // название action
