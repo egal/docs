@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://github.com/smartworldteam/egal-docs"><img src="https://img.shields.io/github/license/smartworldteam/egal-docs"></a>
 <a href="https://github.com/smartworldteam/egal-docs"><img src="https://img.shields.io/website?url=https%3A%2F%2Fsmartworldteam.github.io%2Fegal-docs%2F%23%2F"></a>
-<a href="https://github.com/smartworldteam/egal-docs"><img src="https://img.shields.io/github/last-commit/smartworldteam/egal-docs"></a>
+<a href="https://github.com/smartworldteam/egal-docs"><img src="https://img.shields.io/github/last-commit/smartworldteam/egal-docs/main"></a>
 </p>
 
 ## Новости
