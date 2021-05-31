@@ -17,11 +17,11 @@
   * [Actions](/client/actions.md)
   * [Models](/client/model.md)
   * [Примеры](/client/examples.md)
-  * Cookbook
-    * [Components](/client/cookbook/components.md)
-    * [Observer](/client/cookbook/observer.md)
-  * Полный список классов
-    * [Подключение авторизации](/client/example_auth.md)
+  * [Cookbook]()
+    * [*Components*](/client/cookbook/components.md)
+    * [*Observer*](/client/cookbook/observer.md)
+  * [Полный список классов]()
+    * [*Подключение авторизации*](/client/example_auth.md)
 * **Серверная часть**
   * [Запуск проекта](/server/ways_to_start_and_stop_service.md)
   * [Базовый CRUD](/server/crud/index.md)
@@ -32,8 +32,9 @@
   * [Метаданные](/server/metadata.md)
   * [События и реакции](/server/events.md)
   * [Общение между сервисами](server/services_communication.md)
-  * Коробочные сервисы
+  * [Коробочные сервисы]()
     * [*Web Service*](/server/services/web_service.md)
+  * [Task Scheduling (Cron)](server/task_schedule.md)
   * [Sentry](/server/logging/sentry.md)
   * [Copy Paste Helper](/server/copy_paste_helper.md)
 * **CI/CD**
