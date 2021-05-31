@@ -10,5 +10,5 @@
 - Исправляет самые популярные ошибки
 
 [Github](https://github.com/smartworldteam)
-[Документация](#egal)<!-- @IGNORE PREVIOUS: anchor -->
+<a href="#?id=egal">Документация</a>
 
