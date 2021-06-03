@@ -140,7 +140,6 @@
     > composer create-project egal/egal monolit-service [VERSION] --stability dev
     > ```
     > Где `VERSION` - необходимая вам неcтабильная версия.
-<!-- Точно нестабильная версия? -->
 
 2. Дополним `docker-compose.yml`, секцию `services` сервисами:
 
@@ -193,7 +192,7 @@
      
     > Где ACTION_NAME - название action у MODEL_NAME внутри Monolit Service.
 
-5. Переводим `monolit-service` директорию в git submodule Develop репозитория:
+5. Преобразуем `monolit-service` директорию в git submodule Develop репозитория:
 
     1. Перемещаем кодовую базу во временную директорию:
        

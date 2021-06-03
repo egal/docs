@@ -56,28 +56,28 @@ build приложения делается один раз на все типы
 develop # Repository
 ├── deploy # Repository
 │   ├── .gitlab-ci.yml # Gitlab CI файл (содержание и описание смотри ниже)
-│   ├── docker-compose.deploy.yml # Deploy Compose файл дополняет общий Compose файл для Develop, Stage и Production версий приложения.
-│   ├── docker-compose.develop.yml # Develop Compose файл дополняет общий Compose файл для Develop версии приложения.
-│   ├── docker-compose.production.yml # Production Compose файл дополняет общий Compose файл для Production версии приложения.
-│   ├── docker-compose.stage.yml # Stage Compose файл дополняет общий Compose файл для Stage версии приложения.
+│   ├── docker-compose.deploy.yml # Deploy Compose файл, дополняющий общий Compose файл для Develop, Stage и Production версий приложения.
+│   ├── docker-compose.develop.yml # Develop Compose файл, дополняющий общий Compose файл для Develop версии приложения.
+│   ├── docker-compose.production.yml # Production Compose файл, дополняющий общий Compose файл для Production версии приложения.
+│   ├── docker-compose.stage.yml # Stage Compose файл, дополняющий общий Compose файл для Stage версии приложения.
 │   ├── docker-compose.yml # Общий Compose файл конфигурирует сервисы для всех окружений.
 │   └── proxy
 │       ├── Dockerfile # Используется build proxy
-│       ├── ... # Дополнительные файлы для build proxy
+│       ├── ... # Дополнительные файлы, требующиеся для build proxy
 │       └── nginx.conf
 ├── first-service # Service Repository
 │   ├── .gitlab-ci.yml # Gitlab CI файл (содержание и описание смотри ниже)
-│   ├── Dockerfile # Файл build сервиса должен полностью подготовить контейнер. При развороте он запустит сервис.
+│   ├── Dockerfile # Файл build сервиса, который должен полностью подготовить контейнер. При развороте он запустит сервис.
 │   └── ... # Другие файлы сервиса
 ├── second-service # Service Repository
 │   ├── .gitlab-ci.yml # Gitlab CI файл (содержание и описание смотри ниже)
-│   ├── Dockerfile # Файл build сервиса должен полностью подготовить контейнер. . При развороте он запустит сервис.
+│   ├── Dockerfile # Файл build сервиса, который должен полностью подготовить контейнер. . При развороте он запустит сервис.
 │   └── ... # Другие файлы сервиса
 ├── third-service # Service Repository
 │   ├── .gitlab-ci.yml # Gitlab CI файл (содержание и описание смотри ниже)
-│   ├── Dockerfile # Файл build сервиса должен полностью подготовить контейнер. При развороте он запустит сервис.
+│   ├── Dockerfile # Файл build сервиса, который должен полностью подготовить контейнер. При развороте он запустит сервис.
 │   └── ... # Другие файлы сервиса
-├── docker-compose.local.yml # Local Compose файл дополняет общий Compose файл для Local версии приложения.
+├── docker-compose.local.yml # Local Compose файл, дополняющий общий Compose файл для Local версии приложения.
 └── ... # Другие файлы
 ```
 
