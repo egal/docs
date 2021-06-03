@@ -56,7 +56,7 @@
   docker exec -ti [SERVICE_CONTAINER_NAME] ./artisan egal:listener:run
   ```
 
-  > Где SERVICE_CONTAINER_NAME - название сервиса Docker Compose, который является сервисом проекта.
+  > Где SERVICE_CONTAINER_NAME - название контейнера Docker который является сервисом проекта.
   
 * Пятый способ:
   
@@ -124,7 +124,9 @@
     ```shell
     docker exec -ti [SERVICE_CONTAINER_NAME] ps ax | grep listener
     ```
-<!-- Вставить расшифровку SERVICE_CONTAINER_NAME? -->
+
+    > Где SERVICE_CONTAINER_NAME - название контейнера Docker, который является сервисом проекта.
+
   * Третий способ:
 
     ```shell
@@ -143,4 +145,3 @@
     > Где PID - идентификатор процесса слушателя.
 
   
- 
