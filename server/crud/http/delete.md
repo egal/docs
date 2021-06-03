@@ -6,13 +6,28 @@
 
 Пример удаления работника `domain/Service/Employee/delete`
 
-JSON payload:
+JSON payload для delete:
 
 ```json
 {
-  "attributes": {
-    "id": 1
-  }
+  "id": 1
 }
 ```
 
+JSON payload для deleteMany:
+
+```json
+{
+    "ids": [1, 2, 3]
+}
+```
+
+JSON payload для deleteManyRaw:
+
+```json
+{
+  "filter": [
+    ["status", "co", "fired"]
+  ]
+}
+```
