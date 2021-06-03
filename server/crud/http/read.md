@@ -12,8 +12,10 @@ JSON payload
 
 ```json
 {
-  "per_page": 5,
-  "page": 2,
+  "pagination": {
+    "per_page": 5,
+    "page": 2
+  },
   "filter": [
     ["full_name", "eq", "Иванов Иван Иванович"]
   ],
