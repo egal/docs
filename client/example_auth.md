@@ -22,7 +22,7 @@ auth.setBaseURL(process.env.VUE_APP_HTTP_DOMAIN);
 const authObserver = new EventObserver();
 ````
 
-3) Подписываемся на Observer модели и слушаем получаемые им события:
+3) Подписываемся на Observer нужной модели и слушаем получаемые им события:
 ````javascript
     authObserver.subscribe('User', (data, actionName) => {
     let userData;

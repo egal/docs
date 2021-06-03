@@ -3,7 +3,7 @@
 |  GET  | `/[ServiceName]/[ModelName]/getItems`     |
 |  GET  | `/[ServiceName]/[ModelName]/getItem/[id]` |
 
-Пример запроса на получение списка работников
+Пример запроса на получение всех работников
 `domain/Service/Employee/getItems`
 
 Запросы на чтение поддерживают дополнительные возможности:

@@ -1,6 +1,5 @@
 # Валидация
 
-<!-- В Метадате используется валидация Laravel. Нехватает краткого описания, что здесь за валидация-->
 ## Список правил валидации
 
 ### upper_case
@@ -20,13 +19,13 @@
 
 > В проекте исползуется библиотека `egal/validation`.
 
-1. Создание файла с правилами:
+1. Создайте файл с правилами командой:
 
 ```bash
 php artisan egal:make:rule ExampleRule
 ```
 
-2. Реализация метода `validate`
+2. Реализуйте метод `validate`
 
 ```php
 namespace App\Rules;
@@ -40,7 +39,7 @@ class ExampleRule extends EgalRule
 
     public function validate($attribute, $value, $parameters = null): bool
     {
-        // Реализация метода
+        // Твоя реализация метода
     }
 
     // ...
@@ -57,7 +56,7 @@ class ExampleRule extends EgalRule
 snake регистре (Класс - `App\Rules\UpperCaseRule`, строка определения
 правила - `upper_case`).
 
-Чтобы задать текст ошибки валидации необходимо переопределить метод `message`:
+Чтобы задать текст ошибки валидации, переопределите метод `message`:
 
 ```php
 namespace App\Rules;
