@@ -141,7 +141,21 @@ services:
 
 ### Миграции
 
-Миграции выполнять вручную не нужно т.к. они выполнятся при старте сервиса.
+Миграции выполнять вручную не нужно т.к. они выполнятся при старте контейнера.
+Это прописывается в `CMD` разделе `Dockerfile`.
+
+```
+CMD /wait && ./artisan migrate --force && ./artisan egal:run
+```
+
+> Либо если по какой-то причине в Dockerfile это не прописано, то вручную запустить миграции можно вот так:
+>
+> Заходим в контейнер и запускаем миграции:
+>
+> ```shell
+> docker-compose exec monolit-service bash
+> php artisan migrate
+> ```
 
 ### Запуск проекта
 
@@ -399,9 +413,11 @@ class CreateWorkingTimesTable extends Migration
 }
 ```
 
-Осталось перезапустить микросервис `monolit`, чтобы выполнились миграции и применился новый код.
+Осталось применить миграции и перезапустить микросервис `monolit`, чтобы применился новый код.
 
 ```shell
+docker-compose exec monolit-service bash
+php artisan migrate
 docker-coompose restart monolit-service
 ```
 
