@@ -6,10 +6,10 @@
 
 > Проект - платформа для организации и проведения видео-уроков.
 
-Проект содержит:
-- основной микросервис приложения (monolit-service)
-- сервис авторизации
-- веб-сервис
+Проект будет состоять из:
+- микросервис monolit-service - основной микросервис в котором будет наше приложение;
+- сервис авторизации;
+- веб-сервис.
 
 Статья состоит из следующих частей:
 1. Разворот проекта
@@ -42,7 +42,7 @@ docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) 
 
 Настраиваем docker-compose.yml
 
-Удаляем ненужные закомментированные сервисы в начале файле (такие, как pgadmin, k6, php-documentor).
+Удаляем ненужные закомментированные сервисы в начале файла (такие, как pgadmin, k6, php-documentor).
 Содержимое файла должно быть таким:
 
 ```yaml
@@ -146,7 +146,7 @@ PROJECT_NAME=testProject
 
 Миграции выполнятся при старте сервиса Docker Compose,
 если в блоке `CMD` указана команда запуска этих миграций.
-В стандатном Dockerfile она указана.
+В стандартном Dockerfile она указана.
 
 ### Запуск проекта
 
@@ -180,7 +180,8 @@ testProject-web-service         /bin/sh -c /wait && /usr/b ...   Up      0.0.0.0
 ```shell
 curl http://localhost:81
 ```
-Примерный ответ
+
+Ответ
 
 ```text
 Hello, it's testProject/web-service!
@@ -188,7 +189,7 @@ Hello, it's testProject/web-service!
 
 ## 2. Создание сущностей
 
-Начнем с генерация модели `Speaker`.
+Начнем с генерации модели `Speaker`.
 Создадим модель в контейнере
 
 ```shell
@@ -196,7 +197,7 @@ docker-compose exec monolit-service bash
 php artisan egal:make:model Speaker
 ```
 
-После выполнения команды у нас сгенерировалась модель:
+После выполнения этой команды у нас сгенерировалась модель со следующим содержимым:
 
 ```php
 <?php
@@ -403,7 +404,7 @@ class CreateWorkingTimesTable extends Migration
 }
 ```
 
-Для выполнение миграций и применения нового кода перезапустим микросервис `monolit`
+Для выполнения миграций и применения нового кода перезапустим микросервис `monolit`
 
 ```shell
 docker-coompose restart monolit-service
@@ -417,7 +418,7 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"attributes": {"name": "I
 curl -iLXPOST -H "Content-Type: application/json" -d '{"attributes": {"speaker_id": "1", "starts_at": "2021-04-27 03:23:57", "ends_at": "2021-04-28 03:23:57"}}' http://localhost:81/monolit/WorkingTime/create
 ```
 
-Запросим созданные данных
+Запросим созданные данные
 
 ```shell
 curl http://localhost:81/monolit/Speaker/getItems
@@ -495,7 +496,8 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 
 ## 3. Авторизация
 
-Закроем доступ для незарегистрированных пользователей: уберем у каждой модели разрешения для guest - изменим `{@statuses-access guest,logged}` на `{@statuses-access logged}`
+Закроем доступ для незарегистрированных пользователей: 
+уберем у каждой модели разрешения для guest - изменим `{@statuses-access guest,logged}` на `{@statuses-access logged}`
 
 Зарегистрируем нового пользователя.
 
@@ -510,7 +512,7 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", 
 docker-compose exec auth-service bash
 ```
 
-Регистрацуем `monolit`
+Регистрируем `monolit`
 ```shell
 php artisan egal:register:service monolit B#J5mUWKh8FqzQ6Tj0XtYruIcSwpb@ed
 ```
@@ -647,7 +649,8 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1Q
 ```shell
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOltdfSwiYWxpdmVfdW50aWwiOiIyMDIxLTA0LTI4VDA4OjExOjM1LjIyMzUzNFoifQ.oonpQvvOAycWg5W2Bkh_fvETQofLs6Wc0J3Y5eT3c04" http://localhost:81/monolit/Speaker/getItems
 ```
-Если все хорошо, то вы увидите тот же самый результат, как и в прошлый раз. Если возникают ошибки - требуется проверить каждый шаг с начала.
+Если все хорошо, то вы увидите тот же самый результат, как и в прошлый раз. 
+Если возникают ошибки - требуется проверить каждый шаг с самого начала.
 
 ## Заключение
 

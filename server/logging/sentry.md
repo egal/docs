@@ -1,14 +1,13 @@
 # Sentry
 
-Инструмент помогает разработчикам отслеживать и исправлять сбои в режиме реального времени. Реализован с открытым исходным кодом.
+Инструмент помогает разработчикам отслеживать и исправлять сбои в режиме реального времени. 
+Реализован с открытым исходным кодом.
 
-Из соображений безопасности для проектов компании используется Self Hosted Sentry (для получения доступа обратитесь к команде Egal).
-
-Существует облачное решение Sentry для использования в личных целях. 
+Существует облачное решение Sentry и Self Hosted. 
 
 ## Как подключить
 
-Смотри [официальную документацию](https://docs.sentry.io/platforms/).
+См. [официальную документацию](https://docs.sentry.io/platforms/).
 
 ## Как подключить в Egal
 
@@ -37,7 +36,7 @@ $app->register(Sentry\Laravel\ServiceProvider::class);
 8. Добавте свой `SENTRY_LARAVEL_DSN` (`DSN`) в `.env`:
 
 ```dotenv
-SENTRY_LARAVEL_DSN=http://${SECURITY_TOKEN}@sentry.egal.smw.tom.ru/${PROJECT_ID}
+SENTRY_LARAVEL_DSN=http://${SECURITY_TOKEN}@sentry.your-domain.com/${PROJECT_ID}
 ```
 
 > Чтобы получить свой `DSN`, перейдите в настройки проекта по пути `SDK
@@ -56,4 +55,4 @@ public function report(Exception $exception)
 }
 ```
 
-10. Проверьте работоспособность, вызвав любой Exception
+10. Проверьте работоспособность, вызвав любой Exception.

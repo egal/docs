@@ -2,21 +2,6 @@
 
 Предназначен для адаптации HTTP запросов в BUS сообщения.
 
-#### Список версий адаптера
-
-* latest (идентичен последней версии)
-* 2
-* 1
-* 0
-
-#### Как изменять версию адаптера
-
-Изменить `header` `Version` на значение из [списка версий](#Список-версий-адаптера).
-
-По умолчанию значение заголовка - `latest`.
-
-## Version 2
-
 #### Правила использования
 
 * URL должен соответствовать [корректному виду](#Вид-url-запроса)
@@ -41,9 +26,9 @@
 |     id     | Идентификатор, который будет передан в параметры запроса действия.<br>Может принимать как числовые, так и строковые значения |      Нет      |
 
 Примеры:
-* egal.smw.tom.ru/auth/User/getItem/1
-* egal.smw.tom.ru/notify/Message/getItems
-* egal.smw.tom.ru/sms/Phone/create
+* example.com/auth/User/getItem/1
+* example.com/notify/Message/getItems
+* example.com/sms/Phone/create
 
 #### Пример вызова действия:
 
@@ -112,22 +97,3 @@ curl --location --request GET 'domain/service/Example/testMessage' \
     "action_error": null
 }
 ```
-
-## Version 1
-
-### Адаптация под Latest:
-
-#### Из GET Params в параметры действия:
-
-|             GET Parameter              |                                                 Параметр действия                                                  | Стандартное значение | Комментарий                                                                                                                                     |
-|:--------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|:--------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------|
-|           `_count={number}`            |                                                `per_page={number}`                                                 |          10          |                                                                                                                                                 |
-|            `_from={number}`            |                                                  `page={number}`                                                   |          -           | Считается по формуле:<br>`Округление в большую сторону({_from}/(_count))`                                                         |
-| `_with=["{relation1}", "{relation2}"]` |                                       `withs=["{relation1}", "{relation2}"]`                                       |          -           |                                                                                                                                                 |
-|    `_order={"field": "direction"}`     |                            `order=[{"column": "{field}", "direction": "{direction}"}]`                             |          -           |                                                                                                                                                 |
-|           `{field}={value}`            |          `filter=[ ... , "AND", {"field": "{field}", "operator": "=", "value": "{value}"}, "AND", ... ]`           |          -           | Параметр filter дополняется с помощью объединителя `AND`.                                                                                       |
-|             `_range_from`              |          `filter=[ ... , "AND", {"field": "{field}", "operator": ">=", "value": "{value}"}, "AND", ... ]`          |          -           |                                                                                                                                                 |
-|              `_range_to`               |          `filter=[ ... , "AND", {"field": "{field}", "operator": "<=", "value": "{value}"}, "AND", ... ]`          |          -           |                                                                                                                                                 |
-|    `_search={"{field}": "{value}"}`    |       `filter=[ ... , "AND", {"field": "{field}", "operator": "ILIKE", "value": "%{value}%"}, "AND", ... ]`        |          -           |                                                                                                                                                 |
-|         `_full_search={value}`         | `filter=[ ... , "AND", [{"field": "field1", "operator": "ILIKE", "value": "%{value}%"}, "OR", ... ], "AND", ... ]` |          -           | Собираются все возможные поля модели,<br>фильтр дополняется одной частью с основным объединителем `AND`<br>и внутренними разделителями `OR` |
-

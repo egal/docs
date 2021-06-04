@@ -82,7 +82,7 @@ public static function actionExample()
 }
 ```
 
-Либо в блоке описания модели:
+- Либо в блоке описания модели:
 
 ```php
 /**
@@ -142,7 +142,7 @@ class EventServiceProvider extends ServiceProvider
 > php artisan egal:make:event-service-provider
 > ```
 
-3. Реализуем в обработчике добавление роли пользователя
+3. Реализуем в обработчике добавление роли пользователю
 ```php
 namespace App\Listeners;
 

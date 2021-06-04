@@ -29,7 +29,7 @@ class ExampleModel extends EgalModel {
 
 ## Определение обработчиков событий
 
-Обработчики определяются в файле `app/Providers/EventServiceProvider`. Если его нет - [сгенерируйте](#Генерация-файла-eventserviceprovider).
+Обработчики определяются в файле `app/Providers/EventServiceProvider`. Если его нет, то необходимо [сгенерировать](#Генерация-файла-eventserviceprovider) его.
 
 Определим локальные события и их обработчики:
 ```php
