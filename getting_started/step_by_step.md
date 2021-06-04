@@ -153,8 +153,7 @@ CMD /wait && ./artisan migrate --force && ./artisan egal:run
 > Заходим в контейнер и запускаем миграции:
 >
 > ```shell
-> docker-compose exec monolit-service bash
-> php artisan migrate
+> docker-compose exec monolit-service php artisan migrate
 > ```
 
 ### Запуск проекта
@@ -416,8 +415,7 @@ class CreateWorkingTimesTable extends Migration
 Осталось применить миграции и перезапустить микросервис `monolit`, чтобы применился новый код.
 
 ```shell
-docker-compose exec monolit-service bash
-php artisan migrate
+docker-compose exec monolit-service php artisan migrate
 docker-coompose restart monolit-service
 ```
 
