@@ -148,6 +148,18 @@ PROJECT_NAME=testProject
 если в блоке `CMD` указана команда запуска этих миграций.
 В стандартном Dockerfile она указана.
 
+```
+CMD /wait && ./artisan migrate --force && ./artisan egal:run
+```
+
+> Либо если по какой-то причине в Dockerfile это не прописано, то вручную запустить миграции можно вот так:
+>
+> Заходим в контейнер и запускаем миграции:
+>
+> ```shell
+> docker-compose exec monolit-service php artisan migrate
+> ```
+
 ### Запуск проекта
 
 Запуск производится командой
@@ -404,13 +416,13 @@ class CreateWorkingTimesTable extends Migration
 }
 ```
 
-Для выполнения миграций и применения нового кода перезапустим микросервис `monolit`
+Для выполнения миграций и применения нового кода перезапустим сервис `monolit`
 
 ```shell
 docker-coompose restart monolit-service
 ```
 
-Для проверки работоспособности сделаем пару запросов на создание `WorkingTime` и `Speaker`. 
+Для проверки работоспособности сделаем пару запросов на создание `WorkingTime` и `Speaker`.
 
 
 ```shell
@@ -496,7 +508,7 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 
 ## 3. Авторизация
 
-Закроем доступ для незарегистрированных пользователей: 
+Закроем доступ для незарегистрированных пользователей:
 уберем у каждой модели разрешения для guest - изменим `{@statuses-access guest,logged}` на `{@statuses-access logged}`
 
 Зарегистрируем нового пользователя.
@@ -649,7 +661,7 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1Q
 ```shell
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOltdfSwiYWxpdmVfdW50aWwiOiIyMDIxLTA0LTI4VDA4OjExOjM1LjIyMzUzNFoifQ.oonpQvvOAycWg5W2Bkh_fvETQofLs6Wc0J3Y5eT3c04" http://localhost:81/monolit/Speaker/getItems
 ```
-Если все хорошо, то вы увидите тот же самый результат, как и в прошлый раз. 
+Если все хорошо, то вы увидите тот же самый результат, как и в прошлый раз.
 Если возникают ошибки - требуется проверить каждый шаг с самого начала.
 
 ## Заключение
