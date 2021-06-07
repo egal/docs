@@ -12,6 +12,7 @@ namespace App\Models;
 
 use Egal\Model\Events\SavedModelGlobalEvent;
 use Egal\Model\Events\SavingModelGlobalEvent;
+use Egal\Model\Events\RetrievedModelGlobalEvent;
 
 class ExampleModel extends EgalModel {
 
@@ -19,7 +20,8 @@ class ExampleModel extends EgalModel {
 
     protected $dispatchesEvents = [
         'saved' => SavedModelGlobalEvent::class,
-        'saving' => SavingModelGlobalEvent::class
+        'saving' => SavingModelGlobalEvent::class,
+        'retrieved.action' => RetrievedModelGlobalEvent::class
     ];
 
     // ...
@@ -140,3 +142,26 @@ php artisan egal:make:listener Example
 php artisan egal:make:listener Example --global
 ```
 После выполнения данной команды в директории `app/Events` сгенерируется файл события.
+
+### Список поддерживаемых событий
+
+|      Событие        |     В какой момент наступает событие   |
+|:-------------------:|:---------------------------------------|
+| retrieved           | После получения данных.                |
+| saving              | В момент сохранения модели.            |
+| saved               | После сохранения.                      |
+| creating            | В момент создания.                     |
+| created             | После создания.                        |
+| updating            | В момент обновления.                   |
+| updated             | После обновления.                      |
+| deleting            | В момент удаления.                     |
+| deleted             | После удаления.                        |
+| retrievedWithAction | После получения данных в action.       |
+| savingWithAction    | В момент сохранения в модели в action. |
+| savedWithAction     | После сохранения в action.             |
+| creatingWithAction  | В момент создания модели в action.     |
+| createdWithAction   | После создания в action.               |
+| updatingWithAction  | В момент обновления модели в action.   |
+| updatedWithAction   | После обновления модели в action.      |
+| deletingWithAction  | После получения данных в action.       |
+| deletedWithAction   | После получения данных в action.       |
