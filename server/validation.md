@@ -21,40 +21,40 @@
 
 1. Создайте файл с правилами командой:
 
-```bash
-php artisan egal:make:rule ExampleRule
-```
+    ```bash
+    php artisan egal:make:rule ExampleRule
+    ```
 
 2. Реализуйте метод `validate`
 
-```php
-namespace App\Rules;
-
-use Egal\Validation\Rules\Rule as EgalRule;
-
-class ExampleRule extends EgalRule
-{
-
-    // ...
-
-    public function validate($attribute, $value, $parameters = null): bool
+    ```php
+    namespace App\Rules;
+    
+    use Egal\Validation\Rules\Rule as EgalRule;
+    
+    class ExampleRule extends EgalRule
     {
-        // Твоя реализация метода
+    
+        // ...
+    
+        public function validate($attribute, $value, $parameters = null): bool
+        {
+            // Твоя реализация метода
+        }
+    
+        // ...
+    
     }
-
-    // ...
-
-}
-```
+    ```
 
 Для использования правила валидации применяется
 [вызов через класс](https://laravel.com/docs/master/validation#using-rule-objects)
 либо через строку.
 
 При определении правила через строку берется атрибут `rule` у класса.
-Если он не указан берется название класса без постфикса `Rule` в
-snake регистре (Класс - `App\Rules\UpperCaseRule`, строка определения
-правила - `upper_case`).
+Если он не указан берется название класса без постфикса `Rule` в snake
+регистре (Класс - `App\Rules\UpperCaseRule`, строка определения правила
+`upper_case`).
 
 Чтобы задать текст ошибки валидации, переопределите метод `message`:
 
