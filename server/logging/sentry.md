@@ -1,24 +1,22 @@
 # Sentry
 
-Это инструмент для отслеживания ошибок с открытым исходным кодом,
-который помогает разработчикам отслеживать и исправлять сбои в режиме
-реального времени.
+Инструмент помогает разработчикам отслеживать и исправлять сбои в режиме
+реального времени. Реализован с открытым исходным кодом.
 
-Существует Cloud решение данного инструмента, которое можно использовать
-в личных целях. А также для соблюдения безопасности для проектов
-компании SmartWorld Team есть
-Self Hosted Sentry (для получения доступа - обратитесь к команде Egal).
+Существует облачное решение Sentry и Self Hosted.
+
 
 ## Как подключить
 
-Смотри официальную [документацию](https://docs.sentry.io/platforms/).
+См. [официальную документацию](https://docs.sentry.io/platforms/).
+
 
 ## Как подключить в Egal
 
-1. Зайти либо зарегистрироваться в Sentry.
-2. Создать Организацию (если это требуется).
-3. Создать проект (если это требуется).
-4. В вашем сервисе установить пакет Sentry для вашего Egal приложения:
+1. Зайдите либо, зарегистрируйтесь в Sentry.
+2. Создайте Организацию (если это требуется).
+3. Создайте проект (если это требуется).
+4. В вашем сервисе установите пакет Sentry для вашего Egal приложения:
 
 ```bash
 composer require sentry/sentry-laravel
@@ -37,16 +35,16 @@ cp ./vendor/sentry/sentry-laravel/config/sentry.php ./config/sentry.php
 $app->register(Sentry\Laravel\ServiceProvider::class);
 ```
 
-8. Добавьте свой `SENTRY_LARAVEL_DSN` (`DSN`) в `.env`:
+8. Добавте свой `SENTRY_LARAVEL_DSN` (`DSN`) в `.env`:
 
 ```dotenv
-SENTRY_LARAVEL_DSN=http://${SECURITY_TOKEN}@sentry.egal.smw.tom.ru/${PROJECT_ID}
+SENTRY_LARAVEL_DSN=http://${SECURITY_TOKEN}@sentry.your-domain.com/${PROJECT_ID}
 ```
 
-> Чтобы получить свой `DSN` перейдите в настройки проекта по пути `SDK
-> Setup / Client Keys` там выберите один из доступных DSN.
+> Чтобы получить свой `DSN`, перейдите в настройки проекта по пути `SDK
+> Setup / Client Keys`. Там выберите один из доступных DSN
 
-9. Добавить Sentry Reporting в `App/Exceptions/Handler`:
+9. Добавьте Sentry Reporting в `App/Exceptions/Handler`:
 
 ```php
 public function report(Exception $exception)
@@ -59,4 +57,5 @@ public function report(Exception $exception)
 }
 ```
 
-Теперь вы можете проверить работоспособность, вызвав любой Exception.
+10. Проверьте работоспособность, вызвав любой Exception.
+
