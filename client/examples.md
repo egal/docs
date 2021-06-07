@@ -74,7 +74,7 @@ messageTest.socketConnect()
 Массив `filter*` хранит объекты с указанием фильтруемого поля, типа
 фильтрации и значения для фильтрации.
 
-Все типы фильтрации указаны здесь: (СПИСОК ФИЛЬТРОВ)
+Все типы фильтрации указаны [здесь](/server/crud/filters.md)
 
 Когда все параметры определены, вызывается метод `socketConnect()` для
 соединения с сервером через сокеты или `axiosConnect()` для соединения
@@ -88,22 +88,24 @@ messageTest.socketConnect()
 
 ```javascript
 messageTest.actionParameters.setId(12)
+```
 
-create:
-
+`create`:
+```javascript
 let createParams = { email: 'test@createParams.com', password: '123456' }
 let createAction = new CRUDAction('auth', 'User', 'create', createParams)
 createAction.socketConnect()
+```
 
-update:
-
+`update`:
+```javascript
 let updateParams = {id:'id обновляемой записи', email:'test@createParamsUpdated.com'}
-
 let updateAction = new CRUDAction('auth', 'User', 'update', updateParams)
 updateAction.socketConnect()
+```
 
-delete:
-
+`delete`:
+```javascript
 let deleteParams = { id: 'id удаляемой записи'}
 let deleteAction = new CRUDAction('auth', 'User', 'delete', deleteParams)
 deleteAction.socketConnect()
@@ -111,7 +113,7 @@ deleteAction.socketConnect()
 
 `createMany`:
 
-```
+```javascript
 let createParams = [{email:'test1@createParams1.com', password: '123456'}, {email:'test2@createManyParams2.com', password: '123456'}]
 let createAction = new CRUDAction('auth', 'User', 'createMany', createParams)
 createAction.socketConnect()
@@ -119,7 +121,7 @@ createAction.socketConnect()
 
 `updateMany`:
 
-```
+```javascript
 let updateParams = [{id:'', email:'yulya@createParams1Updated.com'}, {id:'', email:'yulya@createManyParams2Updated.com'}]
 let updateAction = new CRUDAction('auth', 'User', 'updateMany', updateParams)
 updateAction.socketConnect()
@@ -127,7 +129,7 @@ updateAction.socketConnect()
 
 `deleteMany`:
 
-```
+```javascript
 let deleteParams = ['', '', '']
 let deleteAction = new CRUDAction('auth', 'User', 'deleteMany', deleteParams)
 deleteAction.socketConnect()
@@ -158,7 +160,7 @@ updateRawAction.socketConnect()
 
 `deleteManyRaw`:
 
-```
+```javascript
 let paramsDeleteRaw = { filter: [...actionFilters] }
 let deleteRawAction = new CRUDAction('auth', 'User', 'deleteManyRaw', paramsDeleteRaw)
 deleteRawAction.socketConnect()
@@ -182,11 +184,14 @@ let newModel = new Model('User', RabbitUsername, RabbitPassword)
 /**
 * инициализация базового URL для сокетов
 * url отличаются для разных типов связи, поэтому их нужно указывать полностью
+**/
 
-newModel.setBaseUrl('amqp://domain:5672/', 'socket');
+newModel.setBaseUrl('domain', 'socket');
+
 /**
 * инициализация базового URL для axios
 */
+
 newModel.setBaseUrl('http://domain:8081', 'axios');
 ```
 
@@ -198,7 +203,7 @@ newModel.setBaseUrl('http://domain:8081', 'axios');
 
 `getItems`:
 
-```
+```javascript
 let orders = [['name', 'desc'], ['id', 'asc']]
 const filter = [
  {
@@ -239,7 +244,7 @@ let page = 2
 let perPage = 25
 let withs = ['user', 'roles']
 
-let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', perPage, page, filter, with, orders )
+let messageTest = newModel.actionGetItems('auth', 'getItems', 'axios', perPage, page, filter, withs, orders )
 ```
 
 Что происходит в примере:
@@ -269,35 +274,35 @@ let messageTest = newModel.actionGetItems('auth', 'getItems', 'socket', perPage,
 обязательно указывается id перед типом соединения.
 
 ```javascript
-messageTest.actionParameters.setId(12)
+let messageTest = newModel.actionGetItem('auth', 'getItem', 'socket', id, filter, withs, orders )
 ```
 
 `create`:
 
 ```javascript
 let createParams = {email:'test1@createParams1.com', password: '123456'}
-let createAction = newModel.actionCreate('auth', 'create', 'socket', createParams)
+let createAction = newModel.actionCreate('auth', 'create', 'axios', createParams)
 ```
 
 `update`:
 
 ```javascript
 let updateParams = {id:'', email:'yulya@createParams1Updated.com'}
-let updateAction = newModel.actionUpdate('auth', 'update', 'socket', updateParams)
+let updateAction = newModel.actionUpdate('auth', 'update', 'axios', updateParams)
 ```
 
 `delete`:
 
 ```javascript
-let deleteParams = ['']
-let actionDelete = newModel.actionDelete('auth', 'delete', 'socket', deleteParams)
+let deleteParams = [id]
+let actionDelete = newModel.actionDelete('auth', 'delete', 'axios', deleteParams)
 ```
 
 `createMany`:
 
 ```javascript
 let createParams = [{email:'yulya@createParams1.com', password: '123456'}, {email:'yulya@createManyParams2.com', password: '123456'}]
-let createManyAction = newModel.actionCreate('auth', 'createMany', 'socket', createParams)
+let createManyAction = newModel.actionCreate('auth', 'createMany', 'axios', createParams)
 ```
 
 `updateMany`:
@@ -305,14 +310,14 @@ let createManyAction = newModel.actionCreate('auth', 'createMany', 'socket', cre
 ```javascript
 let updateParams = [{id:'', email:'yulya@createParams1Updated.com'}, {id:'', email:'yulya@createManyParams2Updated.com'}]
 
-let updateManyAction = newModel.actionUpdate('auth', 'updateMany', 'socket', updateParams)
+let updateManyAction = newModel.actionUpdate('auth', 'updateMany', 'axios', updateParams)
 ```
 
 `deleteMany`:
 
 ```javascript
 let deleteManyParams = ['', '', '']
-let deleteManyAction = newModel.actionDelete('auth', 'deleteMany', 'socket', deleteManyParams)
+let deleteManyAction = newModel.actionDelete('auth', 'deleteMany', 'axios', deleteManyParams)
 ```
 
 В параметрах указывается массив *id* удаляемых записей.
@@ -332,19 +337,26 @@ let actionFilters = [{
        value: 'noname2'
    }]
 let paramsDeleteRaw = { filter: [...actionFilters] }
-let updateRaw = newModel.actionUpdateManyWithFilter('auth', 'updateManyRaw', 'socket', paramsUpdateRaw)
+let updateRaw = newModel.actionUpdateManyWithFilter('auth', 'updateManyRaw', 'axios', paramsUpdateRaw)
 ```
 
 `deleteManyRaw`:
 
 ```javascript
 let paramsDeleteManyRaw = {filter:[...actionFilters]}
-let deleteRaw = newModel.actionDeleteManyWithFilter('auth', 'deleteManyRaw', 'socket', paramsDeleteManyRaw)
+let deleteRaw = newModel.actionDeleteManyWithFilter('auth', 'deleteManyRaw', 'axios', paramsDeleteManyRaw)
+```
+
+`actionCustom`:
+
+```javascript
+let paramsCustomAction = {...}
+let customAction = newModel.actionCustom('auth', 'anyCustomEndpoint', 'axios', paramsCustomAction)
 ```
 
 Запрос на получение metadata модели
 
 ```javascript
-let metadata = newModel.actionGetMetadata('auth', 'getMetadata', 'socket')
+let metadata = newModel.actionGetMetadata('auth', 'getMetadata', 'axios')
 ```
 
