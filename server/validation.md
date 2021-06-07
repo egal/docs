@@ -6,9 +6,11 @@
 
 Атрибут введен в верхнем регистре.
 
+
 ### lower_case
 
 Атрибут введен в нижнем регистре.
+
 
 ### Правила валидации Laravel
 
@@ -21,31 +23,31 @@
 
 1. Создайте файл с правилами командой:
 
-    ```bash
-    php artisan egal:make:rule ExampleRule
-    ```
+   ```bash
+   php artisan egal:make:rule ExampleRule
+   ```
 
 2. Реализуйте метод `validate`
 
-    ```php
-    namespace App\Rules;
-    
-    use Egal\Validation\Rules\Rule as EgalRule;
-    
-    class ExampleRule extends EgalRule
-    {
-    
-        // ...
-    
-        public function validate($attribute, $value, $parameters = null): bool
-        {
-            // Твоя реализация метода
-        }
-    
-        // ...
-    
-    }
-    ```
+   ```php
+   namespace App\Rules;
+
+   use Egal\Validation\Rules\Rule as EgalRule;
+
+   class ExampleRule extends EgalRule
+   {
+
+       // ...
+
+       public function validate($attribute, $value, $parameters = null): bool
+       {
+           // Твоя реализация метода
+       }
+
+       // ...
+
+   }
+   ```
 
 Для использования правила валидации применяется
 [вызов через класс](https://laravel.com/docs/master/validation#using-rule-objects)

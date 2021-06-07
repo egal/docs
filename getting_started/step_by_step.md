@@ -1,20 +1,21 @@
 # Пример по шагам
 
-В этом разделе представлен пример создания части проекта "Онлайн платформы для обучения".
-Для простоты рассмотрим создание сущностей `WorkingTime` и `Speaker`.
+В этом разделе представлен пример создания части проекта "Онлайн
+платформы для обучения". Для простоты рассмотрим создание сущностей
+`WorkingTime` и `Speaker`.
 
-
-> Проект - платформа для организации и проведения видео-уроков.
+> Проект — платформа для организации и проведения видео-уроков.
 
 Проект будет состоять из:
-- микросервис monolit-service - основной микросервис в котором будет наше приложение;
-- сервис авторизации;
-- веб-сервис.
+- Monolit - основной сервис в котором будет наше приложение.
+- Сервис авторизации.
+- Веб-сервис.
 
 Статья состоит из следующих частей:
-1. Разворот проекта
-2. Создание сущностей
-3. Авторизация
+1. Разворот проекта.
+2. Создание сущностей.
+3. Авторизация.
+
 
 ## 1. Разворот проекта
 
@@ -42,8 +43,8 @@ docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) 
 
 Настраиваем docker-compose.yml
 
-Удаляем ненужные закомментированные сервисы в начале файла (такие, как pgadmin, k6, php-documentor).
-Содержимое файла должно быть таким:
+Удаляем ненужные закомментированные сервисы в начале файла (такие, как
+pgadmin, k6, php-documentor). Содержимое файла должно быть таким:
 
 ```yaml
 version: "3.6"
@@ -134,6 +135,7 @@ services:
      - database
 ```
 
+
 ### Настройка .env
 
 Переменная `PROJECT_NAME` определяет название проекта.
@@ -142,23 +144,26 @@ services:
 PROJECT_NAME=testProject
 ```
 
+
 ### Миграции
 
-Миграции выполнятся при старте сервиса Docker Compose,
-если в блоке `CMD` указана команда запуска этих миграций.
-В стандартном Dockerfile она указана.
+Миграции выполнятся при старте сервиса Docker Compose, если в блоке
+`CMD` указана команда запуска этих миграций. В стандартном Dockerfile
+она указана.
 
 ```
 CMD /wait && ./artisan migrate --force && ./artisan egal:run
 ```
 
-> Либо если по какой-то причине в Dockerfile это не прописано, то вручную запустить миграции можно вот так:
+> Либо если по какой-то причине в Dockerfile это не прописано, то
+> вручную запустить миграции можно вот так:
 >
 > Заходим в контейнер и запускаем миграции:
 >
 > ```shell
 > docker-compose exec monolit-service php artisan migrate
 > ```
+
 
 ### Запуск проекта
 
@@ -168,7 +173,8 @@ CMD /wait && ./artisan migrate --force && ./artisan egal:run
 docker-compose up -d
 ```
 
-Для проверки работоспособности используем команду вывода списка работающих контейнеров.
+Для проверки работоспособности используем команду вывода списка
+работающих контейнеров.
 
 ```shell
 docker-compose ps
@@ -201,15 +207,15 @@ Hello, it's testProject/web-service!
 
 ## 2. Создание сущностей
 
-Начнем с генерации модели `Speaker`.
-Создадим модель в контейнере
+Начнем с генерации модели `Speaker`. Создадим модель в контейнере
 
 ```shell
 docker-compose exec monolit-service bash
 php artisan egal:make:model Speaker
 ```
 
-После выполнения этой команды у нас сгенерировалась модель со следующим содержимым:
+После выполнения этой команды у нас сгенерировалась модель со следующим
+содержимым:
 
 ```php
 <?php
@@ -236,6 +242,7 @@ class Speaker extends EgalModel
 
 }
 ```
+
 Аналогично создадим сущность `WorkingTime`.
 
 ```shell
@@ -244,9 +251,10 @@ php artisan egal:make:model WorkingTime
 
 Внесем правки:
 
-- временно для удобства сделаем все роуты публичными
-- укажем типы полей и валидацию
-- укажем связанные сущности. Для `WorkingTime` это `speaker`, для `Speaker` это `workingTimes`.
+- Временно для удобства сделаем все роуты публичными
+- Укажем типы полей и валидацию
+- Укажем связанные сущности. Для `WorkingTime` это `speaker`, для
+  `Speaker` это `workingTimes`.
 
 В итоге получаем:
 
@@ -369,6 +377,7 @@ php artisan egal:make:migration-create WorkingTime
 Пропишем в них связи на таблицы
 
 `database/migrations/2021_04_27_064152_create_speakers_table.php`
+
 ```php
 class CreateSpeakersTable extends Migration
 {
@@ -416,13 +425,15 @@ class CreateWorkingTimesTable extends Migration
 }
 ```
 
-Для выполнения миграций и применения нового кода перезапустим сервис `monolit`
+Для выполнения миграций и применения нового кода перезапустим сервис
+`monolit`
 
 ```shell
 docker-coompose restart monolit-service
 ```
 
-Для проверки работоспособности сделаем пару запросов на создание `WorkingTime` и `Speaker`.
+Для проверки работоспособности сделаем пару запросов на создание
+`WorkingTime` и `Speaker`.
 
 
 ```shell
@@ -497,19 +508,23 @@ curl http://localhost:81/monolit/Speaker/getItems
 ```
 
 Создание `WorkingTime`
+
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"attributes": {"speaker_id": "1", "starts_at": "2021-04-27 03:23:57", "ends_at": "2021-04-28 03:23:57"}}' http://localhost:81/monolit/WorkingTime/create
 ```
 
 Получаем результат
+
 ```shell
 curl http://localhost:81/monolit/WorkingTime/getItems
 ```
 
+
 ## 3. Авторизация
 
-Закроем доступ для незарегистрированных пользователей:
-уберем у каждой модели разрешения для guest - изменим `{@statuses-access guest,logged}` на `{@statuses-access logged}`
+Закроем доступ для незарегистрированных пользователей: уберем у каждой
+модели разрешения для guest - изменим `{@statuses-access guest,logged}`
+на `{@statuses-access logged}`
 
 Зарегистрируем нового пользователя.
 
@@ -517,24 +532,29 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/register
 ```
 
-Так как это "чистый" проект, то сервис авторизации не знает о существовании сервиса `monolit`.
+Так как это "чистый" проект, то сервис авторизации не знает о
+существовании сервиса `monolit`.
 
 Заходим в контейнер
+
 ```shell
 docker-compose exec auth-service bash
 ```
 
 Регистрируем `monolit`
+
 ```shell
 php artisan egal:register:service monolit B#J5mUWKh8FqzQ6Tj0XtYruIcSwpb@ed
 ```
 
-Получаем master token 
+Получаем master token
+
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/loginByEmailAndPassword
 ```
 
 Ответ:
+
 ```json
 {
   "action": {
@@ -595,7 +615,9 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", 
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4
 ```
 
-Теперь нужно получить service token, чтобы мы могли делать запросы на защищенные роуты нашего микросервиса
+Теперь нужно получить service token, чтобы мы могли делать запросы на
+защищенные пути нашего сервиса
+
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4", "service_name": "monolit"}' http://localhost:81/auth/User/loginToService
 ```
@@ -656,14 +678,19 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1Q
 }
 ```
 
-Попробуем сделать запрос в наш сервис с полученным токеном:
+Попробуем сделать запрос в наш сервис с полученным token:
 
 ```shell
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOltdfSwiYWxpdmVfdW50aWwiOiIyMDIxLTA0LTI4VDA4OjExOjM1LjIyMzUzNFoifQ.oonpQvvOAycWg5W2Bkh_fvETQofLs6Wc0J3Y5eT3c04" http://localhost:81/monolit/Speaker/getItems
 ```
-Если все хорошо, то вы увидите тот же самый результат, как и в прошлый раз.
-Если возникают ошибки - требуется проверить каждый шаг с самого начала.
+
+Если все хорошо, то вы увидите тот же самый результат, как и в прошлый
+раз. Если возникают ошибки — требуется проверить каждый шаг с самого
+начала.
+
 
 ## Заключение
 
-Основные шаги создания проекта с нуля пройдены. В итоге получена "заготовка" микросервиса с настроенной авторизацией.
+Основные шаги создания проекта с нуля пройдены. В итоге получена
+"заготовка" сервиса с настроенной авторизацией.
+
