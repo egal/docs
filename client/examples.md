@@ -244,7 +244,7 @@ let page = 2
 let perPage = 25
 let withs = ['user', 'roles']
 
-let messageTest = newModel.actionGetItems('auth', 'getItems', 'axios', perPage, page, filter, withs, orders )
+let messageTest = newModel.actionGetItems('auth', 'axios', perPage, page, filter, withs, orders )
 ```
 
 Что происходит в примере:
@@ -274,35 +274,35 @@ let messageTest = newModel.actionGetItems('auth', 'getItems', 'axios', perPage, 
 обязательно указывается id перед типом соединения.
 
 ```javascript
-let messageTest = newModel.actionGetItem('auth', 'getItem', 'socket', id, filter, withs, orders )
+let messageTest = newModel.actionGetItem('auth', 'socket', id, filter, withs, orders )
 ```
 
 `create`:
 
 ```javascript
 let createParams = {email:'test1@createParams1.com', password: '123456'}
-let createAction = newModel.actionCreate('auth', 'create', 'axios', createParams)
+let createAction = newModel.actionCreate('auth', 'axios', createParams)
 ```
 
 `update`:
 
 ```javascript
 let updateParams = {id:'', email:'yulya@createParams1Updated.com'}
-let updateAction = newModel.actionUpdate('auth', 'update', 'axios', updateParams)
+let updateAction = newModel.actionUpdate('auth', 'axios', updateParams)
 ```
 
 `delete`:
 
 ```javascript
 let deleteParams = [id]
-let actionDelete = newModel.actionDelete('auth', 'delete', 'axios', deleteParams)
+let actionDelete = newModel.actionDelete('auth', 'axios', deleteParams)
 ```
 
 `createMany`:
 
 ```javascript
 let createParams = [{email:'yulya@createParams1.com', password: '123456'}, {email:'yulya@createManyParams2.com', password: '123456'}]
-let createManyAction = newModel.actionCreate('auth', 'createMany', 'axios', createParams)
+let createManyAction = newModel.actionCreateMany('auth', 'axios', createParams)
 ```
 
 `updateMany`:
@@ -310,14 +310,14 @@ let createManyAction = newModel.actionCreate('auth', 'createMany', 'axios', crea
 ```javascript
 let updateParams = [{id:'', email:'yulya@createParams1Updated.com'}, {id:'', email:'yulya@createManyParams2Updated.com'}]
 
-let updateManyAction = newModel.actionUpdate('auth', 'updateMany', 'axios', updateParams)
+let updateManyAction = newModel.actionUpdateMany('auth', 'axios', updateParams)
 ```
 
 `deleteMany`:
 
 ```javascript
 let deleteManyParams = ['', '', '']
-let deleteManyAction = newModel.actionDelete('auth', 'deleteMany', 'axios', deleteManyParams)
+let deleteManyAction = newModel.actionDeleteMany('auth', 'axios', deleteManyParams)
 ```
 
 В параметрах указывается массив *id* удаляемых записей.
@@ -337,14 +337,14 @@ let actionFilters = [{
        value: 'noname2'
    }]
 let paramsDeleteRaw = { filter: [...actionFilters] }
-let updateRaw = newModel.actionUpdateManyWithFilter('auth', 'updateManyRaw', 'axios', paramsUpdateRaw)
+let updateRaw = newModel.actionUpdateManyWithFilter('auth', 'axios', paramsUpdateRaw)
 ```
 
 `deleteManyRaw`:
 
 ```javascript
 let paramsDeleteManyRaw = {filter:[...actionFilters]}
-let deleteRaw = newModel.actionDeleteManyWithFilter('auth', 'deleteManyRaw', 'axios', paramsDeleteManyRaw)
+let deleteRaw = newModel.actionDeleteManyWithFilter('auth', 'axios', paramsDeleteManyRaw)
 ```
 
 `actionCustom`:
@@ -357,6 +357,6 @@ let customAction = newModel.actionCustom('auth', 'anyCustomEndpoint', 'axios', p
 Запрос на получение metadata модели
 
 ```javascript
-let metadata = newModel.actionGetMetadata('auth', 'getMetadata', 'axios')
+let metadata = newModel.actionGetMetadata('auth', 'axios')
 ```
 
