@@ -230,8 +230,8 @@ use Egal\Model\Model as EgalModel;
  * @property $created_at
  * @property $updated_at
  *
- * @action getMetadata {@statuses-access guest,logged}
- * @action getItem {@statuses-access guest,logged}
+ * @action getMetadata {@statuses-access guest|logged}
+ * @action getItem {@statuses-access guest|logged}
  * @action getItems {@statuses-access logged} {@roles-access user}
  * @action create {@statuses-access logged} {@permissions-access super_permission}
  * @action update {@statuses-access logged} {@permissions-access super_permission}
@@ -282,12 +282,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property Collection|WorkingTime[] $workingTimes     {@property-type relation}
  *
- * @action getMetadata  {@statuses-access guest,logged}
- * @action getItem      {@statuses-access guest,logged}
- * @action getItems     {@statuses-access guest,logged}
- * @action create       {@statuses-access guest,logged}
- * @action update       {@statuses-access guest,logged}
- * @action delete       {@statuses-access guest,logged}
+ * @action getMetadata  {@statuses-access guest|logged}
+ * @action getItem      {@statuses-access guest|logged}
+ * @action getItems     {@statuses-access guest|logged}
+ * @action create       {@statuses-access guest|logged}
+ * @action update       {@statuses-access guest|logged}
+ * @action delete       {@statuses-access guest|logged}
  */
 class Speaker extends EgalModel
 {
@@ -335,14 +335,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property Speaker $speaker {@property-type relation}
  *
- * @action getMetadata          {@statuses-access guest,logged}
- * @action create               {@statuses-access guest,logged}
- * @action update               {@statuses-access guest,logged}
- * @action delete               {@statuses-access guest,logged}
- * @action actionCreateMany     {@statuses-access guest,logged}
- * @action actionDeleteManyRaw  {@statuses-access guest,logged}
- * @action getItem              {@statuses-access guest,logged}
- * @action getItems             {@statuses-access guest,logged}
+ * @action getMetadata          {@statuses-access guest|logged}
+ * @action create               {@statuses-access guest|logged}
+ * @action update               {@statuses-access guest|logged}
+ * @action delete               {@statuses-access guest|logged}
+ * @action actionCreateMany     {@statuses-access guest|logged}
+ * @action actionDeleteManyRaw  {@statuses-access guest|logged}
+ * @action getItem              {@statuses-access guest|logged}
+ * @action getItems             {@statuses-access guest|logged}
  */
 class WorkingTime extends EgalModel
 {
@@ -523,7 +523,7 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 ## 3. Авторизация
 
 Закроем доступ для незарегистрированных пользователей: уберем у каждой
-модели разрешения для guest - изменим `{@statuses-access guest,logged}`
+модели разрешения для guest - изменим `{@statuses-access guest|logged}`
 на `{@statuses-access logged}`
 
 Зарегистрируем нового пользователя.
