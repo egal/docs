@@ -1,10 +1,9 @@
 <p align="center"><img src="https://raw.githubusercontent.com/egal/art/main/logo.svg" height="150"></p>
 <h1 id="egal" align="center">Egal | Docs</h1>
 <p align="center">
- <a href="https://packagist.org/packages/egal/framework"><img src="https://poser.pugx.org/egal/framework/v"></a>
- <a href="https://packagist.org/packages/egal/framework"><img src="https://poser.pugx.org/egal/framework/v/unstable"></a>
- <a href="https://packagist.org/packages/egal/framework"><img src="https://poser.pugx.org/egal/framework/downloads"></a>
- <a href="https://packagist.org/packages/egal/framework"><img src="https://poser.pugx.org/egal/framework/license"></a>
+ <a href="https://github.com/egal/egal-docs"><img src="https://img.shields.io/github/license/egal/egal-docs"></a>
+<a href="https://github.com/egal/egal-docs"><img src="https://img.shields.io/website?url=https%3A%2F%2Fegal.github.io%2Fegal-docs%2F%23%2F"></a>
+<a href="https://github.com/egal/egal-docs"><img src="https://img.shields.io/github/last-commit/egal/egal-docs/main"></a>
 </p>
 
 ## Новости
