@@ -26,12 +26,25 @@ mounted() {
 }
 ```
 
-3) В хуке `asyncData` инициализировать `observer` для выбранной модели:
+3) 
+- Если `observer` будет использован в файле `index` раздела `pages`, он должен быть инициализирован в хуке `asyncData`:
 
 ```javascript
   asyncData(context) {
     context.app.$observer('ExampleModelName', 'example-event-name')
   }
+```
+
+- Если `observer` будет использован в обычном компоненте, он должен быть инициализирован следующим образом в хуке `mounted`:
+```javascript
+const observer = this.$observer('ExampleModelName', 'example-model-event')
+```
+
+###!! Важно
+
+Плагин `observer` обязательно нужно зарегистрировать в файле `nuxt.config.js`
+```javascript
+{src: '~/plugins/observer.js', mode:'client'}
 ```
 
 Далее, инициализированную модель можно использовать в методах компонента.
