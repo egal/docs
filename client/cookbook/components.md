@@ -34,7 +34,6 @@
                 let withs = ['speaker', 'school', 'messages']; // указываем with
                 this.lessonModel.actionGetItems(
                     'monolit', // название микросервиса
-                    'getItems', // название action
                     'axios', // способ соединения
                     undefined, // кол-во записей на страницу (если не нужно, указать undefined)
                     undefined, // определенная страница (если не нужно, указать undefined)
@@ -48,7 +47,7 @@
                     id: this.$store.state.speakerLessonInfo.id,
                     stage: 'agreed'
                 };
-                this.lessonRequestModel.actionUpdate('monolit', 'update', 'axios', dataForUpdate);
+                this.lessonRequestModel.actionUpdate('monolit', 'axios', dataForUpdate);
             }
         }
     ```
