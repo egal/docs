@@ -51,7 +51,7 @@ class Example extends EgalModel
     /**
      * @param string $testMessage
      * @return string
-     * @statuses-access guest,logged
+     * @statuses-access guest|logged
      */
     public static function actionTestMessage(string $testMessage): string
     {

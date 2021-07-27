@@ -29,7 +29,7 @@ $request = new \Egal\Core\Communication\Request(
 ```php
 /**
  * @action test {@statuses-access guest}
- * @action checks {@statuses-access logged} {@services-access auth,monolit}
+ * @action checks {@statuses-access logged} {@services-access auth|monolit}
  */
 class Model extends EgalModel
 {

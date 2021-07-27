@@ -5,21 +5,8 @@
 ### Статусы аутентификации
 
 При наличии UST во время обращения к действию пользователь имеет статус
-аутентификации - `logged`, при отсутствии - `guest`. Для указания
-доступа к действию в зависимости от статуса аутентификации используйте
-следующий код в блоке описания действия:
-
-```php
-/**
- * @statuses-access guest
- */
-public static function actionExample()
-{
-    // ...
-}
-```
-
-Либо в блоке описания модели:
+аутентификации - `logged`, при отсутствии - `guest`. Для указания доступа к действию 
+в зависимости от статуса аутентификации используйте следующий код в блоке описания модели:
 
 ```php
 /**
@@ -27,29 +14,25 @@ public static function actionExample()
  */
 class Example extends EgalModel
 {
-
     // ...
-
 }
 ```
 
+> :warning: Начиная с версии `v2.0.0beta27`, убрана возможность указывать статус аутентификации в блоке описания действия:
+>
+> ```php
+> /**
+>  * @statuses-access guest
+>  */
+> public static function actionExample()
+> {
+>     // ...
+> }
+> ```
 
 ### Роли
 
-Выдача доступа к действию в зависимости от роли происходит:
-- Либо в блоке описания действия:
-
-```php
-/**
- * @roles-access example_role
- */
-public static function actionExample()
-{
-    // ...
-}
-```
-
-- Либо в блоке описания модели:
+Выдача доступа к действию в зависимости от роли происходит в блоке описания модели:
 
 ```php
 /**
@@ -57,9 +40,7 @@ public static function actionExample()
  */
 class Example extends EgalModel
 {
-
     // ...
-
 }
 ```
 
@@ -67,22 +48,22 @@ class Example extends EgalModel
 > статус авторизации пользователя. Он должен быть `logged` (см.
 > [Статусы аутентификации](#Статусы-аутентификации)).
 
+
+> :warning: Начиная с версии `v2.0.0beta27`, убрана возможность указывать роли в блоке описания действия:
+> 
+> ```php
+> /**
+>  * @roles-access example_role
+>  */
+> public static function actionExample()
+> {
+>     // ...
+> }
+> ```
+
 ### Разрешения
 
-Выдача доступа к действию в зависимости от разрешения происходит:
-- Либо в блоке описания действия:
-
-```php
-/**
- * @permissions-access example_permissions
- */
-public static function actionExample()
-{
-    // ...
-}
-```
-
-- Либо в блоке описания модели:
+Выдача доступа к действию в зависимости от разрешения происходит в блоке описания модели:
 
 ```php
 /**
@@ -90,20 +71,45 @@ public static function actionExample()
  */
 class Example extends EgalModel
 {
-
     // ...
-
 }
 ```
 
-> При указании разрешения к действию происходит автоматически
-> проверяется статус авторизации пользователя. Он должен быть `logged`
-> (см. [Статусы аутентификации](#Статусы-аутентификации)).
+> При указании разрешения к действию автоматически проверяется статус авторизации пользователя.
+> Он должен быть `logged` (см. [Статусы аутентификации](#Статусы-аутентификации)).
+
+> :warning: Начиная с версии `v2.0.0beta27`, убрана возможность указывать разрешения в блоке описания действия:
+> 
+> ```php
+> /**
+>  * @permissions-access example_permissions
+>  */
+>  public static function actionExample()
+>  {
+>      // ...
+>  }
+>  ```
+
+### Правила задания статусов аутентификации, ролей и разрешений
+
+Для задания значений используется одинаковый синтаксис
+
+* `,` - используется в качестве логического И
+* `|` - используется в качестве логического ИЛИ
+
+Ниже показан пример, в котором доступ до действия есть у пользователя с ролью `admin`
+`ИЛИ` с одновременным наличием ролей `supplier` `И` `manager`.
+
+```php
+/**
+ * @action update {@roles-access admin|supplier,manager}
+ */
+```
 
 ### Динамическое изменение информации о текущем пользователе сессии
 
-При появлении в сессии UST публикуется `UserServiceTokenDetectedEvent`
-событие. В реакции на него можно изменить информацию о пользователе.
+При появлении в сессии UST публикуется `UserServiceTokenDetectedEvent` событие.
+В реакции на него можно изменить информацию о пользователе.
 
 Пример добавления роли пользователю:
 1. Создадим обработчика события `AddingRoleToUserServiceToken`.
@@ -122,7 +128,6 @@ use App\Listeners\AddingRoleToUserServiceToken;
 
 class EventServiceProvider extends ServiceProvider
 {
-
     // ...
 
     protected $listen = [
@@ -132,7 +137,6 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     // ...
-    
 }
 ```
 
@@ -153,12 +157,9 @@ use Egal\Core\Session\Session;
 
 class AdditionUserServiceTokenListener extends EventListener
 {
-
     public function handle(): void
     {
         Session::getUserServiceToken()->addRole('example_role');
     }
-
 }
 ```
-
