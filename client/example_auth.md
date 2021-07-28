@@ -2,6 +2,7 @@
 
 1. Инициализируем экземпляр класса авторизации в компоненте:
 
+
    ```javascript
    import { AuthAction } from '@egal/model/compile/index.js';
    import { EventObserver } from '@egal/model/compile/index.js';
