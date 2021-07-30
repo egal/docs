@@ -16,11 +16,12 @@
   * [Аутентификация](/client/auth.md)
   * [Actions](/client/actions.md)
   * [Models](/client/model.md)
+  * [Egal Constructor](/client/egal_constructor.md)
+  * [Работа с Nuxt](/client/nuxt.md)
   * [Примеры](/client/examples.md)
   * [Cookbook]()
     * [*Components*](/client/cookbook/components.md)
     * [*Observer*](/client/cookbook/observer.md)
-  * [Полный список классов]()
     * [*Подключение авторизации*](/client/example_auth.md)
 * **Серверная часть**
   * [Запуск проекта](/server/ways_to_start_and_stop_service.md)
