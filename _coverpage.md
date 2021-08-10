@@ -9,6 +9,6 @@
 - Избавляет от рутины
 - Исправляет самые популярные ошибки
 
-[Github](https://github.com/smartworldteam)
+[Github](https://github.com/egal)
 <a href="#?id=egal">Документация</a>
 
