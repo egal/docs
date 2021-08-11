@@ -3,7 +3,7 @@
 1. Импортируем класс конструктора авторизации в компонент:
 
    ```javascript
-   import {EgalAuthConstructor} from '@egal/model/compile/index.js';
+   import {EgalAuthConstructor} from '@egalteam/framework/compile/index.js';
    ```
 
 2. Инициализируем экземпляр класса и передаем в него информацию, необходимую для его корректной работы:
