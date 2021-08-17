@@ -1,53 +1,55 @@
 # Реализация авторизации
 
-1. Инициализируем экземпляр класса авторизации в компоненте:
-
-
-   ```javascript
-   import { AuthAction } from '@egal/model/compile/index.js';
-   import { EventObserver } from '@egal/model/compile/index.js';
-   import { Model } from '@egal/model/compile/index';
-
-   const auth = new AuthAction(
-       process.env.VUE_APP_USERNAME, // нужен для подключения к rabbitmq
-       process.env.VUE_APP_PASSWORD, // нужен для подключения к rabbitmq
-       'User',
-       'axios'
-   );
-   ```
-
-2. Устанавливаем url и инициализируем Observer:
+1. Импортируем класс конструктора авторизации в компонент:
 
    ```javascript
-   auth.setBaseURL(process.env.VUE_APP_HTTP_DOMAIN);
-   const authObserver = new EventObserver();
+   import {EgalAuthConstructor} from '@egalteam/framework/compile/index.js';
    ```
 
-3. Подписываемся на Observer нужной модели и слушаем получаемые им
-   события:
+2. Инициализируем экземпляр класса и передаем в него информацию, необходимую для его корректной работы:
 
    ```javascript
-       authObserver.subscribe('User', (data, actionName) => {
-       let userData;
-       if (data !== 'Start Processing' && actionName !== 'error') {
-           switch (actionName) {
-               case 'registerByEmailAndPassword': // авторизуем пользователя после успешной регистрации
-                   userData = { email: this.email, password: this.password };
-                   auth.authUser(userData);
-                   break;
-               case 'loginByEmailAndPassword': // авторизуем пользователя в нужном микросервисе
-                   userData = { service_name: 'monolit', token: data[0] };
-                   auth.loginToService(userCred); 
-                   break;
-               case 'loginToService':
-                   // выполняем нужные действия после авторизации пользователя в микросервисе
-           }
-       } else if (actionName === 'error') {
-           this.$toasted.show(data, {
-               type: 'error',
-               duration: 2000
-           });
-       }
-   });
+   let exampleAuthInfo = {
+       modelName: 'exampleModelName', 
+       userName: 'admin', 
+       password: 'password', 
+       url:'exampleUrl', 
+       connectionType: 'axios'
+   }
+   
+   let egalAuthExample = new EgalAuthConstructor(exampleAuthInfo)
    ```
+
+3. Используя экземпляр класса вызываем методы Egal в любом нужном месте в компоненте:
+
+- registerNewUser: метод регистрации пользователя.
+- authUser: метод аутентификации пользователя.
+- loginToService: метод аутентификации пользователя в нужном микросервисе.
+
+Например:
+
+```javascript
+function registerNewUser() {
+   let userData = {email: 'user email', password: 'user password'}
+   egalAuthExample.registerNewUser(userData).then((data) => {
+      auth()
+   }).catch((error) => {
+   })
+}
+
+function auth() {
+   let userData = {email: 'user email', password: 'user password'}
+   egalAuthExample.authUser(userData).then((data) => {
+       loginToService(data)
+   }).catch((error) => {
+   })
+}
+
+function loginToService(data: any) {
+    let loginData = {service_name: 'microservice name', token: token from data}
+    egalAuthExample.loginToService(loginData).then((data) => {
+    }).catch((error) => {
+    })
+}
+```
 
