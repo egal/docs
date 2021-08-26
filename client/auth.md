@@ -1,16 +1,16 @@
 ## Аутентификация
 
-Выполняется с помощью действия `AuthAction`.
+Выполняется с помощью конструктора `EgalAuthConstructor`.
 
-Для аутентификации используется JWT токены:
+Для аутентификации используются JWT токены:
 - User master Token (UMT)
 - User Service Token (UST).
 
 Этапы авторизации в системе:
-- Пользователь регистрируется в системе, передавая `email` и пароль на
+- Пользователь регистрируется в системе, передавая email и пароль на
   endpoint `registerByEmailAndPassword`.
 - После ответа от `registerByEmailAndPassword` пользователь авторизуется
-  в системе, передавая выбранный `email` и пароль на endpoint
+  в системе, передавая выбранный email и пароль на endpoint
   `loginByEmailAndPassword`. В качестве ответа от сервера получается
   UMT.
 - UMT должен быть отправлен на endpoint `loginToService` вместе с

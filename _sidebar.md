@@ -21,7 +21,6 @@
   * [Примеры](/client/examples.md)
   * [Cookbook]()
     * [*Components*](/client/cookbook/components.md)
-    * [*Observer*](/client/cookbook/observer.md)
     * [*Подключение авторизации*](/client/example_auth.md)
 * **Серверная часть**
   * [Запуск проекта](/server/ways_to_start_and_stop_service.md)

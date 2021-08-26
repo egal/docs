@@ -3,21 +3,31 @@
 1. В `mounted()` инициализируем модель и устанавливаем слушатель для
    получения данных:
 
-    ```javascript
-    import {Model} from '@egal/model/compile/index';
-    
-    mounted() {
-        this.lessonModel = new Model( // инициализируем модель Lesson
-            'Lesson',
-            process.env.VUE_APP_USERNAME,
-            process.env.VUE_APP_PASSWORD
-        );
-        
-        this.$root.$on('new-lesson-event', (data) => {
-            // получение данных из Observer
-        });
+```javascript
+import { EgalConstructor } from "@egalteam/framework/compile/index";
+
+data() {
+    return {
+       exampleParams: {
+          modelName: "exampleModelName",
+          userName: process.env.VUE_APP_USERNAME,
+          password: process.env.VUE_APP_PASSWORD,
+          url: process.env.API_BASE_URL,
+          connectionType: "axios",
+          tokenName: "mandate"
+       },
+       lessonModel: null
     }
-    ```
+},
+
+mounted() {
+   this.lessonModel = new EgalConstructor(exampleParams)
+   this.lessonModel.initModelObserver().then((data) => {
+      // массив data включает в себя всю перечисленную выше информацию
+   })
+}
+
+```
 
 2. Запрос к серверу:
 
@@ -47,7 +57,7 @@
                     id: this.$store.state.speakerLessonInfo.id,
                     stage: 'agreed'
                 };
-                this.lessonRequestModel.actionUpdate('monolit', 'axios', dataForUpdate);
+                this.lessonModel.actionUpdate('monolit', 'axios', dataForUpdate);
             }
         }
     ```

@@ -1,33 +1,53 @@
 ## Начало работы
 
-Установим пакет с помощью команд
+Установка пакета возможна с помощью команды:
 
 ```
 npm i @egalteam/framework
 ```
-Далее в нужном файле импортировать нужные для работы классы.
 
-Полный список классов и их функций можно найти
-[здесь](/client/classes.md).
-
-Для отслеживания изменений модели инициализируем объект Observer.
+Для отслеживания изменений модели Egal использует Observer.
 Observer инициализируется для каждой модели отдельно и получает события,
 предназначенные для этой модели.
 
-Для того чтобы привязать Observer к модели нужно передать название
-модели в качестве аргумента при подписке на события. Сделать это можно
-следующим образом:
+Для того, чтобы начать использовать Egal в каком-либо компоненте проекта нужно:
+
+1. Импортировать класс ``EgalConstructor``
+```javascript
+import { EgalConstructor } from "@egalteam/framework/compile/index";
+```
+
+2. Инициализировать модель с помощью ``EgalConstructor``
 
 ```javascript
-import {EventObserver } from '@egal/model/compile/build/index'
+this.exampleModelVar = new EgalConstructor(exampleParams)
+```
 
-let observer = new EventObserver()
-observer.subscribe('User', (data, actionName) => {
-   console.log(data)
+В качестве параметра он принимает объект с нужной для инициализации информацией:
+
+```javascript
+exampleParams: {
+        modelName: "exampleModelName",
+        userName: process.env.VUE_APP_USERNAME,
+        password: process.env.VUE_APP_PASSWORD,
+        url: process.env.API_BASE_URL,
+        connectionType: "axios",
+        tokenName: "mandate"
+}
+```
+
+3. После инициализации экземпляра класса конструктора, нужно вызвать его метод получения данных ``initModelObserver()``.
+После запроса ответ сервера, название вызванного экшена и название модели будут возвращаться в него:
+```javascript
+    this.exampleModelVar.initModelObserver().then((data) => {
+        // массив data включает в себя всю перечисленную выше информацию
 })
 ```
 
-Таким образом, каждый раз, когда в сокет приходит сообщение для
-указанной модели, его можно будет получить в любом месте приложения.
-Вместе с сообщением так же приходит название отработавшего действия.
+4. Далее можно пользоваться любыми методами модели в любом месте компонента. 
+Полный список доступных методов можно найти [здесь](/client/model.md)
 
+
+Стартовые шаблоны для проектов, использующих Vue или Nuxt можно найти по ссылкам:
+1. [Vue](https://github.com/egal/egal-vue-project).
+2. [Nuxt](https://github.com/egal/egal-nuxt-project).

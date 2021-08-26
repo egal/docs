@@ -169,33 +169,29 @@ deleteRawAction.socketConnect()
 
 ## Пример инициализации модели и ее методов:
 
-Инициализируем модель:
+1. Инициализируем модель с помощью конструктора ``EgalConstructor``:
 
 ```javascript
-let newModel = new Model('User', RabbitUsername, RabbitPassword)
+import { EgalConstructor } from "@egalteam/framework/compile/index";
+
+const exampleParams = {
+    modelName: "exampleModelName",
+        userName: process.env.VUE_APP_USERNAME,
+        password: process.env.VUE_APP_PASSWORD,
+        url: process.env.API_BASE_URL,
+        connectionType: "axios",
+        tokenName: "mandate"
+}
+this.exampleModelVar = new EgalConstructor(exampleParams)
+
+this.exampleModelVar.initModelObserver().then((data) => {
+    // массив data включает в себя всю перечисленную выше информацию
+})
 ```
 
-Укажем URL для связи с сервером с помощью метода модели **setBaseUrl**.
+Описание примера выше можно найти [здесь](/client/start.md)
 
-Укажем тип связи (сокеты или *axios*), т.к. в зависимости от него
-отличаются URL
-
-```javascript
-/**
-* инициализация базового URL для сокетов
-* url отличаются для разных типов связи, поэтому их нужно указывать полностью
-**/
-
-newModel.setBaseUrl('domain', 'socket');
-
-/**
-* инициализация базового URL для axios
-*/
-
-newModel.setBaseUrl('http://domain:8081', 'axios');
-```
-
-После инициализации модели можно использовать ее методы.
+2. После инициализации модели можно использовать ее методы.
 
 Использование действий, вызываемых через модель (передача параметров
 отличается от отдельного использования действий):
@@ -274,7 +270,7 @@ let messageTest = newModel.actionGetItems('auth', 'axios', perPage, page, filter
 обязательно указывается id перед типом соединения.
 
 ```javascript
-let messageTest = newModel.actionGetItem('auth', 'socket', id, filter, withs, orders )
+let messageTest = newModel.actionGetItem('auth', 'axios', id, filter, withs, orders )
 ```
 
 `create`:
