@@ -64,7 +64,7 @@ protected $dispatchesEvents = [
 [
                 'type' => 'model_event',
                 'data' => [
-                    'name' => 'updated_model_centrifugo_event',
+                    'name' => 'updated_model',
                     'model_name' => 'User',
                     'model_id' => 1,
                 ],
