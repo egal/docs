@@ -7,7 +7,9 @@
 > Для создания файлов событий используйте
 > [генераторы](#Генерация-файла-события).
 
-Для публикации стандартных событий модели как глобальных используйте
+### Публикация событий в RabbitMQ
+
+Для публикации в RabbitMQ стандартных событий модели как глобальных используйте
 `$dispatchesEvents` и `ModelGlobalEvents`:
 
 ```php
@@ -32,6 +34,51 @@ class ExampleModel extends EgalModel {
 }
 ```
 
+### Публикация событий в Centrifugo
+Для реализации событий* с публикацией в Centrifugo предоставляется 2 варианта:
+1) Наследоваться от CentrifugoEvent
+2) Подключить трейт CentrifugoPublishable
+
+* Для публикации в Centrifugo стандартных событий модели как глобальных использовать $dispatchesEvents и ModelCentrifugoEvents
+```
+protected $dispatchesEvents = [
+        'saved' => SavedModelCentrifugoEvent::class,
+        'saving' => SavingModelCentrifugoEvent::class,
+        'retrieved.action' => RetrievedModelCentrifugoEvent::class
+    ];
+```
+
+Формирование списка каналов для публикации:
+```
+1) $service,                                                     // все события сервиса, всегда присутствует
+2) $service . '@' . $event                                       // все определенные события сервиса, всегда присутствует (Например, все UpdatedModelCentrifugoEvent)
+3) $service . '@' . $modelName . '.' . $event,                   // все определенные события одной модели сервиса, присутствует, когда в событии есть модель (Например, все UpdatedModelCentrifugoEvent для модели User)
+4) $service . '@' . $modelName,                                  // все события одной модели сервиса, присутствует, когда в событии есть модель (Например, все события для модели User)
+5) $service . '@' . $modelName . '.' . $modelId . '.' . $event,  // все определенные события одного объекта одной модели сервиса, присутствует, когда в событии есть модель с id (Например, все UpdatedModelCentrifugoEvent для модели User с id=1)
+6) $service . '@' . $modelName . '.' . $modelId,                 // все события одного объекта модели сервиса, присутствует, когда в событии есть модель с id (Например, все события для модели User с id=1)
+```
+
+Формирование сообщения:
+1) Когда в событии есть модель:
+```
+[
+                'type' => 'model_event',
+                'data' => [
+                    'name' => 'updated_model_centrifugo_event',
+                    'model_name' => 'User',
+                    'model_id' => 1,
+                ],
+]
+```
+2) Когда в событии нет модели:
+```
+ [
+                'type' => 'event',
+                'data' => [
+                    'name' => 'test_centrifugo_event',
+                ],
+]
+```
 
 ## Определение обработчиков событий
 
