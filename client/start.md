@@ -29,8 +29,7 @@ this.exampleModelVar = new EgalConstructor(exampleParams)
 exampleParams: {
         modelName: "exampleModelName",
         url: process.env.API_BASE_URL,
-        connectionType: "axios",
-        tokenName: "mandate"
+        connectionType: "axios"
 }
 ```
 
@@ -44,6 +43,9 @@ exampleParams: {
 
 4. Далее можно пользоваться любыми методами модели в любом месте компонента. 
 Полный список доступных методов можно найти [здесь](/client/model.md)
+
+
+Для использования асинхронных запросов без инициализации модели нужно использовать [Action Constructor](/client/action_constructor.md).
 
 
 Стартовые шаблоны для проектов, использующих Vue или Nuxt можно найти по ссылкам:
