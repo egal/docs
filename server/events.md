@@ -37,7 +37,7 @@ class ExampleModel extends EgalModel {
 ### Публикация событий в Centrifugo
 Для реализации событий* с публикацией в Centrifugo предоставляется 2 варианта:
 1) Наследоваться от CentrifugoEvent
-2) Подключить трейт CentrifugoPublishable
+2) Подключить трейт CentrifugoPublishable и интерфейс ShouldBroadcast
 
 * Для публикации в Centrifugo стандартных событий модели как глобальных использовать $dispatchesEvents и ModelCentrifugoEvents
 ```
