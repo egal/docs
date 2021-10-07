@@ -17,6 +17,7 @@
   * [Actions](/client/actions.md)
   * [Models](/client/model.md)
   * [Egal Constructor](/client/egal_constructor.md)
+  * [Action Constructor](/client/action_constructor.md)
   * [Работа с Nuxt](/client/nuxt.md)
   * [Работа с React Native](/client/react_native.md)
   * [Примеры](/client/examples.md)

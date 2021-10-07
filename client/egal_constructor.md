@@ -11,8 +11,6 @@
     let model
     modelParams: {
          modelName: string,
-         userName: string,
-         password: string,
          url: string,
          connectionType: string
     }

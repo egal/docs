@@ -11,8 +11,6 @@
    ```javascript
    let exampleAuthInfo = {
        modelName: 'exampleModelName', 
-       userName: 'admin', 
-       password: 'password', 
        url:'exampleUrl', 
        connectionType: 'axios'
    }
