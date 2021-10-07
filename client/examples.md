@@ -10,11 +10,16 @@ let allMetadata = new GetAllMetaDataAction('auth', 'getAllModelsMetadata', 'Mode
 allMetadata.socketConnect()
 ```
 
+```javascript
+import {ActionConstructor} from '@egalteam/framework/compile/index'
+let constructor = new ActionConstructor
+```
+
 Пример использования `getItems`:
 
 ```javascript
 let orders = [['name', 'desc'], ['id', 'asc']]
-
+let withs = ['firstWith', 'secondWith']
 const filter = [
 {
   field: 'email',
@@ -53,12 +58,13 @@ const filter = [
   }
 }
 ];
+constructor.getItems('microserviceName', 'modelName')
+    .filter(filter)
+    .order(orders)
+    .withs(withs)
+    .call().then((data) => {}).catch((error) => {})
 
-let messageTest = new GetItemsAction('auth', 'User', 'getItems')
-messageTest.actionParameters.orders(orders)
-messageTest.actionParameters.with(['user', 'roles'])
-messageTest.actionParameters.filters(filter)
-messageTest.socketConnect()
+
 ```
 
 Что происходит в примере:
@@ -76,63 +82,53 @@ messageTest.socketConnect()
 
 Все типы фильтрации указаны [здесь](/server/crud/filters.md)
 
-Когда все параметры определены, вызывается метод `socketConnect()` для
-соединения с сервером через сокеты или `axiosConnect()` для соединения
-через HTTP запрос.
-
-Запрос определенных полей возможен только с использованием модели.
+Когда все параметры определены, вызывается метод `getItems()` и нужные для передачи параметров методы.
+Ответ получается с помощью метода call().
 
 `getItem`: запрос `getItem` похож на `getItems`, но дополнительно к
-параметрам обязательно указывается id сущности с помощью метода
-`setId()`
+параметрам обязательно указывается id сущности.
 
 ```javascript
-messageTest.actionParameters.setId(12)
+constructor.getItem('microserviceName', 'modelName', id)
 ```
 
 `create`:
 ```javascript
 let createParams = { email: 'test@createParams.com', password: '123456' }
-let createAction = new CRUDAction('auth', 'User', 'create', createParams)
-createAction.socketConnect()
+constructor.create('microserviceName', 'modelName', createParams)
 ```
 
 `update`:
 ```javascript
 let updateParams = {id:'id обновляемой записи', email:'test@createParamsUpdated.com'}
-let updateAction = new CRUDAction('auth', 'User', 'update', updateParams)
-updateAction.socketConnect()
+constructor.update('microserviceName', 'modelName', updateParams)
 ```
 
 `delete`:
 ```javascript
 let deleteParams = { id: 'id удаляемой записи'}
-let deleteAction = new CRUDAction('auth', 'User', 'delete', deleteParams)
-deleteAction.socketConnect()
+constructor.delete('microserviceName', 'modelName', deleteParams)
 ```
 
 `createMany`:
 
 ```javascript
 let createParams = [{email:'test1@createParams1.com', password: '123456'}, {email:'test2@createManyParams2.com', password: '123456'}]
-let createAction = new CRUDAction('auth', 'User', 'createMany', createParams)
-createAction.socketConnect()
+constructor.createMany('microserviceName', 'modelName', createParams)
 ```
 
 `updateMany`:
 
 ```javascript
 let updateParams = [{id:'', email:'yulya@createParams1Updated.com'}, {id:'', email:'yulya@createManyParams2Updated.com'}]
-let updateAction = new CRUDAction('auth', 'User', 'updateMany', updateParams)
-updateAction.socketConnect()
+constructor.updateMany('microserviceName', 'modelName', updateParams)
 ```
 
 `deleteMany`:
 
 ```javascript
 let deleteParams = ['', '', '']
-let deleteAction = new CRUDAction('auth', 'User', 'deleteMany', deleteParams)
-deleteAction.socketConnect()
+constructor.deleteMany('microserviceName', 'modelName', deleteParams)
 ```
 
 В параметрах указывается массив *id* удаляемых записей
@@ -153,17 +149,15 @@ let actionFilters = [
    }
 ]
 
-let paramsUpdateRaw = { attributes: { name: 'yesname' }, filter: [...actionFilters] }
-let updateRawAction = new CRUDAction('auth', 'User', 'updateManyRaw', paramsUpdateRaw)
-updateRawAction.socketConnect()
+let updateManyWithFilterParams = { attributes: { name: 'yesname' }, filter: [...actionFilters] }
+constructor.updateManyWithFilter('microserviceName', 'modelName', updateManyWithFilterParams)
 ```
 
 `deleteManyRaw`:
 
 ```javascript
 let paramsDeleteRaw = { filter: [...actionFilters] }
-let deleteRawAction = new CRUDAction('auth', 'User', 'deleteManyRaw', paramsDeleteRaw)
-deleteRawAction.socketConnect()
+constructor.deleteManyWithFilter('microserviceName', 'modelName', paramsDeleteRaw)
 ```
 
 
@@ -176,11 +170,8 @@ import { EgalConstructor } from "@egalteam/framework/compile/index";
 
 const exampleParams = {
     modelName: "exampleModelName",
-        userName: process.env.VUE_APP_USERNAME,
-        password: process.env.VUE_APP_PASSWORD,
         url: process.env.API_BASE_URL,
-        connectionType: "axios",
-        tokenName: "mandate"
+        connectionType: "axios"
 }
 this.exampleModelVar = new EgalConstructor(exampleParams)
 

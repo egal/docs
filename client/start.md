@@ -28,8 +28,6 @@ this.exampleModelVar = new EgalConstructor(exampleParams)
 ```javascript
 exampleParams: {
         modelName: "exampleModelName",
-        userName: process.env.VUE_APP_USERNAME,
-        password: process.env.VUE_APP_PASSWORD,
         url: process.env.API_BASE_URL,
         connectionType: "axios",
         tokenName: "mandate"
