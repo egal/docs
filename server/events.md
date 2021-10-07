@@ -35,12 +35,31 @@ class ExampleModel extends EgalModel {
 ```
 
 ### Публикация событий в Centrifugo
-Для реализации событий* с публикацией в Centrifugo предоставляется 2 варианта:
-1) Наследоваться от CentrifugoEvent
-2) Подключить трейт CentrifugoPublishable и интерфейс ShouldBroadcast
+>Для публикации событий в каналы Centrifugo необходимо в `bootstrap/app.php` добавить строку `$app->register(Illuminate\Broadcasting\BroadcastServiceProvider::class);`
+ 
+**1. Публикация кастомных событий**
 
-* Для публикации в Centrifugo стандартных событий модели как глобальных использовать $dispatchesEvents и ModelCentrifugoEvents
+Для реализации событий с публикацией в Centrifugo предоставляется 2 варианта:
+1) Наследоваться от `\Egal\Centrifugo\CentrifugoEvent`
+```php
+class TestEventCentrifugoEvent extends CentrifugoEvent
+{
+    // ...
+}
 ```
+2) Подключить трейт `\Egal\Centrifugo\CenrifugoBroadcastable` и интерфейс `\Illuminate\Contracts\Broadcasting\ShouldBroadcast`
+```php
+class TestEvent implements  ShouldBroadcast
+{
+    use CenrifugoBroadcastable;
+    
+    // ...
+}
+```
+**2. Публикация стандартных событий**
+
+Для публикации в Centrifugo стандартных событий модели использовать `$dispatchesEvents` и `ModelCentrifugoEvents`
+```php
 protected $dispatchesEvents = [
         'saved' => SavedModelCentrifugoEvent::class,
         'saving' => SavingModelCentrifugoEvent::class,
@@ -48,8 +67,8 @@ protected $dispatchesEvents = [
     ];
 ```
 
-Формирование списка каналов для публикации:
-```
+**Формирование списка каналов для публикации**
+```php
 1) $service,                                                     // все события сервиса, всегда присутствует
 2) $service . '@' . $event                                       // все определенные события сервиса, всегда присутствует (Например, все UpdatedModelCentrifugoEvent)
 3) $service . '@' . $modelName . '.' . $event,                   // все определенные события одной модели сервиса, присутствует, когда в событии есть модель (Например, все UpdatedModelCentrifugoEvent для модели User)
@@ -58,25 +77,25 @@ protected $dispatchesEvents = [
 6) $service . '@' . $modelName . '.' . $modelId,                 // все события одного объекта модели сервиса, присутствует, когда в событии есть модель с id (Например, все события для модели User с id=1)
 ```
 
-Формирование сообщения:
+**Формирование сообщения**
 1) Когда в событии есть модель:
-```
+```php
 [
-                'type' => 'model_event',
-                'data' => [
-                    'name' => 'updated_model',
-                    'model_name' => 'User',
-                    'model_id' => 1,
-                ],
+    'type' => 'model_event',
+    'data' => [
+        'name' => 'updated_model',
+        'model_name' => 'User',
+        'model_id' => 1,
+    ]
 ]
 ```
 2) Когда в событии нет модели:
-```
- [
-                'type' => 'event',
-                'data' => [
-                    'name' => 'test_centrifugo_event',
-                ],
+```php
+[
+    'type' => 'event',
+    'data' => [
+        'name' => 'test_centrifugo_event',
+    ]
 ]
 ```
 
@@ -189,6 +208,12 @@ php artisan egal:make:event Example
 
 ```bash
 php artisan egal:make:event Example --global
+```
+
+Команда для генерации файла события для Centrifugo:
+
+```bash
+php artisan egal:make:event Example --centrifugo
 ```
 
 После выполнения этой команды в директории `app/Events` сгенерируется
