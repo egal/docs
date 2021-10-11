@@ -35,7 +35,9 @@ class ExampleModel extends EgalModel {
 ```
 
 ### Публикация событий в Centrifugo
->Для публикации событий в каналы Centrifugo необходимо в `bootstrap/app.php` добавить строку `$app->register(Illuminate\Broadcasting\BroadcastServiceProvider::class);`
+>Для публикации событий в каналы Centrifugo необходимо в `bootstrap/app.php` добавить строки:
+> `$app->register(Illuminate\Broadcasting\BroadcastServiceProvider::class);`
+> `$app->register('Egal\Centrifugo\ServiceProvider');`
  
 **1. Публикация кастомных событий**
 
