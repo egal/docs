@@ -22,6 +22,73 @@ Laravel интегрирован с библиотекой [Monolog](https://git
 - Illuminate\Support\Facades\Log::debug();
 - Illuminate\Support\Facades\Log::log();
 
+## Отладка с помощью xDebug
+
+С помощью расширения xDebug можно пошагово выполнять код, просматривая при этом содержание переменных. 
+С этой и другими возможностями xDebug можно ознакомиться подробнее в [официальной документации](https://xdebug.org/docs/)
+
+### Установка xDebug
+
+В Dockerfile необходимо добавить установку xDebug и включение php-расширения:
+```php
+...
+
+RUN pecl install xdebug \
+&& docker-php-ext-enable xdebug
+
+...
+ 
+USER $user
+```
+
+### Конфигурирование xDebug в контейнерах
+Необходимо добавить в контейнер следующие конфигурационны файлы:
+```php
+  service-name:
+  environment:
+      APP_SERVICE_NAME: service-name
+      ...
+      PHP_IDE_CONFIG: "serverName=service-name"
+    volumes:
+      - ./server/service-name:/app
+      - ./server/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./server/xdebug/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+```
+Пример error_reporting.ini:
+```php
+error_reporting=E_ALL
+```
+Пример xdebug.ini:
+```php
+zend_extension=xdebug
+
+[xdebug]
+xdebug.mode=debug
+xdebug.client_host=ip_address
+xdebug.client_port=9003
+xdebug.discover_client_host=0
+xdebug.start_with_request=yes
+```
+### Конфигурирование xDebug в PHPSTORM
+Требуется создать конфигурацию сервера отладки PHP и указать путь до проекта в контейнере:
+
+![Добавление сервера](img_1.png)
+
+Следующим шагом нужно указать порт для xDebug:
+
+![Настройки xDebug](img_2.png)
+
+Из файла docker-compose.yml необходимо добавить CLI интерпретатор:
+
+![Добавление интерпретатора 1](img_3.png)
+![Добавление интерпретатора 2](img_4.png)
+![Добавление интерпретатора 3](img_5.png)
+
+Если необходимо произвести отладку консольной команды, добавьте конфигурации, указав путь до команды и аргументы.
+Пример конфигурации для команды artisan debug:
+
+![Конфигурация отладки консольной команды](img_6.png)
+
 ## Примеры использования:
 
 ### Логирование в файл
