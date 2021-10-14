@@ -42,15 +42,17 @@ USER $user
 ```
 
 ### Конфигурирование xDebug в контейнерах
-Необходимо добавить в контейнер следующие конфигурационны файлы:
+В docker-compose.yml контейнеру необходимо добавить volumes для конфигурационных файлов error_reporting.ini и xdebug.ini
+и установить в environment значение переменной PHP_IDE_CONFIG. Пример с частью docker-compose.yml:
 ```php
-  service-name:
+  core-service:
   environment:
-      APP_SERVICE_NAME: service-name
+      APP_SERVICE_NAME: core
       ...
-      PHP_IDE_CONFIG: "serverName=service-name"
+      PHP_IDE_CONFIG: "serverName=core"
     volumes:
-      - ./server/service-name:/app
+      - ./server/core:/app
+     ...
       - ./server/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - ./server/xdebug/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
 ```
@@ -64,30 +66,32 @@ zend_extension=xdebug
 
 [xdebug]
 xdebug.mode=debug
-xdebug.client_host=ip_address
+xdebug.client_host={{ip адрес, с которого выполняется отладка}}
 xdebug.client_port=9003
 xdebug.discover_client_host=0
 xdebug.start_with_request=yes
 ```
 ### Конфигурирование xDebug в PHPSTORM
-Требуется создать конфигурацию сервера отладки PHP и указать путь до проекта в контейнере:
+Требуется создать конфигурацию сервера отладки PHP и указать путь до проекта в контейнере. Пример настроек:
 
-![Добавление сервера](img_1.png)
+<img alt="img_7.png" src="/server/logging/xdebug_servers.png" width="600"/>
 
 Следующим шагом нужно указать порт для xDebug:
 
-![Настройки xDebug](img_2.png)
+<img alt="Настройки xDebug" src="/server/logging/xdebug_debug.png" width="600"/>
 
 Из файла docker-compose.yml необходимо добавить CLI интерпретатор:
 
-![Добавление интерпретатора 1](img_3.png)
-![Добавление интерпретатора 2](img_4.png)
-![Добавление интерпретатора 3](img_5.png)
+<img alt="Добавление интерпретатора 1" src="/server/logging/xdebug_cli_interpreter_1.png" width="1013"/>
+
+<img alt="Добавление интерпретатора 2" src="/server/logging/xdebug_cli_interpreter_2.png" height="235"/>
+
+<img alt="Добавление интерпретатора 3" src="/server/logging/xdebug_cli_interpreter_3.png" height="235"/>
 
 Если необходимо произвести отладку консольной команды, добавьте конфигурации, указав путь до команды и аргументы.
 Пример конфигурации для команды artisan debug:
 
-![Конфигурация отладки консольной команды](img_6.png)
+<img alt="Конфигурация отладки консольной команды" src="/server/logging/xdebug_configurations.png" width="600"/>
 
 ## Примеры использования:
 
