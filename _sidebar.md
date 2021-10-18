@@ -18,6 +18,7 @@
   * [Models](/client/model.md)
   * [Egal Constructor](/client/egal_constructor.md)
   * [Action Constructor](/client/action_constructor.md)
+  * [Validation Constructor](/client/validation.md)
   * [Работа с Nuxt](/client/nuxt.md)
   * [Примеры](/client/examples.md)
   * [Cookbook]()
