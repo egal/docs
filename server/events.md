@@ -98,7 +98,55 @@ protected $dispatchesEvents = [
     ]
 ]
 ```
+**Переопредедение метода формирования каналов**
 
+В качестве примера рассмотрим ситуацию, когда помимо своего канала события модели необходимо отправлять в канал связанной сущности.
+Например, представим, что есть рейс Voyage, связанный с многими грузами Cargo. Если указать в модели Cargo следующим образом событие
+SavedModelCentrifugoEvent, оно будет публиковаться только в канал модели Cargo:
+```php
+class Cargo extends Model
+{
+    protected $dispatchesEvents = [
+        'saved' => SavedModelCentrifugoEvent::class
+    ];
+    
+    ...
+}
+```
+В ситуации, когда есть потребность публиковать событие в каналы, например, связанного с грузом рейса реализуем собственное
+событие SavedCargoCentrifugoEvent, наследуясь от SavedModelCentrifugoEvent:
+
+```php
+class Cargo extends Model
+{
+    protected $dispatchesEvents = [
+        'saved' => SavedCargoCentrifugoEvent::class
+    ];
+
+    public function voyage(): BelongsTo
+    {
+        return $this->belongsTo(Voyage::class);
+    }
+}
+```
+```php
+class SavedCargoCentrifugoEvent extends SavedModelCentrifugoEvent
+{
+    public function broadcastOn(): array
+    {
+        $voyage = $this->entity->voyage()->first();
+        $service = config('app.service_name');
+
+        $channels = parent::broadcastOn();
+        $voyageChannel = $service . '@' . get_class_short_name($voyage) . '.' . $voyage->id;
+        $channels[] = $voyageChannel;
+        
+        return $channels;
+    }
+}
+```
+В результате чего событие сохранения груза будет публиковаться не только в канал груза, но и в канал связанного с ним рейса.
+Таким образом можно расширять стандартный список каналов для публикации собыития или же переопределять публикуемое сообщение.
 ## Определение обработчиков событий
 
 Обработчики определяются в файле `app/Providers/EventServiceProvider`.
