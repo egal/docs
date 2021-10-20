@@ -101,10 +101,10 @@ protected $dispatchesEvents = [
 **Переопредедение метода формирования каналов**
 
 В качестве примера рассмотрим ситуацию, когда помимо своего канала события модели необходимо отправлять в канал связанной сущности.
-Например, представим, что есть рейс Voyage, связанный с многими грузами Cargo. Если указать в модели Cargo следующим образом событие
-SavedModelCentrifugoEvent, оно будет публиковаться только в канал модели Cargo:
+Например, представим, что есть сущность ParentEntity, имеющая связь 1:М с сущностью ChildEntity. Если указать в модели 
+ChildEntity следующим образом событие SavedModelCentrifugoEvent, оно будет публиковаться только в канал модели ChildEntity:
 ```php
-class Cargo extends Model
+class ChildEntity extends Model
 {
     protected $dispatchesEvents = [
         'saved' => SavedModelCentrifugoEvent::class
@@ -113,39 +113,39 @@ class Cargo extends Model
     ...
 }
 ```
-В ситуации, когда есть потребность публиковать событие в каналы, например, связанного с грузом рейса реализуем собственное
-событие SavedCargoCentrifugoEvent, наследуясь от SavedModelCentrifugoEvent:
+В ситуации, когда есть потребность публиковать событие в канал, например, связанного с экземпляром ChildEntity экземпляра 
+ParentEntity, реализуем собственное событие SavedChildEntityCentrifugoEvent, наследуясь от SavedModelCentrifugoEvent:
 
 ```php
-class Cargo extends Model
+class ChildEntity extends Model
 {
     protected $dispatchesEvents = [
-        'saved' => SavedCargoCentrifugoEvent::class
+        'saved' => SavedChildEntityCentrifugoEvent::class
     ];
 
-    public function voyage(): BelongsTo
+    public function parentEntity(): BelongsTo
     {
-        return $this->belongsTo(Voyage::class);
+        return $this->belongsTo(ParentEntity::class);
     }
 }
 ```
 ```php
-class SavedCargoCentrifugoEvent extends SavedModelCentrifugoEvent
+class SavedChildEntityCentrifugoEvent extends SavedModelCentrifugoEvent
 {
     public function broadcastOn(): array
     {
-        $voyage = $this->entity->voyage()->first();
+        $parentEntity = $this->entity->parentEntity()->first();
         $service = config('app.service_name');
 
         $channels = parent::broadcastOn();
-        $voyageChannel = $service . '@' . get_class_short_name($voyage) . '.' . $voyage->id;
-        $channels[] = $voyageChannel;
+        $parentEntityChannel = $service . '@' . get_class_short_name($parentEntity) . '.' . $parentEntity->id;
+        $channels[] = $parentEntityChannel;
         
         return $channels;
     }
 }
 ```
-В результате чего событие сохранения груза будет публиковаться не только в канал груза, но и в канал связанного с ним рейса.
+В результате чего событие сохранения ChildEntity будет публиковаться не только в каналы сущности ChildEntity, но и в канал связанного с ним экземпляра ParentEntity.
 Таким образом можно расширять стандартный список каналов для публикации собыития или же переопределять публикуемое сообщение.
 ## Определение обработчиков событий
 
