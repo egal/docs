@@ -12,7 +12,7 @@ $request = new \Egal\Core\Communication\Request(
     'first', // Сервис назначения запроса
     'Model', // К какой модели обращение
     'test', // К какому действию обращение
-    [], // Параметры действия
+    ['attributes' => ['name' => 'test 1']], // Параметры действия
 );
 ```
 
@@ -27,7 +27,7 @@ $request = new \Egal\Core\Communication\Request(
  */
 class Model extends EgalModel
 {
-    public static function actionTest() {/*...*/}
+    public static function actionTest(array $attributes = []) {/*...*/}
     public static function actionChecks() {/*...*/}
 }
 ```
