@@ -74,6 +74,7 @@ interface-service:
 | PROJECT_NAME                | Название проекта.                                                                                        | Строка                                       |
 | APP_SERVICE_NAME            | Название сервиса.                                                                                        | Строка                                       |
 | APP_SERVICE_KEY             | Ключ, используемый для подписи UMT (User Master Token).                                                  | Строка                                       |
+| APP_SERVICES                | Все сервисы проекта и их ключи для регистрации в сервисе авторизаци.                                     | Строка                                       |
 | WAIT_HOSTS                  | Перечень хостов, перечисленных через запятую, которых должен ждать текущий контейнер, чтобы загрузиться. | Хост вида: project-rabbitmq:5672             |
 | APP_NAME                    | Название приложения, см. [Lumen Configuration](https://lumen.laravel.com/docs/8.x/configuration)         | Строка                                       |
 | APP_ENV                     | Определяет рабочую среду см. [Lumen Configuration](https://lumen.laravel.com/docs/8.x/configuration)     | local, dev, development, staging, production |
