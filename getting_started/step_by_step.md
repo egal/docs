@@ -102,6 +102,7 @@ services:
   environment:
     APP_SERVICE_NAME: auth
     APP_SERVICE_KEY: uZn35FJAx@sg*eczrv6ITjLVWU#Xiw2Y
+    APP_SERVICES: monolit:B#J5mUWKh8FqzQ6Tj0XtYruIcSwpb@ed
     DB_HOST: ${PROJECT_NAME}-database
     DB_PASSWORD: ${DATABASE_PASSWORD:-password}
     RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
@@ -530,21 +531,6 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/register
-```
-
-Так как это "чистый" проект, то сервис авторизации не знает о
-существовании сервиса `monolit`.
-
-Заходим в контейнер
-
-```shell
-docker-compose exec auth-service bash
-```
-
-Регистрируем `monolit`
-
-```shell
-php artisan egal:register:service monolit B#J5mUWKh8FqzQ6Tj0XtYruIcSwpb@ed
 ```
 
 Получаем master token

@@ -41,17 +41,21 @@ class ExampleModel extends EgalModel {
 > 
 > `$app->register(Egal\Centrifugo\ServiceProvider::class);`
  
-**1. Публикация кастомных событий**
+#### Публикация кастомных событий
 
 Для реализации событий с публикацией в Centrifugo предоставляется 2 варианта:
+
 1) Наследоваться от `\Egal\Centrifugo\CentrifugoEvent`
+
 ```php
 class TestEventCentrifugoEvent extends CentrifugoEvent
 {
     // ...
 }
 ```
+
 2) Подключить трейт `\Egal\Centrifugo\CenrifugoBroadcastable` и интерфейс `\Illuminate\Contracts\Broadcasting\ShouldBroadcast`
+
 ```php
 class TestEvent implements  ShouldBroadcast
 {
@@ -60,9 +64,11 @@ class TestEvent implements  ShouldBroadcast
     // ...
 }
 ```
-**2. Публикация стандартных событий**
+
+#### Публикация стандартных событий
 
 Для публикации в Centrifugo стандартных событий модели использовать `$dispatchesEvents` и `ModelCentrifugoEvents`
+
 ```php
 protected $dispatchesEvents = [
         'saved' => SavedModelCentrifugoEvent::class,
@@ -71,7 +77,8 @@ protected $dispatchesEvents = [
     ];
 ```
 
-**Формирование списка каналов для публикации**
+#### Формирование списка каналов для публикации
+
 ```php
 1) $service,                                                     // все события сервиса, всегда присутствует
 2) $service . '@' . $event                                       // все определенные события сервиса, всегда присутствует (Например, все UpdatedModelCentrifugoEvent)
@@ -81,8 +88,10 @@ protected $dispatchesEvents = [
 6) $service . '@' . $modelName . '.' . $modelId,                 // все события одного объекта модели сервиса, присутствует, когда в событии есть модель с id (Например, все события для модели User с id=1)
 ```
 
-**Формирование сообщения**
+#### Формирование сообщения
+
 1) Когда в событии есть модель:
+
 ```php
 [
     'type' => 'model_event',
@@ -93,7 +102,9 @@ protected $dispatchesEvents = [
     ]
 ]
 ```
+
 2) Когда в событии нет модели:
+
 ```php
 [
     'type' => 'event',
@@ -102,6 +113,62 @@ protected $dispatchesEvents = [
     ]
 ]
 ```
+
+#### Переопредедение метода формирования каналов
+
+В качестве примера рассмотрим ситуацию, когда помимо своего канала события модели необходимо отправлять в канал связанной сущности.
+
+Например, представим, что есть сущность ParentEntity, имеющая связь 1:М с сущностью ChildEntity. Если указать в модели
+ChildEntity следующим образом событие SavedModelCentrifugoEvent, оно будет публиковаться только в канал модели ChildEntity:
+
+```php
+class ChildEntity extends Model
+{
+    protected $dispatchesEvents = [
+        'saved' => SavedModelCentrifugoEvent::class
+    ];
+    
+    ...
+}
+```
+
+В ситуации, когда есть потребность публиковать событие в канал, например, связанного с экземпляром ChildEntity экземпляра 
+ParentEntity, реализуем собственное событие SavedChildEntityCentrifugoEvent, наследуясь от SavedModelCentrifugoEvent:
+
+```php
+class ChildEntity extends Model
+{
+    protected $dispatchesEvents = [
+        'saved' => SavedChildEntityCentrifugoEvent::class
+    ];
+
+    public function parentEntity(): BelongsTo
+    {
+        return $this->belongsTo(ParentEntity::class);
+    }
+}
+```
+
+```php
+class SavedChildEntityCentrifugoEvent extends SavedModelCentrifugoEvent
+{
+    public function broadcastOn(): array
+    {
+        $parentEntity = $this->entity->parentEntity()->first();
+        $service = config('app.service_name');
+
+        $channels = parent::broadcastOn();
+        $parentEntityChannel = $service . '@' . get_class_short_name($parentEntity) . '.' . $parentEntity->id;
+        $channels[] = $parentEntityChannel;
+        
+        return $channels;
+    }
+}
+```
+
+В результате чего событие сохранения ChildEntity будет публиковаться не только в каналы сущности ChildEntity, но и в канал связанного с ним экземпляра ParentEntity.
+
+Таким образом можно расширять стандартный список каналов для публикации собыития или же переопределять публикуемое сообщение.
 
 ## Определение обработчиков событий
 
