@@ -21,6 +21,8 @@
   * [Validation]()
     * [Validation Constructor](/client/validation.md)
     * [Validation Rules](/client/validation_rules.md)
+  * [Фильтрация, сортировка и пагинация](/client/filters_orders.md)
+  * [Работа с Nuxt](/client/nuxt.md)
   * [Работа с Nuxt](/client/nuxt.md)
   * [Работа с React Native](/client/react_native.md)
   * [Примеры](/client/examples.md)
