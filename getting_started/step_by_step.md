@@ -527,13 +527,13 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 модели разрешения для guest - изменим `{@statuses-access guest|logged}`
 на `{@statuses-access logged}`
 
-Зарегистрируем нового пользователя.
+Зарегистрируем нового пользователя:
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/register
 ```
 
-Получаем user master token
+Получаем `user master token`:
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/login
@@ -602,14 +602,14 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", 
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4
 ```
 
-Теперь нужно получить user service token, чтобы мы могли делать запросы на
-защищенные пути нашего сервиса. В данный запрос необходимо передать полученный user master token:
+Теперь нужно получить `user service token`, чтобы мы могли делать запросы на
+защищенные пути нашего сервиса. В данный запрос необходимо передать полученный `user master token`:
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImFsaXZlX3VudGlsIjoiMjAyMS0xMS0wM1QwODozOToyOC43Mjk1NTBaIn0.7cWYVaMRl8Mzq-ahMWobl-WKzTTJTo2AIHXV9kA6PGE", "service_name": "monolit"}' http://localhost:81/auth/User/loginToService
 ```
 
-Ответ
+Ответ:
 
 ```json
 {
@@ -663,7 +663,7 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1Q
 }
 ```
 
-Попробуем сделать запрос в наш сервис с полученным user service token:
+Попробуем сделать запрос в наш сервис с полученным `user service token`:
 
 ```shell
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOltdfSwiYWxpdmVfdW50aWwiOiIyMDIxLTA0LTI4VDA4OjExOjM1LjIyMzUzNFoifQ.oonpQvvOAycWg5W2Bkh_fvETQofLs6Wc0J3Y5eT3c04" http://localhost:81/monolit/Speaker/getItems
@@ -673,12 +673,12 @@ curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0Iiw
 раз. Если возникают ошибки — требуется проверить каждый шаг с самого
 начала.
 
-Если user master token устарел, его можно обновить с помощью user master refresh token, полученном в ответе на запрос User/login:
+Если `user master token` устарел, его можно обновить с помощью `user master refresh token`, полученном в ответе на запрос User/login:
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6Mzk6MjguNzI5NjMyWiJ9.F7GEfMMXk1JcYgQUlaZ81mrAW_ua-4uodQUAox--KNk"}' http://localhost:81/auth/User/refreshUserMasterToken
 ```
-В ответ на запрос приходит новая пара user master token и user master refresh token:
+В ответ на запрос приходит новая пара `user master token` и `user master refresh token`:
 
 ```json
 {
