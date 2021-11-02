@@ -533,10 +533,10 @@ curl http://localhost:81/monolit/WorkingTime/getItems
 curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/register
 ```
 
-Получаем master token
+Получаем user master token
 
 ```shell
-curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/loginByEmailAndPassword
+curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", "password": "qazwsx"}' http://localhost:81/auth/User/login
 ```
 
 Ответ:
@@ -544,51 +544,52 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", 
 ```json
 {
   "action": {
-    "response": {},
-    "connection": {},
     "type": "action",
     "service_name": "auth",
     "model_name": "User",
-    "action_name": "loginByEmailAndPassword",
+    "action_name": "login",
     "parameters": {
       "email": "ivan@mail.ru",
       "password": "qazwsx"
     },
     "token": null,
-    "uuid": "dec38c4e-c09c-412b-8225-6038aa39258d"
+    "uuid": "e47f2afa-1902-43d2-ade5-c1f17ec51312"
   },
   "start_processing": {
     "type": "start_processing",
-    "started_at": "2021-04-28T06:17:27.493838Z",
-    "uuid": "9be6e7b9-2f31-4062-b5c6-5f3413882e86",
+    "started_at": "2021-11-02T08:39:28.673032Z",
+    "uuid": "c055b157-f582-4f7e-8a18-f643681f031c",
     "action_message": {
       "type": "action",
       "service_name": "auth",
       "model_name": "User",
-      "action_name": "loginByEmailAndPassword",
+      "action_name": "login",
       "parameters": {
         "email": "ivan@mail.ru",
         "password": "qazwsx"
       },
       "token": null,
-      "uuid": "dec38c4e-c09c-412b-8225-6038aa39258d"
+      "uuid": "e47f2afa-1902-43d2-ade5-c1f17ec51312"
     }
   },
   "action_result": {
     "type": "action_result",
-    "data": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4",
-    "uuid": "2cb792f4-6a42-4cc8-ac20-9f9d24c09354",
+    "data": {
+      "user_master_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImFsaXZlX3VudGlsIjoiMjAyMS0xMS0wM1QwODozOToyOC43Mjk1NTBaIn0.7cWYVaMRl8Mzq-ahMWobl-WKzTTJTo2AIHXV9kA6PGE",
+      "user_master_refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6Mzk6MjguNzI5NjMyWiJ9.F7GEfMMXk1JcYgQUlaZ81mrAW_ua-4uodQUAox--KNk"
+    },
+    "uuid": "8430ed91-7a7e-41ab-8d97-bcf194bfc19b",
     "action_message": {
       "type": "action",
       "service_name": "auth",
       "model_name": "User",
-      "action_name": "loginByEmailAndPassword",
+      "action_name": "login",
       "parameters": {
         "email": "ivan@mail.ru",
         "password": "qazwsx"
       },
       "token": null,
-      "uuid": "dec38c4e-c09c-412b-8225-6038aa39258d"
+      "uuid": "e47f2afa-1902-43d2-ade5-c1f17ec51312"
     }
   },
   "action_error": null
@@ -601,11 +602,11 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"email": "ivan@mail.ru", 
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4
 ```
 
-Теперь нужно получить service token, чтобы мы могли делать запросы на
-защищенные пути нашего сервиса
+Теперь нужно получить user service token, чтобы мы могли делать запросы на
+защищенные пути нашего сервиса. В данный запрос необходимо передать полученный user master token:
 
 ```shell
-curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4", "service_name": "monolit"}' http://localhost:81/auth/User/loginToService
+curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImFsaXZlX3VudGlsIjoiMjAyMS0xMS0wM1QwODozOToyOC43Mjk1NTBaIn0.7cWYVaMRl8Mzq-ahMWobl-WKzTTJTo2AIHXV9kA6PGE", "service_name": "monolit"}' http://localhost:81/auth/User/loginToService
 ```
 
 Ответ
@@ -613,58 +614,56 @@ curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1Q
 ```json
 {
   "action": {
-    "response": {},
-    "connection": {},
     "type": "action",
     "service_name": "auth",
     "model_name": "User",
     "action_name": "loginToService",
     "parameters": {
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4",
-      "service_name": "monolit"
+      "service_name": "core",
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImFsaXZlX3VudGlsIjoiMjAyMS0xMS0wM1QwODozOToyOC43Mjk1NTBaIn0.7cWYVaMRl8Mzq-ahMWobl-WKzTTJTo2AIHXV9kA6PGE"
     },
     "token": null,
-    "uuid": "bc4eb176-6a98-4deb-a4c4-be372864c4dc"
+    "uuid": "2e4ad88f-ad11-4b84-b8fa-e2a6c4d18cd4"
   },
   "start_processing": {
     "type": "start_processing",
-    "started_at": "2021-04-28T08:01:35.214688Z",
-    "uuid": "a36d9b2c-b288-404b-8017-051990c04784",
+    "started_at": "2021-11-02T08:41:21.140022Z",
+    "uuid": "c5321643-3e9f-4e03-b617-ed5e953afd31",
     "action_message": {
       "type": "action",
       "service_name": "auth",
       "model_name": "User",
       "action_name": "loginToService",
       "parameters": {
-        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4",
-        "service_name": "monolit"
+        "service_name": "core",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImFsaXZlX3VudGlsIjoiMjAyMS0xMS0wM1QwODozOToyOC43Mjk1NTBaIn0.7cWYVaMRl8Mzq-ahMWobl-WKzTTJTo2AIHXV9kA6PGE"
       },
       "token": null,
-      "uuid": "bc4eb176-6a98-4deb-a4c4-be372864c4dc"
+      "uuid": "2e4ad88f-ad11-4b84-b8fa-e2a6c4d18cd4"
     }
   },
   "action_result": {
     "type": "action_result",
-    "data": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOltdfSwiYWxpdmVfdW50aWwiOiIyMDIxLTA0LTI4VDA4OjExOjM1LjIyMzUzNFoifQ.oonpQvvOAycWg5W2Bkh_fvETQofLs6Wc0J3Y5eT3c04",
-    "uuid": "4e520fb5-9b23-4f40-be76-6ac826380b35",
+    "data": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDJUMDg6Mzk6MDguMDAwMDAwWiIsInVwZGF0ZWRfYXQiOiIyMDIxLTExLTAyVDA4OjM5OjA4LjAwMDAwMFoiLCJhdXRoX2lkZW50aWZpY2F0aW9uIjoiNzMwYTUxOTUtZjZhOS00NGRkLWFjYjEtZmE2ZGE0OGFmZTM4Iiwicm9sZXMiOltdLCJwZXJtaXNzaW9ucyI6W119LCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDJUMDg6NTE6MjEuMTQxNzg5WiJ9.sG8V6360lX8hWkcPHkr2VpGbxU5vXeQ-4CcjuKJJb1s",
+    "uuid": "9595d2b7-f844-4391-bbe6-e69e83b5afd6",
     "action_message": {
       "type": "action",
       "service_name": "auth",
       "model_name": "User",
       "action_name": "loginToService",
       "parameters": {
-        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImFsaXZlX3VudGlsIjoiMjAyMS0wNC0yOVQwODowMDoyMi4zMjEyNzJaIn0.8MNzIB137LC1QYIOt7Io3zTfSO9xUbklaTn5xB_7yP4",
-        "service_name": "monolit"
+        "service_name": "core",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImFsaXZlX3VudGlsIjoiMjAyMS0xMS0wM1QwODozOToyOC43Mjk1NTBaIn0.7cWYVaMRl8Mzq-ahMWobl-WKzTTJTo2AIHXV9kA6PGE"
       },
       "token": null,
-      "uuid": "bc4eb176-6a98-4deb-a4c4-be372864c4dc"
+      "uuid": "2e4ad88f-ad11-4b84-b8fa-e2a6c4d18cd4"
     }
   },
   "action_error": null
 }
 ```
 
-Попробуем сделать запрос в наш сервис с полученным token:
+Попробуем сделать запрос в наш сервис с полученным user service token:
 
 ```shell
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0IiwiYXV0aF9pbmZvcm1hdGlvbiI6eyJpZCI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsImVtYWlsIjoiaXZhbkBtYWlsLnJ1IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjU1MDcwNjQzLTMzOTAtNDM4My1hYzA0LWM3ODM4NzdmZGYwMiIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOltdfSwiYWxpdmVfdW50aWwiOiIyMDIxLTA0LTI4VDA4OjExOjM1LjIyMzUzNFoifQ.oonpQvvOAycWg5W2Bkh_fvETQofLs6Wc0J3Y5eT3c04" http://localhost:81/monolit/Speaker/getItems
@@ -674,6 +673,64 @@ curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0Iiw
 раз. Если возникают ошибки — требуется проверить каждый шаг с самого
 начала.
 
+Если user master token устарел, его можно обновить с помощью user master refresh token, полученном в ответе на запрос User/login:
+
+```shell
+curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6Mzk6MjguNzI5NjMyWiJ9.F7GEfMMXk1JcYgQUlaZ81mrAW_ua-4uodQUAox--KNk"}' http://localhost:81/auth/User/refreshUserMasterToken
+```
+В ответ на запрос приходит новая пара user master token и user master refresh token:
+
+```json
+{
+  "action": {
+    "type": "action",
+    "service_name": "auth",
+    "model_name": "User",
+    "action_name": "refreshUserMasterToken",
+    "parameters": {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6Mzk6MjguNzI5NjMyWiJ9.F7GEfMMXk1JcYgQUlaZ81mrAW_ua-4uodQUAox--KNk"
+    },
+    "token": null,
+    "uuid": "5640c17a-8ab7-4315-b884-f7ee8c9b5339"
+  },
+  "start_processing": {
+    "type": "start_processing",
+    "started_at": "2021-11-02T08:50:57.741453Z",
+    "uuid": "0c9eb7ce-6bac-45c0-b8b7-2089c0e33089",
+    "action_message": {
+      "type": "action",
+      "service_name": "auth",
+      "model_name": "User",
+      "action_name": "refreshUserMasterToken",
+      "parameters": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6Mzk6MjguNzI5NjMyWiJ9.F7GEfMMXk1JcYgQUlaZ81mrAW_ua-4uodQUAox--KNk"
+      },
+      "token": null,
+      "uuid": "5640c17a-8ab7-4315-b884-f7ee8c9b5339"
+    }
+  },
+  "action_result": {
+    "type": "action_result",
+    "data": {
+      "user_master_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW10IiwiYXV0aF9pZGVudGlmaWNhdGlvbiI6IjczMGE1MTk1LWY2YTktNDRkZC1hY2IxLWZhNmRhNDhhZmUzOCIsImFsaXZlX3VudGlsIjoiMjAyMS0xMS0wM1QwODo1MDo1Ny43NDI5NDVaIn0.RQdL1i2Z5nCoiYfHD73Zm8FoC0d7c6Widklc9H0RSeE",
+      "user_master_refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6NTA6NTcuNzQyOTgwWiJ9.Eay6shqrVmh2_-lFq7vYeb_CgTVV5ZP7Xb04okGULak"
+    },
+    "uuid": "c4cd83c8-96cf-42a7-96bc-a4963ff97502",
+    "action_message": {
+      "type": "action",
+      "service_name": "auth",
+      "model_name": "User",
+      "action_name": "refreshUserMasterToken",
+      "parameters": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6Mzk6MjguNzI5NjMyWiJ9.F7GEfMMXk1JcYgQUlaZ81mrAW_ua-4uodQUAox--KNk"
+      },
+      "token": null,
+      "uuid": "5640c17a-8ab7-4315-b884-f7ee8c9b5339"
+    }
+  },
+  "action_error": null
+}
+```
 
 ## Заключение
 
