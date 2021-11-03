@@ -74,24 +74,24 @@ xdebug.start_with_request=yes
 ### Конфигурирование xDebug в PHPSTORM
 Требуется создать конфигурацию сервера отладки PHP и указать путь до проекта в контейнере. Пример настроек:
 
-<img alt="img_7.png" src="/server/logging/xdebug_servers.png" width="600"/>
+![Конфигурация сервера](xdebug_servers.png)
 
 Следующим шагом нужно указать порт для xDebug:
 
-<img alt="Настройки xDebug" src="/server/logging/xdebug_debug.png" width="600"/>
+![Настройки xDebug](xdebug_debug.png)
 
 Из файла docker-compose.yml необходимо добавить CLI интерпретатор:
 
-<img alt="Добавление интерпретатора 1" src="/server/logging/xdebug_cli_interpreter_1.png" width="1013"/>
+![Добавление интерпретатора 1](xdebug_cli_interpreter_1.png)
 
-<img alt="Добавление интерпретатора 2" src="/server/logging/xdebug_cli_interpreter_2.png" height="235"/>
+![Добавление интерпретатора 2](xdebug_cli_interpreter_2.png)
 
-<img alt="Добавление интерпретатора 3" src="/server/logging/xdebug_cli_interpreter_3.png" height="235"/>
+![Добавление интерпретатора 3](xdebug_cli_interpreter_3.png)
 
-Если необходимо произвести отладку консольной команды, добавьте конфигурации, указав путь до команды и аргументы.
+Для отладки консольной команды, добавьте конфигурации, указав путь до команды и аргументы.
 Пример конфигурации для команды artisan debug:
 
-<img alt="Конфигурация отладки консольной команды" src="/server/logging/xdebug_configurations.png" width="600"/>
+![Конфигурация отладки консольной команды](xdebug_configurations.png)
 
 ## Примеры использования:
 
