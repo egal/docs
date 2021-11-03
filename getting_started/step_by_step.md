@@ -673,7 +673,7 @@ curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidXN0Iiw
 раз. Если возникают ошибки — требуется проверить каждый шаг с самого
 начала.
 
-Если `user master token` устарел, его можно обновить с помощью `user master refresh token`, полученном в ответе на запрос User/login:
+Если `user master token` устарел, его можно обновить с помощью `user master refresh token`, полученного в ответе на запрос User/login:
 
 ```shell
 curl -iLXPOST -H "Content-Type: application/json" -d '{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoidW1ydCIsImF1dGhfaWRlbnRpZmljYXRpb24iOiI3MzBhNTE5NS1mNmE5LTQ0ZGQtYWNiMS1mYTZkYTQ4YWZlMzgiLCJhbGl2ZV91bnRpbCI6IjIwMjEtMTEtMDlUMDg6Mzk6MjguNzI5NjMyWiJ9.F7GEfMMXk1JcYgQUlaZ81mrAW_ua-4uodQUAox--KNk"}' http://localhost:81/auth/User/refreshUserMasterToken
