@@ -318,6 +318,8 @@ php artisan egal:make:listener Example --global
 |       Событие       | В какой момент наступает событие       |
 |:-------------------:|:---------------------------------------|
 |      retrieved      | После получения данных.                |
+|      validating     | Перед валидацией модели.               |
+|      validated      | После валидации модели.                |
 |       saving        | В момент сохранения модели.            |
 |        saved        | После сохранения.                      |
 |      creating       | В момент создания.                     |
@@ -327,6 +329,8 @@ php artisan egal:make:listener Example --global
 |      deleting       | В момент удаления.                     |
 |       deleted       | После удаления.                        |
 | retrievedWithAction | После получения данных в action.       |
+| validatingWithAction| Перед валидацией модели в action.      |
+| validatedWithAction | После валидации модели в action.       |
 |  savingWithAction   | В момент сохранения в модели в action. |
 |   savedWithAction   | После сохранения в action.             |
 | creatingWithAction  | В момент создания модели в action.     |
