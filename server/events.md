@@ -40,7 +40,17 @@ class ExampleModel extends EgalModel {
 >`$app->register(Illuminate\Broadcasting\BroadcastServiceProvider::class);`
 > 
 > `$app->register(Egal\Centrifugo\ServiceProvider::class);`
- 
+
+>По умолчанию фреймворк устанавливает `sync` в качестве драйвера подключения очередей для публикации событий.
+>Поэтому в файле `config/queue.php` должны быть указаны конфигурации подключения для `sync` драйвера: 
+>```php
+>'connections' => [
+>       // ...
+>        'sync' => ['driver' => 'sync'],
+>       // ...
+>    ],
+>```
+
 #### Публикация кастомных событий
 
 Для реализации событий с публикацией в Centrifugo предоставляется 2 варианта:
@@ -128,7 +138,7 @@ class ChildEntity extends Model
         'saved' => SavedModelCentrifugoEvent::class
     ];
     
-    ...
+    // ...
 }
 ```
 
