@@ -3,7 +3,7 @@
 1. Импортируем класс конструктора авторизации в компонент:
 
    ```javascript
-   import {EgalAuthConstructor} from '@egalteam/framework/compile/index.js';
+   import {EgalAuthConstructor} from '@egalteam/framework';
    ```
 
 2. Инициализируем экземпляр класса и передаем в него информацию, необходимую для его корректной работы:
@@ -44,7 +44,7 @@ function auth() {
 }
 
 function loginToService(data: any) {
-    let loginData = {service_name: 'microservice name', token: token from data}
+    let loginData = {service_name: 'microservice name', token: token_from_data}
     egalAuthExample.loginToService(loginData).then((data) => {
     }).catch((error) => {
     })
