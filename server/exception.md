@@ -93,6 +93,8 @@ class FooInternalException extends InternalException
     
 }
 ```
+>
+> Если нет возможности использовать наследование класса `InternalException`, можно использовать интерфейс `HasInternalCode`.
 
 При возникновении такого исключения тело ответа будет выглядеть следующим образом:
 ```json
