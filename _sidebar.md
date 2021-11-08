@@ -35,6 +35,7 @@
   * [Разграничения доступа](/server/access_control.md)
   * [Валидации](/server/validation.md)
   * [Метаданные](/server/metadata.md)
+  * [Исключения](/server/exception.md)
   * [Подключение Centrifugo](/server/centrifugo.md)
   * [События и реакции](/server/events.md)
   * [Общение между сервисами](server/services_communication.md)
