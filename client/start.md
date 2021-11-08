@@ -14,7 +14,7 @@ Observer инициализируется для каждой модели от�
 
 1. Импортировать класс ``EgalConstructor``
 ```javascript
-import { EgalConstructor } from "@egalteam/framework/compile/index";
+import { EgalConstructor } from "@egalteam/framework";
 ```
 
 2. Инициализировать модель с помощью ``EgalConstructor``

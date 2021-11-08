@@ -40,7 +40,7 @@
 
 Для использования конструктора нужно инициализировать экземпляр класса (глобально либо в нужном компоненте):
 ```javascript
-import { ActionConstructor } from '@egalteam/framework/compile/index'
+import { ActionConstructor } from '@egalteam/framework'
 let constructor = new ActionConstructor(url)
 ```
 

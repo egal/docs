@@ -7,11 +7,11 @@
 
 ```javascript
 let allMetadata = new GetAllMetaDataAction('auth', 'getAllModelsMetadata', 'ModelManager')
-allMetadata.socketConnect()
+allMetadata.axiosConnect()
 ```
 
 ```javascript
-import {ActionConstructor} from '@egalteam/framework/compile/index'
+import {ActionConstructor} from '@egalteam/framework'
 let constructor = new ActionConstructor
 ```
 
@@ -27,7 +27,7 @@ const filter = [
   value: 'email@email.com'
 },
 {
-  field: 'id,
+  field: 'id',
   operator: 'eq',
   value: [1,2,3,4,5]
 },
@@ -166,7 +166,7 @@ constructor.deleteManyWithFilter('microserviceName', 'modelName', paramsDeleteRa
 1. Инициализируем модель с помощью конструктора ``EgalConstructor``:
 
 ```javascript
-import { EgalConstructor } from "@egalteam/framework/compile/index";
+import { EgalConstructor } from "@egalteam/framework";
 
 const exampleParams = {
     modelName: "exampleModelName",

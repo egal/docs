@@ -4,7 +4,7 @@
    получения данных:
 
 ```javascript
-import { EgalConstructor } from "@egalteam/framework/compile/index";
+import { EgalConstructor } from "@egalteam/framework";
 
 data() {
     return {
