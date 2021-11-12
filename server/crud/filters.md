@@ -6,6 +6,8 @@ getItems.
 Пример фильтрации с группировкой. (Ищем сотрудника с email
 "ivanov_ivan@domain.com" или Его имя "Иван" и возраст больше 20)
 
+Запрос: `domain/Service/Employee/getItems`
+
 JSON payload
 
 ```json
@@ -48,7 +50,7 @@ JSON payload
 
 ### Фильтрация по связанным сущностям
 
-`["[relation_name].[field_name]", "operator", "value"]`
+`["relation_name.field_name", "operator", "value"]`
 
 Фильтрация по отношению выполняется через обращение к названию отношения
 (прописанного в метаданных).
@@ -70,4 +72,26 @@ JSON payload
   ]
 }
 ```
+### Фильтрация по связанным сущностям с применением агрегатных функций
 
+`["relation_name.function(?field_name)", "operator", "value"]`
+
+Список доступных агрегатных функций:`avg`, `count`, `min`, `max`, `exists`, `sum`. Подробнее о функциях можно почитать 
+в [документации Laravel](https://laravel.com/docs/8.x/queries#aggregates).
+
+В качестве входного параметра агрегатной функции можно указать атрибут связанной модели 
+(например, `relation.max(id)` будет выполнять поиск максимального значения среди `id`).
+
+Пример поиска отделов, имеющих хотя бы одного сотрудника.
+
+Запрос: `domain/Service/Department/getItems`
+
+JSON payload
+
+```json
+{
+  "filter": [
+    ["users.exists()", "eq", true]
+  ]
+}
+```
