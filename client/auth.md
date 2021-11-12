@@ -3,7 +3,7 @@
 Выполняется с помощью конструктора `EgalAuthConstructor`.
 
 Для аутентификации используются JWT токены:
-- User master Token (UMT)
+- User Master Token (UMT)
 - User Service Token (UST).
 
 Этапы авторизации в системе:
