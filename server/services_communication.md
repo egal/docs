@@ -3,22 +3,16 @@
 ## Требования
 
 Сервисы, которые будут общаться, должны быть зарегистрированы в сервисе
-авторизации.
+авторизации (см. [документацию](/server/authorization.md)).
 
 Сервис авторизации должен быть доступен.
-
-Подразумевается что сервис авторизации должен иметь `SERVICE_NAME=auth`.
-В случае если имя сервиса авторизации отличается от значения по
-умолчанию, его можно задать путем передачи параметра в конструктор.
 
 ```php
 $request = new \Egal\Core\Communication\Request(
     'first', // Сервис назначения запроса
     'Model', // К какой модели обращение
     'test', // К какому действию обращение
-    [], // Параметры действия
-    false, // Отключена ли авторизация
-    'auth-service' // Имя сервиса авторизации
+    ['attributes' => ['name' => 'test 1']], // Параметры действия
 );
 ```
 
@@ -33,7 +27,7 @@ $request = new \Egal\Core\Communication\Request(
  */
 class Model extends EgalModel
 {
-    public static function actionTest() {/*...*/}
+    public static function actionTest(array $attributes = []) {/*...*/}
     public static function actionChecks() {/*...*/}
 }
 ```
@@ -62,35 +56,11 @@ $request = new \Egal\Core\Communication\Request(
 );
 $request->call(); // Отправка и ожидание ответа
 $response = $request->getResponse();
-if ($response->hasError()) {
-    $actionErrorMessage = $response->getActionErrorMessage(); // Получение сообщения ошибки
-} else {
-    $actionResultMessage = $response->getActionResultMessage(); // Получение сообщения результата выполнения действия
-}
-```
-
-Пример с большим контролем процесса запроса и получения ответа:
-
-```php
-// В сервисе отправителе запроса
-$request = new \Egal\Core\Communication\Request(
-    'first', // Сервис назначения запроса
-    'Model', // Обращение к модели
-    'test', // Обращение к действию
-    [] // Параметры действия
-);
-if (!$request->isConnectionOpened) {
-    $request->openConnection(); // Открытие подключения
-}
-$request->publish(); // Публикация сообщения запроса
-$request->waitReplyMessages(); // Ожидание ответа
-$request->closeConnection(); // Закрытие подключения
-$response = $request->getResponse();
-if ($response->hasError()) {
-    $actionErrorMessage = $response->getActionErrorMessage(); // Получение сообщения ошибки
-} else {
-    $actionResultMessage = $response->getActionResultMessage(); // Получение сообщения результата выполнения действия
-}
+   if ($response->getStatusCode() != 200) {
+       $actionErrorMessage = $response->getActionErrorMessage(); // Получение сообщения ошибки
+   } else {
+       $actionResultMessage = $response->getActionResultMessage(); // Получение сообщения результата выполнения [действия](/_glossary?id=действия) }
+   }
 ```
 
 Пример с отправкой запроса без ожидания ответа:
@@ -103,10 +73,7 @@ $request = new \Egal\Core\Communication\Request(
     'test', // К какому действию обращение
     [] // Параметры действия
 );
-if (!$request->isConnectionOpened) {
-    $request->openConnection(); // Открытие подключения
-}
+
 $request->send(); // Отправка сообщения запроса
-$request->closeConnection(); // Закрытие подключения
 ```
 
