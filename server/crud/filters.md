@@ -6,6 +6,8 @@ getItems.
 Пример фильтрации с группировкой. (Ищем сотрудника с email
 "ivanov_ivan@domain.com" или Его имя "Иван" и возраст больше 20)
 
+Запрос: `domain/Service/Employee/getItems`
+
 JSON payload
 
 ```json
@@ -48,7 +50,7 @@ JSON payload
 
 ### Фильтрация по связанным сущностям
 
-`["[relation_name].[field_name]", "operator", "value"]`
+`["relation_name.field_name", "operator", "value"]`
 
 Фильтрация по отношению выполняется через обращение к названию отношения
 (прописанного в метаданных).
@@ -70,4 +72,22 @@ JSON payload
   ]
 }
 ```
+### Фильтрация по наличию/отсутствию связи 
 
+`["relation_name.exists()", "eq", "value"]`
+
+В качестве `value` можно передавать только `true/false`.
+
+Пример поиска отделов, имеющих хотя бы одного сотрудника.
+
+Запрос: `domain/Service/Department/getItems`
+
+JSON payload
+
+```json
+{
+  "filter": [
+    ["users.exists()", "eq", true]
+  ]
+}
+```

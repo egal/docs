@@ -36,7 +36,7 @@ class User extends Model
 |    Наименование     | Описание                                                       |                       Возможные значения                       |
 |:-------------------:|:---------------------------------------------------------------|:--------------------------------------------------------------:|
 |      @property      | Тег поля                                                       |                                                                |
-|   @property-type    | Тег типа поля                                                  |                        field, relation                         |
+|   @property-type    | Тег типа поля                                                  |                        field, relation, fake-field             |
 |  @validation-rules  | Тег правил валидации поля (взяты из laravel)                   | [Cм. документацию](https://laravel.com/docs/master/validation) |
 |    @primary-key     | Тег первичного ключа                                           |                         Без параметров                         |
 |       @action       | Тег endpoint-а                                                 |                                                                |
