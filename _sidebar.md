@@ -45,6 +45,7 @@
     * [*Web Service*](/server/services/web_service.md)
   * [Task Scheduling (Cron)](server/task_schedule.md)
   * [Инструменты отладки](/server/logging/debug.md)
+  * [Образ RabbitMQ](/server/rabbitmq_image.md)
   * [Sentry](/server/logging/sentry.md)
   * [Copy Paste Helper](/server/copy_paste_helper.md)
 * **CI/CD**
