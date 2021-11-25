@@ -39,6 +39,7 @@
   * [Метаданные](/server/metadata.md)
   * [Исключения](/server/exception.md)
   * [Подключение Centrifugo](/server/centrifugo.md)
+  * [Образ сервера RabbitMQ](/server/rabbitmq_image.md)
   * [События и реакции](/server/events.md)
   * [Общение между сервисами](server/services_communication.md)
   * [Коробочные сервисы]()
