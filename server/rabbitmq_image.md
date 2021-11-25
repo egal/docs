@@ -1,6 +1,6 @@
 # Разворот образа RabbitMQ
 
-[Docker Hub](https://hub.docker.com/r/egalbox/rabbitmq).
+[Docker Hub](https://hub.docker.com/r/egalbox/rabbitmq)
 
 ## Установка
 
