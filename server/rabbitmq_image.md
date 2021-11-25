@@ -1,19 +1,22 @@
 # Разворот образа RabbitMQ
 
-Среди поставляемых фреймворком образов есть образ [сервера rabbitMQ](https://hub.docker.com/r/egalbox/rabbitmq).
+[Docker Hub](https://hub.docker.com/r/egalbox/rabbitmq).
 
 ## Установка
-Откройте файл `docker-compose.yml`
-В блоке сервисов добавьте блок rabbitmq.
+
+1. Откройте файл `docker-compose.yml`.
+2. В блоке сервисов добавьте блок rabbitmq.
 
 ## Конфигурирование
-Укажите image: egalbox/rabbitmq.
+
+Укажите image: `egalbox/rabbitmq`.
 
 Настройте environment:
-- RABBITMQ_USER (установка имени пользователя под которым используется rabbitmq)
-- RABBITMQ_PASSWORD (установка пароля)
-- RABBITMQ_PID_FILE (указание места хранения файла с идентификационным номером процесса)
-- RABBITMQ_PLUGINS (выбор [плагинов](https://www.rabbitmq.com/plugins.html))
+* RABBITMQ_USER - имя пользователя, под которым используется RabbitMQ.
+* RABBITMQ_PASSWORD - пароль пользователя.
+* RABBITMQ_PID_FILE - путь до PID файла.
+* RABBITMQ_PLUGINS - список плагинов через запятую, которые будут установлены в RabbitMQ ([список доступных плагинов](https://www.rabbitmq.com/plugins.html)).
 
 ## Запуск
+
 `docker-compose up -d`
