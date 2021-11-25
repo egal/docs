@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/egal/art/main/logo.svg" height="150"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/egal/.art/main/logo.svg" height="150"></p>
 <h1 id="egal" align="center">Egal | Docs</h1>
 <p align="center">
  <a href="https://github.com/egal/egal-docs"><img src="https://img.shields.io/github/license/egal/egal-docs"></a>
