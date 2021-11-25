@@ -3,7 +3,7 @@
 Предназначен для адаптации HTTP запросов в BUS сообщения.
 
 ### Образ egalbox/web-service
-Среди поставляемых фреймворком образов есть образ web-service.
+Среди поставляемых фреймворком образов есть образ [web-service](https://hub.docker.com/r/egalbox/web-service).
 
 > Web-service использует Swoole-сервер для работы с HTTP-запросами. 
 > Подробнее ознакомиться с возможностями Swoole можно в [официальной документации](https://www.swoole.co.uk/docs/).
