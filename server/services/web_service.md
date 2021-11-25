@@ -2,6 +2,24 @@
 
 Предназначен для адаптации HTTP запросов в BUS сообщения.
 
+### Образ egalbox/web-service
+Среди поставляемых фреймворком образов есть образ web-service.
+
+> Web-service использует Swoole-сервер для работы с HTTP-запросами. 
+> Подробнее ознакомиться с возможностями Swoole можно в [официальной документации](https://www.swoole.co.uk/docs/).
+
+В docker-compose.yml можно установить следующие конфигурации web-service:
+
+| Переменная                            |      Описание             |         Значение по умолчанию     |
+|:-------------------------------------:|:-------------------------:|:---------------------------------:|
+|  SWOOLE_HTTP_HOST                     | Порт Swoole-сервера       |               '0.0.0.0'           |
+|  SWOOLE_HTTP_PORT                     | Хост Swoole-сервера       |                 8080              |
+|  SWOOLE_HTTP_REACTOR_NUM              | [Кол-во потоков реактора](https://www.swoole.co.uk/docs/modules/swoole-server/configuration#reactor_num)   |  Количество ядер процессора, умноженное на SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER |
+|  SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER   |                           |                   1               |
+|  SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER   | [Кол-во рабочих процессов](https://www.swoole.co.uk/docs/modules/swoole-server/configuration#worker_num)   |  Количество ядер процессора, умноженное на SWOOLE_HTTP_WORKER_NUM_MULTIPLIER  |
+|  SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER   |                           |                   1               |
+
+### Формирование http-запросов к web-service
 
 #### Правила использования
 
