@@ -17,8 +17,8 @@
 |  SWOOLE_HTTP_PORT                     | Хост Swoole-сервера       |                 8080              |
 |  SWOOLE_HTTP_REACTOR_NUM              | [Кол-во потоков реактора](https://www.swoole.co.uk/docs/modules/swoole-server/configuration#reactor_num)   |  Количество ядер процессора, умноженное на SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER |
 |  SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER   |                           |                   1               |
-|  SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER   | [Кол-во рабочих процессов](https://www.swoole.co.uk/docs/modules/swoole-server/configuration#worker_num)   |  Количество ядер процессора, умноженное на SWOOLE_HTTP_WORKER_NUM_MULTIPLIER  |
-|  SWOOLE_HTTP_REACTOR_NUM_MULTIPLIER   |                           |                   1               |
+|  SWOOLE_HTTP_WORKER_NUM               | [Кол-во рабочих процессов](https://www.swoole.co.uk/docs/modules/swoole-server/configuration#worker_num)   |  Количество ядер процессора, умноженное на SWOOLE_HTTP_WORKER_NUM_MULTIPLIER  |
+|  SWOOLE_HTTP_WORKER_NUM_MULTIPLIER    |                           |                   1               |
 
 ### Формирование http-запросов к web-service
 
