@@ -157,3 +157,47 @@ class FooInternalException extends InternalException
   "error_message": "Long message with error's description!"
 }
 ```
+
+## Формирование ответа при возникновении исключения с интерфейсом HasObjects
+В коробке Egal доступен подключаемый интерфейс HasObjects. Он позволяет добавлять конкретные объекты, для которых сработало исключение.
+Пример класса исключения с интерфейсом HasObjects:
+```php
+class ObjectException extends Exception implements HasObjects
+{
+    protected $code = 500;
+    protected $message = 'test message';
+
+    public function getObjects(): array
+    {
+        return [
+          'key' => 'value'
+        ];
+    }
+}
+```
+
+Если интерфейс подключен, ответ при возникновении исключения будет содержать список объектов, и тело ответа будет выглядеть следующим образом:
+ ```json
+{
+ "action": {
+    "type": "action",
+    "service_name": "first",
+    "model_name": "Model",
+    "action_name": "ping",
+    "parameters": [],
+    "token": null,
+    "uuid": "e26d0a98-54a4-4d30-8d4e-7be820976338"
+  },
+  "action_result": null,
+  "action_error": {
+    "code": 500,
+    "message": "test message",
+    "internal_code": null,
+    "data": {
+      "key": "value"
+    },
+    "type": "action_error",
+    "uuid": "34a750e1-58a1-46dc-895a-5784724b2935"
+  }
+}
+```
