@@ -159,15 +159,15 @@ class FooInternalException extends InternalException
 ```
 
 ## Формирование ответа при возникновении исключения с интерфейсом HasObjects
-В коробке Egal доступен подключаемый интерфейс HasObjects. Он позволяет добавлять конкретные объекты, для которых сработало исключение.
-Пример класса исключения с интерфейсом HasObjects:
+В коробке Egal доступен подключаемый интерфейс HasData. Он позволяет добавлять массив данных, для отображения конкретных случаев, в которых сработало исключение.
+Пример класса исключения с интерфейсом HasData:
 ```php
-class ObjectException extends Exception implements HasObjects
+class DataException extends Exception implements HasData
 {
     protected $code = 500;
     protected $message = 'test message';
 
-    public function getObjects(): array
+    public function getData(): array
     {
         return [
           'key' => 'value'
@@ -176,7 +176,7 @@ class ObjectException extends Exception implements HasObjects
 }
 ```
 
-Если интерфейс подключен, ответ при возникновении исключения будет содержать список объектов, и тело ответа будет выглядеть следующим образом:
+Если интерфейс подключен, ответ при возникновении исключения будет содержать список данные в виде массива, и тело ответа будет выглядеть следующим образом:
  ```json
 {
  "action": {
