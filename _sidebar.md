@@ -39,6 +39,7 @@
   * [Общение между сервисами](server/services_communication.md)
   * [Коробочные сервисы]()
     * [*Web Service*](/server/services/web_service.md)
+  * [Производительность](/server/performance.md)
   * [Task Scheduling (Cron)](server/task_schedule.md)
   * [Инструменты отладки](/server/logging/debug.md)
   * [Sentry](/server/logging/sentry.md)
