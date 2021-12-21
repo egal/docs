@@ -2,56 +2,44 @@
 
 ## Вступление
 
-Так как Egal Server PHP основан на Laravel присутствует функционал
-[Laravel Task Scheduling](https://laravel.com/docs/8.x/scheduling).
-
-## Конфигурирование
-
-Смотри
+Подробнее об использовании планировщика задач смотри
 [официальную документацию Laravel](https://laravel.com/docs/8.x/scheduling).
 
-## Запуск
+## Запуск в контейнере
 
-Добавьте в `Dockerfile` сервиса, в котором необходимо запускать
-планировщик следующий блок:
+С помощью Docker Compose есть возможность развернуть обработчик задач в отдельном контейнере. 
+Рассмотрим на примере, в файле docker-compose.yml определим сервис `monolit-service` и отдельно планировщик задач этого сервиса. 
+Для дублирования свойств воспользуемся якорями:
 
-```dockerfile
-RUN apt-get update && apt-get install -y \
-    cron \
-    sudo
+```yaml
+x-monolit-service: &monolit-service
+  build: server/monolit-service
+  restart: always
+  environment:
+    APP_SERVICE_NAME: monolit
+    APP_SERVICE_KEY: B#J5mUWKh8FqzQ6Tj0XtYruIcSwpb@ed
+    DB_HOST: ${PROJECT_NAME}-database
+    DB_PASSWORD: ${DATABASE_PASSWORD:-password}
+    RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
+    RABBITMQ_USER: ${RABBITMQ_USERNAME:-admin}
+    RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
+    WAIT_HOSTS: ${PROJECT_NAME}-rabbitmq:5672, ${PROJECT_NAME}-database:5432
+  depends_on:
+    - rabbitmq
+    - database
 
-RUN echo "* * * * * /usr/local/bin/php /app/artisan schedule:run >> /app/storage/logs/cron.log 2>&1" > /etc/cron.d/app
+services:
 
-RUN chmod 0644 /etc/cron.d/app && \
-    crontab -u $user /etc/cron.d/app && \
-    adduser $user sudo && \
-    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+  monolit-service:
+    <<: *monolit-service
+    command: bash -c "printenv | grep -E \"DB_HOST|DB_PORT|DB_PASSWORD|APP_SERVICE_NAME\" > .env && /wait && php artisan egal:listener:run"
 
-CMD sudo cron
+  monolit-service-schedule:
+    <<: *monolit-service
+    command: bash -c "printenv | grep -E \"DB_HOST|DB_PORT|DB_PASSWORD|APP_SERVICE_NAME\" > .env && /wait && php artisan schedule:work"
+
+
+
 ```
 
-Блок с установкой `cron` и `sudo` можно не использовать, если данные
-утилиты установлены в вашем контейнере ранее. Или может быть объединён с
-другим блоком, в котором устанавливаются утилиты.
-
-Блок записи задачи `cron` в файл, можно расширить своими задачами, либо
-заменить на блок `COPY`, который будет копировать файл `cron` задач из
-вашего проекта.
-
-Блок `CMD` не является задачей-демоном, он должен быть дополнен. В
-противном случае контейнер будет останавливаться сразу после запуска без
-ошибок выполнения.
-
-> Контейнер можно запустить только как демона обработчика Cron задач без
-> запуска самого сервиса. Для реализации используйте следующий блок
-> `CMD`:
->
-> ```dockerfile
-> CMD sudo cron -f
-> ```
-
-Блок `CMD` должен быть объединён с вашим текущим с блоком `CMD`. В
-противном случае ваш `Dockerfile` не будет иметь корректный синтаксис
-или же ваш контейнер будет выполнять только задачи Cron, без запуска
-самого приложения.
-
+Таким же образом можно добавить сервис для обработчика очередей, например.
