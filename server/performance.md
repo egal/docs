@@ -230,5 +230,5 @@ default ✓ [======================================] 0000/1400 VUs  7m40s
 
 #### Docker service scale
 
-Для балансировки нагрузки можно регулировать количество поднятых реплик сервиса с помощью [docker service scale](https://docs.docker.com/engine/reference/commandline/service_scale/). Важно учитывать,
-что каждый поднятый инстанс сервиса запускает одного воркера, а количество воркеров веб-сервиса зависит от CPU, см. [описание веб-сервиса](/server/services/web_service.md#Образ-egalbox/web-service).
+Для балансировки нагрузки можно регулировать количество поднятых реплик сервиса с помощью [docker service scale](https://docs.docker.com/engine/reference/commandline/service_scale/). 
+Важно учитывать, что каждый поднятый инстанс сервиса запускает одного воркера, а количество воркеров веб-сервиса зависит от CPU, см. [описание веб-сервиса](/server/services/web_service.md#Образ-egalbox/web-service).
