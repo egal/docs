@@ -12,6 +12,8 @@
 Для дублирования свойств воспользуемся якорями:
 
 ```yaml
+version: "3.7"
+
 x-monolit-service: &monolit-service
   build: server/monolit-service
   restart: always
@@ -29,17 +31,12 @@ x-monolit-service: &monolit-service
     - database
 
 services:
-
   monolit-service:
     <<: *monolit-service
-    command: bash -c "printenv | grep -E \"DB_HOST|DB_PORT|DB_PASSWORD|APP_SERVICE_NAME\" > .env && /wait && php artisan egal:listener:run"
-
+    command: bash -c "/wait && php artisan egal:listener:run"
   monolit-service-schedule:
     <<: *monolit-service
-    command: bash -c "printenv | grep -E \"DB_HOST|DB_PORT|DB_PASSWORD|APP_SERVICE_NAME\" > .env && /wait && php artisan schedule:work"
-
-
-
+    command: bash -c "/wait && php artisan schedule:work"
 ```
 
 Таким же образом можно добавить сервис для обработчика очередей, например.
