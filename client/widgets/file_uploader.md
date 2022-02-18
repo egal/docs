@@ -1,5 +1,11 @@
 ## File Uploader
 
+Определяется тэгом:
+```vue
+<e-file-uploader></e-file-uploader>
+```
+
+
 ### Параметры
 
 File Uploader принимает 2 параметра в качестве пропа:
