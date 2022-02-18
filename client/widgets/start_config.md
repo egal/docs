@@ -14,8 +14,8 @@ npm i @egalteam/widget-library
 
 main.js
 ````javascript
-import egalWidgets from 'egal-widgets/dist/egal-widgets-build.umd.js'
-import 'egal-widgets/dist/style.css'
+import egalWidgets from '@egalteam/widget-library/dist/egal-widgets-build.umd.js'
+import '@egalteam/widget-library/dist/style.css'
 
 app.use(egalWidgets)
 ````
