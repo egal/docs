@@ -3,7 +3,6 @@
 Плагин уведомлений.
 
 ## Подключение плагина
-
 `main.ts`:
 ````typescript
 import { createApp } from "vue";
@@ -35,7 +34,6 @@ export default defineComponent({
 ````
 
 ## Использование
-
 ````typescript
 this.$toaster.info({ message: 'This is Info toast!' });
 ````
@@ -44,7 +42,6 @@ this.$toaster.danger({ message: 'This is Danger toast!' });
 ````
 
 ### Конфигурация
-
 Глобальные конфиги устанавливаются через входные параметры компонента `ToasterContainer`
 
 | Параметр            |      Тип       |       По умолчанию       | Возможные значения                                             | Описание                                                                                    |
