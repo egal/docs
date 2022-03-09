@@ -32,7 +32,6 @@
 Набор стилей для кастомизация селекта.
 
 ### События
-
 | Название              | Тип параметров | Описание                             |
 |-----------------------|:--------------:|--------------------------------------|
 | ``error``             |     String     | Возвращает ошибку из валидаторов     |
@@ -94,7 +93,6 @@ groupedOptions = [
 ```
 
 #### Пример styleConfig
-
 ````javascript
 styleConfig = {
         fontFamily: 'Open Sans',
@@ -121,7 +119,6 @@ styleConfig = {
 ````
 
 #### Пример dropdownStyleConfig
-
 ````javascript
 dropdownStyleConfig = {
         fontFamily: 'Open Sans',

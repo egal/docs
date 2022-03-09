@@ -37,6 +37,7 @@
     * [Avatar](/client/widgets/avatar.md)
     * [Tag](/client/widgets/tag.md)
     * [Tooltip](/client/widgets/tooltip.md)
+    * [Calendar](/client/widgets/calendar.md)
     * [Генерируемые виджеты для React Native](/client/widgets/reactNative.md)
   * [Работа с React Native](/client/react_native.md)
   * [Примеры](/client/examples.md)

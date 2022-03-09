@@ -1,6 +1,6 @@
 Переместить файл '/node_modules/widget-library-react-native/src/assets/fonts/icomoon/fonts/icomoon.ttf' в папку '/android/app/src/main/assets/fonts/'
 
-Использование:
+#### Использование:
 ```
 import { Button } from 'widget-library-react-native';
 ```
@@ -11,13 +11,14 @@ import { Button } from 'widget-library-react-native';
     size={'m'}
 />
 ```
-Общие интерфейсы:
+#### Общие интерфейсы:
 ```
 type shapes = 'normal' | 'rounded';
 type sizes = 's' | 'm' | 'l';
 type types = 'primary' | 'secondary';
 ```
-Для Button:
+
+#### Button:
 ```
 interface StyleProps {
   pressedAccentColor?: string;
@@ -44,7 +45,7 @@ interface Props {
   styleProps?: StyleProps;
 }
 ```
-Для ToggleButton:
+#### ToggleButton:
 ```
 interface StyleProps {
     backgroundColor?: string;
@@ -66,7 +67,7 @@ interface Props {
     label?: string;
 }
 ```
-Для CheckBox:
+#### CheckBox:
 ```
 interface StyleProps {
   pressedAccentColor?: string;
@@ -88,7 +89,7 @@ export interface Props {
   styleProps?: StyleProps;
 }
 ```
-Для FloatActionButton:
+#### FloatActionButton:
 ```
 interface StyleProps {
   pressedAccentColor?: string;
@@ -108,7 +109,7 @@ export interface Props {
   styleProps?: StyleProps;
 }
 ```
-Для RadioButton:
+#### RadioButton:
 ```
 interface StyleProps {
   pressedAccentColor?: string;
