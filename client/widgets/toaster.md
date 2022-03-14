@@ -3,15 +3,6 @@
 Плагин уведомлений.
 
 ## Подключение плагина
-`main.ts`:
-````typescript
-import { createApp } from "vue";
-import App from "./App.vue";
-import EToasterPlugin from "@/plugins/e-toaster-plugin.ts";
-
-createApp(App).use(EToasterPlugin).mount("#app");
-````
-
 `App.vue`:
 ````vue
 <template>
@@ -22,7 +13,7 @@ createApp(App).use(EToasterPlugin).mount("#app");
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ToasterContainer from "@/components/Toaster/ToasterContainer.vue";
+import ToasterContainer from '@egalteam/widget-library';
 
 export default defineComponent({
   name: "App",
