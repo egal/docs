@@ -29,6 +29,7 @@
 | ``searchPlaceholder``      |     String      |  ``Search``  | Любая строка                                                                                 | Для изменения дефолтного текста в инпуте с поиском в дропдауне        |
 | ``emptyDropdownText``      |     String      | ``no data``  | Любая строка                                                                                 | Для текста если в дропдауне нет опций или ничего не найдено по поиску |
 | ``grouped``                |     Boolean     |  ``false``   | ``true``, ``false``                                                                          | Группировка списока в дропдауне (нужен определенный вид options)      |
+| ``dropdownPosition``       |     String      |  ``bottom``  | ``bottom``, ``top``                                                                          | Установка позиционирования списка опций                               |
 | ``dropdownStyleConfig``    |     Object      |    ``{}``    | Объект стилей                                                                                | Кастомизация стилей дропдауна                                         |
 | ``inputSearchStyleConfig`` |     Object      |    ``{}``    | Объект стилей                                                                                | Кастомизация стилей инпута поиска                                     |
 
