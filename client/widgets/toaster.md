@@ -31,6 +31,14 @@ this.$toaster.info({ message: 'This is Info toast!' });
 ````typescript
 this.$toaster.danger({ message: 'This is Danger toast!' });
 ````
+В тостер можно передавать текст с HTML тегами через свойство `rawHtml`. Пример:
+````javascript
+this.$toaster.info({
+      title: '',
+      rawHtml: 'text must be <span style="color: red">red</span>',
+      flat: true,
+    })
+````
 
 ### Конфигурация
 Глобальные конфиги устанавливаются через входные параметры компонента `ToasterContainer`
@@ -68,3 +76,23 @@ this.$toaster.info({
 | `primaryActionCallback`   |   `false`    | Function | Любая функция                       | Коллбэк для главной кнопки тоста         |
 | `secondaryAction`         |   `false`    |  String  | Любая строка                        | Текст главной кнопки тоста               |
 | `secondaryActionCallback` |   `false`    | Function | Любая функция                       | Коллбэк для главной кнопки тоста         |
+
+`styleConfig` (тип: Object) для компонента `ToasterContainer`
+
+### Использование styleConfig
+(Только для изменения стилей заголовка (`title`), сообщения (`message`) и текста (`rawHtml`)).
+Чтобы кастомизировать текст внутри тостера, нужно передать в `styleConfig` объект в виде:
+````javascript
+{
+  title: {
+    color: 'green'
+  },
+  message: {
+   color: 'blue',
+   fontSize: '18px'
+  },
+  rawHtml: {
+    fontSize: '18px'
+  },
+}
+````
