@@ -10,10 +10,22 @@
 Объект `data` который может содержать следующие параметры:
 если какой-то из параметров не передан, будет применено дефолтное значение.
 
-| Параметр        | Что делает                   | Доступные значения               | По-умолчанию |
-|-----------------|------------------------------|----------------------------------|--------------|
-| position?       | Определяет положение надписи | "left", "right", "top", "bottom" | "top"        |
-| size?           | Размер                       | "sm", "md", "lg"                 | "md"         |
-| font?           | Шрифт                        | "Inter", "Open Sans", "Raleway"  | "Open Sans"  |
-| weight?         | Толщина шрифта               | "medium", "regular", "bold"      | "bold"       |
-| componentStyle? | Определяет стриль компонента | "light", "normal"                | "normal"     |
+| Параметр         | Что делает                   | Доступные значения               | По-умолчанию |
+|------------------|------------------------------|----------------------------------|--------------|
+| `position`       | Определяет положение надписи | `left`, `right`, `top`, `bottom` | `top`        |
+| `size`           | Размер                       | `sm`, `md`, `lg`                 | `md`         |
+| `font`           | Шрифт                        | `Inter`, `Open Sans`, `Raleway`  | `Open Sans`  |
+| `weight`         | Толщина шрифта               | `medium`, `regular`, `bold`      | `bold`       |
+| `componentStyle` | Определяет стриль компонента | `light`, `normal`                | `normal`     |
+| `displayIcon`    | Отображение иконки           | `true`, `false`                  | `true`       |
+
+Чтобы "повесить" тултип на какой-либо элемент (вместо стандартной иконки), нужно передать этот элемент в слот с именем #element. Текст передается в дефолтный слот.
+
+```vue
+<ETooltip :data="{ displayIcon: false, position: 'top' }">
+  <template #element>
+    <div class="card">some element</div>
+  </template>
+  <template #default> some text </template>
+</ETooltip>
+```
