@@ -96,3 +96,13 @@ this.$toaster.info({
   },
 }
 ````
+
+Пример использования Toaster с экспортом (например, при вызове Toaster вне компонента .vue):
+```vue
+import { ToasterInstance } from '@egalteam/widget-library'
+
+ToasterInstance.info({
+        title: 'Title',
+        message: 'Message',
+      })
+```
