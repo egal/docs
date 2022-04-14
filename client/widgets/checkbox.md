@@ -17,13 +17,41 @@
 | `disabled`      | Boolean |   `false`    | `true`, `false`                                                                                                                                                                               | Состояние чекбокса (включена/выключена)                                                                                                                                                                                                                                                                                                                                                                                      |
 | `size`          | String  |     `md`     | ``sm``, ``md``, ``lg``                                                                                                                                                                        | Размер чекбокса                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `checkboxRight` | Boolean |   `false`    | `true`, `false`                                                                                                                                                                               | Расположение чекбокса относительно лэйбла (`false` - чекбокс слева, `true`  - чекбокс справа )                                                                                                                                                                                                                                                                                                                               |
-| `labelStyle`    | Object  |     `{}`     | [Inline-стили,допустимые Vue](https://v3.ru.vuejs.org/ru/guide/class-and-style.html#%D1%81%D0%B2%D1%8F%D0%B7%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-inline-%D1%81%D1%82%D0%B8%D0%BB%D0%B5%D0%B8) | Объект для кастомизации лэйбла чекбокса                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
 2. объект `styleConfig`:
 Набор стилей для кастомизации чекбокса. Использует объектный [синтаксис Vue для inline-стилей](https://v3.ru.vuejs.org/ru/guide/class-and-style.html#%D1%81%D0%B2%D1%8F%D0%B7%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-inline-%D1%81%D1%82%D0%B8%D0%BB%D0%B5%D0%B8). 
 Дополнительно добавлена обработка свойств с именем состояний (``hover``, ``active``, ``disabled``). 
 Кастомизируются только `border-color` и `background-color`.
+
+Пример объекта `styleConfig`:
+```javascript
+styleConfig: {
+    // стили для лейбла:
+    labelStyle: {
+      color: 'black',
+      fontSize: '16px',
+      hover: { color: 'green' },
+      checked: {
+        color: 'red',
+      },
+      disabled: {
+        color: 'gray',
+        fontSize: '14px',
+      },
+    },
+    
+    // стили для чекбокса:
+    borderColor: 'black',
+    hover: {
+      borderColor: 'green',
+    },
+    checked: {
+      backgroundColor: 'red',
+      borderColor: 'red',
+    },
+  },
+```
 
 ### События
 | Название | Тип параметров | Описание                                                    |
