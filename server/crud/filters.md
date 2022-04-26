@@ -91,3 +91,38 @@ JSON payload
   ]
 }
 ```
+
+### Кастомная фильтрация
+
+#### Пример
+
+Вы хотите реализовать фильтр, подобный этому:
+
+```json
+[ 'name', 'foo', 'bar']
+```
+
+Вам необходимо просто добавить метод в модель:
+
+```php
+use Egal\Model\Builder;
+use Egal\Model\Filter\FilterCondition;
+use Egal\Model\Model;
+class Bar extends Model
+{
+    
+    public static function applyFooFilterCondition(Builder &$builder, FilterCondition $condition, string $beforeOperator): void
+    {
+        // Example:
+        // $builder->where($condition->getField(), '=', $condition->getValue());
+    }
+    
+}
+```
+
+Где название метода начинается с `apply`, далее оператор `Foo` в Pascal case и `FilterCondition` постфикс.
+
+В этом метода вы дополняете Builder вашей логикой фильтрации.
+
+> Чтобы использовать один кастомный фильтр в нескольких моделях - вы можете вынести этот метод в Trait,
+> и подключить в нужных вам моделях этот Trait.
