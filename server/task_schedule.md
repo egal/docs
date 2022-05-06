@@ -7,7 +7,8 @@
 
 ## Запуск в контейнере
 
-С помощью Docker Compose есть возможность развернуть обработчик задач в отдельном контейнере. 
+С помощью Docker Compose есть возможность развернуть обработчик задач в отдельном контейнере с сервисом.
+
 Рассмотрим на примере, в файле docker-compose.yml определим сервис `monolit-service` и отдельно планировщик задач этого сервиса. 
 Для дублирования свойств воспользуемся якорями:
 
@@ -38,5 +39,23 @@ services:
     <<: *monolit-service
     command: bash -c "/wait && php artisan schedule:work"
 ```
+> Для запуска `artisan schedule:work` в контейнере сервиса необходимо в классе `Kernel`
+> указать команду `ScheduleWorkCommand`, добавив в свойство `$commands`.
+>```php
+>class Kernel extends ConsoleKernel
+>{
+>
+>    protected $commands = [
+>        DebugCommand::class,
+>        ScheduleWorkCommand::class,
+>    ];
+>
+>    protected function schedule(Schedule $schedule): void
+>    {
+>        //
+>    }
+>
+>}
+>```
 
 Таким же образом можно добавить сервис для обработчика очередей, например.
