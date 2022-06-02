@@ -25,7 +25,7 @@ Input принимает 2 параметра в качестве пропа:
 | ``helperText``     |      String      |     ``''``     | Любая строка                                                                            | Мелкий текст под инпутом                                         |
 | ``iconLeft``       |      String      |     ``''``     | Любое имя иконки, которое есть в Bootstrap (``circle-fill``, ``chevron-right``, и т.д.) | Иконка слева                                                     |
 | ``iconRight``      |      String      |     ``''``     | Любое имя иконки, которое есть в Bootstrap (``circle-fill``, ``chevron-right``, и т.д.) | Иконка справа                                                    |
-| ``size``           |      String      |     ``md``     | ``sm``, ``md``, ``lg``                                                                  | Размер инпута                                                    |
+| `size`             |      String      |      `md`      | `xs`, `sm`, `md`, `lg`                                                                  | Размер инпута                                                    |
 | ``showError``      |     Boolean      |    ``true``    | ``true``, ``false``                                                                     | Показывать ошибку и состояние инпута                             |
 | ``required``       |     Boolean      |   ``false``    | ``true``, ``false``                                                                     | Показывать звездочку обязательного инпута                        |
 | ``showArrows``     |     Boolean      |    ``true``    | ``true``, ``false``                                                                     | Показывать стрелки для изменения значения в инпуте типа number   |
@@ -44,6 +44,9 @@ Input принимает 2 параметра в качестве пропа:
 | ``error``             |     String     | Возвращает ошибку из валидаторов                  |
 | ``update:modelValue`` |     String     | Возвращает введенное значение                     |
 | ``keydown``           |     Event      | Вызывается при нажатии стрелки вниз на клавиатуре |
+| `labelDisabledColor`  |     String     | Цвет лэйбла в состоянии `disabled`                |
+| `valueDisabledColor`  |     String     | Цвет значения инпута в состоянии `disabled`       |
+| `helperDisabledColor` |     String     | Цвет хэлпера в состоянии `disabled`               |
 
 #### Пример styleConfig
 ````javascript
