@@ -9,57 +9,79 @@
 ## Первые шаги
 
 1. Создаем новый репозиторий (в дальнейшем - Develop) для хранения
-   кодовой базы проекта.
+   кодовой базы проекта. При создании проекта не выбираем пункт `Initialize repository with a README`
 2. Клонируем его в нужную нам директорию и открываем в IDE
-3. Создаем файл `.env` с содержанием:
-
-   ```dotenv
-   PROJECT_NAME=project
+3. В открытую директорию загружаем скрипт установки:
+   
+   ```shell
+   wget https://github.com/egal/installer/releases/download/v2.0.0-beta.15/egal-installer-v2.0.0-beta.15
    ```
 
-4. Создаем файл `docker-compose.yml` с содержанием:
-
-   ```yaml
-   version: "3.6"
-
-   services:
-
-     # Нужен для общения с сервисами через AMQP, WS протоколы. 
-     rabbitmq: 
-       container_name: ${PROJECT_NAME}-rabbitmq
-       image: ${RABBITMQ_TAG:-bitnami/rabbitmq:latest}
-       environment:
-         RABBITMQ_USERNAME: ${RABBITMQ_USERNAME:-admin}
-         RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
-         RABBITMQ_PLUGINS: rabbitmq_management,rabbitmq_consistent_hash_exchange
-       ports:
-         - ${RABBITMQ_PORT:-5672}:5672
-         - ${RABBITMQ_MANAGER_PORT:-15672}:15672
-
-     # Нужен для общения с сервисами через HTTP протокол.
-     web-service: 
-       container_name: ${PROJECT_NAME}-web-service
-       image: egalbox/web-service:2.0.0beta19
-       ports:
-         - ${WEB_SERVICE_PORT:-80}:8080
-       environment:
-         PROJECT_NAME: ${PROJECT_NAME}
-         APP_SERVICE_NAME: web
-         RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
-         RABBITMQ_USER: ${RABBITMQ_USERNAME:-admin}
-         RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
-         WAIT_HOSTS: ${PROJECT_NAME}-rabbitmq:5672
-       depends_on:
-         - rabbitmq
+4. Выдаем для скрипта установки право на исполнение
+   
+   ```shell
+   chmod +x ./egal-installer-v2.0.0-beta.15
    ```
 
-5. Запустим сервисы:
+5. Запускаем скрипт:
 
    ```shell
-   docker-compose up -d
+   ./egal-installer-v2.0.0-beta.15
    ```
 
-6. Проверим работоспособность `web-service`:
+   > При наличии в текущей директории нескрытых файлов, за исключением скрипта установки, скрипт выдаст ошибку:
+   > `Directory is not empty!`
+   > Необходимо удалить все файлы из текущей директории, оставив только скрытые файлы и файл скрипта установки.
+   
+   Вводим имя проекта:
+
+   ```html
+   ? Enter project name: 
+   ```
+   
+   Выбираем тип клиента: 
+
+   ```html
+   ? What type of client you need? (Use arrow keys)
+    »   Vue.js
+        Nuxt.js
+   ```
+   
+   Указываем, нужно ли создать дополнительные сервисы, помимо `auth-service`, ```monolit-service```
+
+   ```html
+   ? Create new service? (Y/n)
+   ```
+   
+   При необходимости создать дополнительный сервис, указываем имя сервиса.
+   Указанное имя будет дополнено строкой `-service` справа:
+
+   ```html
+   ? Inter service name:
+   ```
+   
+   > В дальнейшем скрипт продолжит спрашивать о необходимости создать
+   > дополнительно сервис, пока разработчик не ответит `no`
+
+   В случае успешного завершения выполнения скрипт должен вывести ответ:
+
+   ```html
+   Completed!
+   ```
+
+   Можно удалить скрипт установки:
+
+   ```shell
+   rm ./egal-installer-v2.0.0-beta.15
+   ```
+   
+6. Соберем и запустим сервисы:
+
+   ```shell
+   docker-compose up -d --build
+   ```
+   
+7. Проверим работоспособность `web-service`:
 
    ```shell
    curl localhost:80
@@ -77,52 +99,51 @@
    > docker-compose logs. Если проблема не решена — нужно обратиться к
    > команде Egal.
 
+## Добавление контекста сервиса `auth-service`
 
-## Добавление стандартных сервисов Egal
+В случае необходимости кастомизировать сервис регистрации/авторизации возможно
+дополнить приложение контекстом сервиса 'auth-service'.
 
-На примере `auth-service` попробуем дополнить приложение новым сервисом.
-Добавление нового сервиса в приложение на примере `auth-service`.
-
-1. Дополним `docker-compose.yml`, секцию `services` сервисами:
-
-   ```yaml
-   # Нужен для работы сервисов, которые взаимодействуют с базой данных
-   # На данном шаге нужен только для auth-service
-     database:
-       container_name: ${PROJECT_NAME}-database
-       image: egalbox/postgres:2.0.0
-       restart: always
-       ports:
-         - ${RABBITMQ_PORT:-5432}:5432
-       environment:
-         POSTGRES_MULTIPLE_DATABASES: auth
-         POSTGRES_USER: postgres
-         POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
-
-     auth-service:
-       container_name: ${PROJECT_NAME}-auth-service
-       image: egalbox/auth-service:2.0.0beta20
-       environment:
-         APP_SERVICE_NAME: auth
-         APP_SERVICE_KEY: uZsLnAJz35FWUTVx@eg#Xirv6I*jcw2Y
-         DB_HOST: ${PROJECT_NAME}-database
-         DB_PASSWORD: ${DATABASE_PASSWORD:-password}
-         RABBITMQ_HOST: ${PROJECT_NAME}-rabbitmq
-         RABBITMQ_USER: ${RABBITMQ_USERNAME:-admin}
-         RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
-         WAIT_HOSTS: ${PROJECT_NAME}-rabbitmq:5672, ${PROJECT_NAME}-database:5432
-       depends_on:
-         - rabbitmq
-         - database
-   ```
-
-2. Запустим сервисы:
+1. Загрузим контекст сервиса в директорию приложения:
 
    ```shell
-   docker-compose up -d
+   git clone https://github.com/egal/auth-service ./server/auth-service
    ```
 
-3. Проверим работоспособность `auth-service`
+2. Отредактируем сервис `auth-service` в `docker-compose.yml`:
+
+   ```yaml
+    auth-service:
+      build:
+        context: server/auth-service
+      restart: unless-stopped
+      depends_on:
+      - rabbitmq
+      - postgres
+      environment:
+        APP_NAME: ${PROJECT_NAME}
+        APP_SERVICE_NAME: auth
+        APP_SERVICE_KEY: ${AUTH_SERVICE_KEY}
+        APP_SERVICES: ${AUTH_SERVICE_ENVIRONMENT_APP_SERVICES}
+        DB_HOST: postgres
+        DB_USERNAME: ${DB_USERNAME}
+        DB_PASSWORD: ${DB_PASSWORD}
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_USER: ${RABBITMQ_USER}
+        RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+        WAIT_HOSTS: rabbitmq:5672,postgres:5432
+   ```
+   
+   > Необходимо заменить строку `image: egalbox/auth-service:2.2.0` описанием контекста
+   > сборки: `build: context: server/auth-service`
+
+3. Запустим сервисы:
+
+   ```shell
+   docker-compose up -d --build
+   ```
+
+4. Проверим работоспособность `auth-service`
 
    ```shell
    curl localhost:80/auth/User/getItems
