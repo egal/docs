@@ -39,6 +39,7 @@
     * [Tooltip](/client/widgets/tooltip.md)
     * [Calendar](/client/widgets/calendar.md)
     * [Context Menu](/client/widgets/context_menu.md)
+    * [Charts](/client/widgets/charts.md)
     * [Генерируемые виджеты для React Native](/client/widgets/react_native.md)
   * [Работа с React Native](/client/react_native.md)
   * [Примеры](/client/examples.md)

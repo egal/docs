@@ -28,6 +28,9 @@ File Uploader принимает 2 параметра в качестве про
 | ``accept``          |  Array  |       ``[]``        | ``['image/png', 'image/gif', 'image/jpeg', 'image/webp', ...]`` | Массив строк с допустимыми форматами файлов                                                          |
 | ``innerText``       | String  | 'Drop file here or' | Любая строка                                                    | Текст внутри drop области компонента                                                                 |
 | ``actionInnerText`` | String  |    'Browse file'    | Любая строка                                                    | Текст внутри drop области компонента, по клику на который открывается окно выбора файла для загрузки |
+| `loadingText`       | String  |   `'Loading...'`    | Любая строка                                                    | Текст во время загрузки файла                                                                        |
+| `tryAgainText`      | String  |    `'Try again'`    | Любая строка                                                    | Текст внутри компонента "Повторить загрузку"                                                         |
+| `errorText`         | String  |        `''`         | Любая строка                                                    | Текст во время загрузки файла                                                                        |
 
 2. объект `styleConfig`:
 Набор стилей для кастомизация File Uploader.
@@ -72,18 +75,21 @@ styleConfig = {
 ## Пример использования
 ````vue
 <template>
-  <div>
-    <EFileUploader
-      :data="{
-        modelValue: [],
-        label: '',
-        helperText: '',
-        multiple: false,
-        size: 'sm',
-        validators: [],
-        accept: [],
-        maxFiles: 1,
+   <div>
+      <EFileUploader
+              @on:upload="uploadFile"
+              @error:upload="errorUploadFile"
+              @on:delete="deleteFile"
+              @error="onError"
+              :data="{
+        label: 'Изображение',
+        helperText: 'Формат png, jpeg, до 4Мб',
+        maxFiles: 2,
         maxSize: 0,
+        multiple: true,
+        size: 'lg',
+        accept: ['image/png', 'image/jpeg'],
+        validators: [],
         disabled: false,
         deletable: true,
         domain: 'http://127.0.0.1:88',
@@ -91,25 +97,36 @@ styleConfig = {
         model: 'Image',
         innerText: 'Выберите файл или',
         actionInnerText: 'Загрузите файл',
+        errorText: error,
+        modelValue: files,
       }"
-      @on:delete="deleteFile"
-      @on:upload="uploadFile"
-    />
-  </div>
+      />
+      <hr />
+   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
 import EFileUploader from '@/components/inputs/FileUploader/EFileUploader.vue'
 export default defineComponent({
-  name: 'App',
-  components: { EFileUploader },
-  data() {
-    return {}
-  },
-  methods: {
-    deleteFile() {},
-    uploadFile() {},
-  },
+   name: 'App',
+   components: { EFileUploader },
+   data() {
+      return {
+         files: [],
+         error: '',
+      }
+   },
+   mounted() {},
+   methods: {
+      errorUploadFile(er) {
+         this.error = er?.message || ''
+      },
+      // После успешной загрузки файла - нужно обновить массив с файлами для modelValue
+      uploadFile(file) {
+         this.files.push(file)
+      },
+      deleteFile() {}
+   },
 })
 </script>
 ````
