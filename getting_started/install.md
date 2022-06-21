@@ -12,7 +12,7 @@
    кодовой базы проекта. При создании проекта не выбираем пункт `Initialize repository with a README`
 2. Клонируем его в нужную нам директорию и открываем в IDE
 3. В открытую директорию загружаем скрипт установки:
-   
+
 ```shell
 wget https://github.com/egal/installer/releases/download/v2.0.0-beta.15/egal-installer-v2.0.0-beta.15
 ```
@@ -20,7 +20,7 @@ wget https://github.com/egal/installer/releases/download/v2.0.0-beta.15/egal-ins
 >Скрипт установки инициализирует кодовую базу проекта на основе фреймворка Egal.
 
 4. Выдаем для скрипта установки право на исполнение
-   
+
 ```shell
 chmod +x ./egal-installer-v2.0.0-beta.15
 ```
@@ -34,13 +34,13 @@ chmod +x ./egal-installer-v2.0.0-beta.15
 > При наличии в текущей директории нескрытых файлов, за исключением скрипта установки, скрипт выдаст ошибку:
 > `Directory is not empty!`
 > Необходимо удалить все файлы из текущей директории, оставив только скрытые файлы и файл скрипта установки.
-   
+
 Вводим имя проекта:
 
 ```html
 ? Enter project name: 
 ```
-   
+
 Выбираем тип клиента:
 
 ```html
@@ -59,7 +59,7 @@ chmod +x ./egal-installer-v2.0.0-beta.15
 
 > `Build from image` - способ сборки сервиса на основе образа удаленного репозитория.
 > Такой способ подходит, когда нет необходимости конфигурировать сервис авторизации.
-> 
+>
 > `Build from context` - способ сборки сервиса на основе контекста. В этом случае инициализируется копия
 > удаленного репозитория сервиса авторизации.
 
@@ -95,7 +95,7 @@ Completed!
 ```shell
 docker-compose up -d --build
 ```
-   
+
 7. Проверим работоспособность `web-service`:
 
 ```shell
@@ -185,7 +185,7 @@ curl localhost:80/monolit/MODEL_NAME/ACTION_NAME
 > ACTION_NAME - название action у MODEL_NAME внутри Monolit Service.
 
 5. Преобразуем `monolit-service` директорию в git submodule Develop
-репозитория:
+   репозитория:
 
    1. Перемещаем кодовую базу во временную директорию:
 
