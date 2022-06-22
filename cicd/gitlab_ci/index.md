@@ -215,3 +215,10 @@ monolit-service:deploy:production:
     - production
 ```
 
+# Рекомендации по настройке пайплайнов
+
+При деплое с использованием Gitlab Runners  необходимо всегда отключать настройку `Skip outdated deployment jobs` в разделе
+`CI/CD Settings/General pipelines` во избежание возникновения ошибки:
+>The deployment job is older than the previously succeeded deployment job, and therefore cannot be run 
+
+
