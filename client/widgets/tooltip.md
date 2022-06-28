@@ -13,8 +13,8 @@
 | Параметр         | Что делает                   | Доступные значения               | По-умолчанию |
 |------------------|------------------------------|----------------------------------|--------------|
 | `position`       | Определяет положение надписи | `left`, `right`, `top`, `bottom` | `top`        |
-| `size`           | Размер                       | `sm`, `md`, `lg`                 | `md`         |
-| `font`           | Шрифт                        | `Inter`, `Open Sans`, `Raleway`  | `Open Sans`  |
+| `size`           | Размер                       | `sm`, `md`, `lg`, `xs`           | `md`         |
+| `font`           | Шрифт                        | `Inter`, `Open Sans`, `Raleway`  | `Inter`      |
 | `weight`         | Толщина шрифта               | `medium`, `regular`, `bold`      | `bold`       |
 | `componentStyle` | Определяет стриль компонента | `light`, `normal`                | `normal`     |
 | `displayIcon`    | Отображение иконки           | `true`, `false`                  | `true`       |

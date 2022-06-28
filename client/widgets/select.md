@@ -37,7 +37,12 @@
 | ``showMoreButtonText``          |     String      | ``Show more...`` | Любая строка                                                                                 | Текст кнопки                                                                                                                                                                                                                                              |
 | ``dropdownStyleConfig``         |     Object      |      ``{}``      | Объект стилей                                                                                | Кастомизация стилей дропдауна                                                                                                                                                                                                                             |
 | ``inputSearchStyleConfig``      |     Object      |      ``{}``      | Объект стилей                                                                                | Кастомизация стилей инпута поиска                                                                                                                                                                                                                         |
-| ``showFilled``                  |     Boolean     |       true       |                                                                                              |                                                                                                                                                                                                                                                           |
+| ``showFilled``                  |     Boolean     |    ``false``     |                                                                                              |                                                                                                                                                                                                                                                           |
+| `helperText`                    |     String      |       `''`       | Любая строка                                                                                 | Мелкий текст под селектом/инпутом селекта                                                                                                                                                                                                                 |
+| `shownBadgeKey`                 |     String      |       `''`       | Любая строка                                                                                 | Ключ, по которому выводить значение (количество чего-либо) в бейджике для каждого элемента в дропдауне. Работает аналогично `shownKey`                                                                                                                    |
+| `showSuccess`                   |     Boolean     |     `false`      | `true`, `false`                                                                              | Показывать "успешное" состояние инпута                                                                                                                                                                                                                    |
+| `inputConfig`                   |     Объект      |       `{}`       | Объект, передаваемый как `data` для EInput                                                   | Должен содержать в себе параметры из `data` объекта для EInput, передается в инпуты с поиском для кастомизации                                                                                                                                            |
+
 
 - Если у селекта флаги `multiple` и `searchableInput` равны `true` - в инпуте будут появляться теги. Вписанные в инпут теги добавляются по нажатию на Enter.
 - В ESelect можно передавать инлайн стили `:chips-style-config` для кастомизации "тегов".
@@ -51,71 +56,109 @@
 | ``error``             |     String     | Возвращает ошибку из валидаторов     |
 | ``update:modelValue`` |     String     | Возвращает выбранное(ые) значение(я) |
 
-#### Пример options
-```javascript
-options = [
-    {
-        name: 'Option one',
-        key: 1
-    },
-    {
-        name: 'Option two',
-        key: 2
-    },
-    {
-        name: 'Option three',
-        key: 3
-    }
-]
-```
-
-
-#### Пример groupedOptions
-```javascript
-groupedOptions = [
-    {
-        groupName: 'First group',
+#### Пример использования
+```vue
+# Пример использования
+````vue
+<template>
+  <div :style="{ width: '280px', marginTop: '20px' }">
+    <ESelect
+      :data="{ ...selectdata }"
+      :style-config="{
+        fontFamily: 'Inter',
+      }"
+      @update:modelValue="upd"
+      @show-more="addMore"
+      @input="
+        ($event) => {
+          searchOptions($event.target.value)
+        }
+      "
+      @error="fff"
+    ></ESelect>
+  </div>
+</template>
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'App',
+  data() {
+    return {
+      selectdata: {
+        multiple: true,
+        modelValue: [],
         options: [
-            {
-                name: 'Option one',
-                key: 1
-            },
-            {
-                name: 'Option two',
-                key: 2
-            },
-            {
-                name: 'Option three',
-                key: 3
-            }
-        ]
-    },
-    {
-        groupName: 'Second group',
-        options: [
-            {
-                name: 'Option four',
-                key: 4
-            },
-            {
-                name: 'Option five',
-                key: 5
-            }
-        ]
+          {
+            name: '1',
+            amount: 22,
+          },
+          { name: '2', amount: 2 },
+          { name: '3' },
+          {
+            name: '4',
+            amount: 22,
+          },
+          { name: '5', amount: 2 },
+          { name: '6' },
+        ],
+        // isLocalOptions: false,
+        nonLocalOptionsTotalCount: 20,
+        showMoreButtonDisplay: true,
+        showMoreButtonText: 'Показать больше',
+        validators: [this.required],
+        closeDropdownAfterSelection: false,
+        closeDropdown: false,
+        // dropdownPosition: 'top',
+        iconLeft: 'archive',
+        iconRight: 'archive',
+        shownBadgeKey: 'amount',
+        // disabled: true,
+        label: 'Default label',
+        helperText: 'helper',
+        // error: true,
+        // showSuccess: true,
+        // openDropdown: true,
+        dropdownStyleConfig: {
+          activeBackgroundColor: 'red',
+          activeHoverBackgroundColor: '#f55'
+        },
+      },
     }
-]
-```
+  },
+  methods: {
+    required(value) {
+      return !Object.keys(value).length ? 'Обязательное поле' : ''
+    },
+    
+    upd(v) {
+      this.selectdata.modelValue = v
+      this.selectdata.closeDropdown = true
+    },
+    searchOptions(v) {
+      this.selectdata.options = this.selectdata.options.filter((i) => i.name.includes(v))
+    },
+  },
+})
+</script>
+<style lang="scss">
+.a {
+  display: grid;
+  grid-row-gap: 30px;
+}
+</style>
+````
+
 
 #### Пример styleConfig
 ````javascript
 styleConfig = {
-        fontFamily: 'Open Sans',
+        fontFamily: 'Inter',
         valueColor: 'black',
         valueFontWeight: '500',
         placeholderColor: 'gray',
         placeholderFontSize: '12px',
         labelColor: 'black',
-        labelFontWeight: '600',
+        labelFontWeight: '400',
         labelFontSize: '12px',
         helperTextColor: 'gray',
         helperTextFontWeight: '400',
@@ -146,6 +189,9 @@ dropdownStyleConfig = {
         backgroundColor: 'white',
         borderColor: 'blue',
         borderRadius: '10px',
-        boxShadow: '0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)'
+        boxShadow: '0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)',
+        optionPressBackgroundColor: 'Цвет фона при нажатии на опцию',
+        activeHoverBackgroundColor: 'Цвет фона при наведении на выбранную опцию',
+        activePressBackgroundColor: 'Цвет фона при нажатии на выбранную опцию'
       }
 ````
