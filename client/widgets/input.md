@@ -37,6 +37,7 @@ Input принимает 2 параметра в качестве пропа:
 | ``labelDisabledColor``  |      String      |      ````      | Любая строка                                                                            | Цвет лэйбла в состоянии `disabled`                               |
 | ``valueDisabledColor``  |      String      |      ````      | Любая строка                                                                            | Цвет значения инпута в состоянии `disabled`                      |
 | ``helperDisabledColor`` |      String      |      ````      | Любая строка                                                                            | Цвет хэлпера в состоянии `disabled`                              |
+| ``showSuccessIcon``     |     Boolean      |   ``false``    | ``true``, ``false``                                                                     | Добавляет иконку справа при успешном заполнении инпута           |
 
 2. объект `styleConfig`:
 Набор стилей для кастомизация Input.
