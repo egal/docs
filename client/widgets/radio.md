@@ -22,7 +22,7 @@
 2. объект `styleConfig`:
 Набор стилей для кастомизации радикнопки. Использует объектный [синтаксис Vue для inline-стилей](https://v3.ru.vuejs.org/ru/guide/class-and-style.html#%D1%81%D0%B2%D1%8F%D0%B7%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-inline-%D1%81%D1%82%D0%B8%D0%BB%D0%B5%D0%B8).
 Дополнительно добавлена обработка свойств с именем состояний (``hover``, ``active``, ``disabled``). 
-Кастомизируются только `border-color` и `background-color`.
+Кастомизируются `border-color`, `background-color` и `dotColor` (по состояниям).
 
 Пример объекта `styleConfig`:
 ```javascript
