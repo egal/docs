@@ -106,7 +106,9 @@ class Post extends Model
 ```
 Таким образом, можно выполнить следующий запрос:
 
-`GET posts?scope=startsBefore(date="2022-05-25")&select=id`
+```http request
+GET posts?scope=startsBefore(date="2022-05-25")&select=id
+```
 
 ### Ограничение выборки
 
@@ -176,7 +178,9 @@ class Channel extends Model
 
 Таким образом, можно выполнить следующий запрос:
 
-`GET posts?select=id,title,channel.title`
+```http request
+GET posts?select=id,title,channel.title`
+```
 
 ### Фильтрация
 
@@ -188,7 +192,9 @@ class Channel extends Model
    `field operator value`
 
 Например:
-`GET posts?select=id&filter=title eq 'Example''`
+```http request
+GET posts?select=id&filter=title eq 'Example''
+```
 
 Доступные операторы:
 
@@ -218,7 +224,9 @@ class Channel extends Model
    `field1 operator1 value1 combiner field2 operator2 value2`
 
 Например:
-`GET posts?select=id&filter=title eq 'Example' and channel_id lt 25`
+```http request
+GET posts?select=id&filter=title eq 'Example' and channel_id lt 25
+```
 
 Доступные combiner:
 * and
@@ -228,7 +236,9 @@ class Channel extends Model
    `field1 operator1 value1 combiner (field2 operator2 value2 combiner field3 operator3 value3)`
 
 Например:
-`GET posts?select=id&filter=title eq 'Example' or (channel_id lt 25 and title eq 'Another')`
+```http request
+GET posts?select=id&filter=title eq 'Example' or (channel_id lt 25 and title eq 'Another')`
+```
 
 >`field` может быть как полем текущей, так и связанной сущности (в том числе для полиморфных отношений).
 
@@ -243,7 +253,9 @@ class Channel extends Model
 * desc
 
 Например, для сортировки объектов модели `Post`, приведенной выше, по заголовкам постов можно выполнить запрос:
-`GET posts?select=id&order=asc(title)`
+```http request
+GET posts?select=id&order=asc(title)
+```
 
 ### Пагинация
 
@@ -254,3 +266,8 @@ class Channel extends Model
 
 При отправке запроса на получение списка объектов можно указать query параметры с ключами `per_page` и `page`.
 В качестве значений передаются число элементов на странице и номер страницы.
+
+Например:
+```http request
+GET posts?select=id&per_page=30&page=3
+```
