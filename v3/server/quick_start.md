@@ -21,7 +21,7 @@ php artisan egal:make:policy Post
 ```
 
 По умолчанию доступ до всех rest-enpoints закрыт, для того, чтобы сделать endpoint общедоступным, необходимо 
-в соответствующих методах политики возвращать значение `true`. Сделаем `show` и `index` общедоступными:
+в соответствующих методах политики возвращать значение `true`. Сделаем общедоступными получение и создание постов:
 
 ```php
 class PostPolicy
@@ -36,12 +36,22 @@ class PostPolicy
     {
         return true;
     }
+    
+      public function createAny(?User $user): bool
+    {
+        return true;
+    }
+
+    public function create(?User $user, Post $post): bool
+    {
+        return true;
+    }
 
     ...
 }
 ```
 
-## Валидация полей
+## Настройка метаданных модели
 
 В классе модели `Post` имеется метод `initializeMetadata()` для формирования метаданных модели, с помощью которого
 можно указать поля модели и их правила валидации. 
@@ -67,8 +77,7 @@ class Post extends Model
                     ->validationRules(['string|unique:posts,title'])
                     ->fillable(),
                 FieldMetadata::make('content')
-                    ->required()
-                    ->validationRules(['string'])
+                    ->validationRules(['string|nullable'])
                     ->fillable()
             );
     }
@@ -94,13 +103,52 @@ EgalRoute::rest(Post::class, PostPolicy::class);
 
 В результате чего создаются следующие маршруты:
 
-|  Метод   |    Адрес    | Endpoint | Назначение                   |
-|:--------:|:-----------:|:--------:|:-----------------------------|
-| GET/HEAD |    posts    |  index   | Получить список всех постов. |
-|   POST   |    posts    |  create  | Создать пост.                |
-| GET/HEAD | posts/{key} |   show   | Получить пост по ключу.      |
-|  DELETE  | posts/{key} |  delete  | Удалить пост по ключу.       |
-|  PATCH   | posts/{key} |  update  | Редактировать пост по ключу. |
+|  Метод   |    Адрес    | Endpoint | Назначение                  |
+|:--------:|:-----------:|:--------:|:----------------------------|
+| GET/HEAD |    posts    |  index   | Получить список всех постов |
+|   POST   |    posts    |  create  | Создать пост                |
+| GET/HEAD | posts/{key} |   show   | Получить пост по ключу      |
+|  DELETE  | posts/{key} |  delete  | Удалить пост по ключу       |
+|  PATCH   | posts/{key} |  update  | Редактировать пост по ключу |
 
 >Для обращения к запросам на получение данных необходимо указание query-параметра select. Подробнее описано в разделе
 > [Доступные query-параметры](/v3/server/rest#Доступные-query-параметры)
+
+## Примеры запросов
+
+Таким образом, можем отправить запросы на endpoints с открытым доступом.
+
+Для создания поста воспользуемся следующим запросом:
+```http request
+curl --location --request POST 'http://localhost:80/posts' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "example"
+}'
+```
+В ответе будет получен следующий json-объект:
+```json
+{
+"id": 1
+}
+```
+
+Для просмотра постов воспользуемся следующим запросом:
+```http request
+curl --location --request GET 'http://localhost:80/posts?select=id,title,content' \
+```
+В ответе будет получен следующий json-объект:
+```json
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "example",
+      "content": null
+    }
+  ],
+  "current_page": 1,
+  "total_count": 1,
+  "per_page": 15
+}
+```

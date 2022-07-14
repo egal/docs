@@ -77,6 +77,9 @@ php artisan egal:make:policy Post
 
 ### Scopes
 
+Используя методы scope (Подробнее в [документации Laravel](https://laravel.com/docs/9.x/eloquent#local-scopes)), можно
+дополнять запрос к модели фильтрами, группировками, сортировками и т.д. Внутрь метода передаётся запрос, который можно дополнять. 
+
 Определив метод scope в модели, его можно использовать с клиента, передав query параметр с ключом scope.
 
 Передавать scope в формате: `scope = scopeName(parameterName = parateterValue, ...)`
@@ -179,7 +182,7 @@ class Channel extends Model
 Таким образом, можно выполнить следующий запрос:
 
 ```http request
-GET posts?select=id,title,channel.title`
+GET posts?select=id,title,channel.title
 ```
 
 ### Фильтрация
@@ -193,7 +196,7 @@ GET posts?select=id,title,channel.title`
 
 Например:
 ```http request
-GET posts?select=id&filter=title eq 'Example''
+GET posts?select=id&filter=title eq 'Example'
 ```
 
 Доступные операторы:
@@ -237,7 +240,7 @@ GET posts?select=id&filter=title eq 'Example' and channel_id lt 25
 
 Например:
 ```http request
-GET posts?select=id&filter=title eq 'Example' or (channel_id lt 25 and title eq 'Another')`
+GET posts?select=id&filter=title eq 'Example' or (channel_id lt 25 and title eq 'Another')
 ```
 
 >`field` может быть как полем текущей, так и связанной сущности (в том числе для полиморфных отношений).
