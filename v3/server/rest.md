@@ -18,13 +18,13 @@ EgalRoute::rest(Post::class, PostPolicy::class);
 ```
 Вызов `EgalRoute::rest(Post::class, PostPolicy::class)` создаст следующий набор маршрутов:
 
-|  Метод   |    Адрес    | Endpoint | Назначение                   |
-|:--------:|:-----------:|:--------:|:-----------------------------|
-| GET/HEAD |    posts    |  index   | Получить список всех постов. |
-|   POST   |    posts    |  create  | Создать пост.                |
-| GET/HEAD | posts/{key} |   show   | Получить пост по ключу.      |
-|  DELETE  | posts/{key} |  delete  | Удалить пост по ключу.       |
-|  PATCH   | posts/{key} |  update  | Редактировать пост по ключу. |
+|  Метод   |    Адрес    | Endpoint | Назначение                  |
+|:--------:|:-----------:|:--------:|:----------------------------|
+| GET/HEAD |    posts    |  index   | Получить список всех постов |
+|   POST   |    posts    |  create  | Создать пост                |
+| GET/HEAD | posts/{key} |   show   | Получить пост по ключу      |
+|  DELETE  | posts/{key} |  delete  | Удалить пост по ключу       |
+|  PATCH   | posts/{key} |  update  | Редактировать пост по ключу |
 
 
 ## Ограничение доступа
