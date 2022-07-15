@@ -140,3 +140,209 @@ Manager::component(Table::make(
 ```http request
 GET interface-metadata/{label}
 ```
+
+Пример запроса:
+```http request
+curl --location --request GET 'http://localhost:80/interface-metadata/Сотрудники'
+```
+
+Полученный ответ:
+```json
+{
+    "type": "Table",
+    "label": "Сотрудники",
+    "content": [],
+    "data": {
+        "fields": [
+            {
+                "label": "ФИО",
+                "path": "full_name",
+                "type": "string",
+                "sortable": true,
+                "searchable": true,
+                "filterable": true,
+                "computed": [],
+                "editWidget": {
+                    "type": "Input",
+                    "label": "",
+                    "content": {
+                        "type": "test",
+                        "placeholder": "",
+                        "error": "",
+                        "showSuccess": false,
+                        "showFilled": true,
+                        "disabled": false,
+                        "validators": [
+                            "required"
+                        ],
+                        "helperText": "",
+                        "iconLeft": "",
+                        "iconRight": "",
+                        "size": "lg",
+                        "showError": true,
+                        "required": false,
+                        "showArrows": true,
+                        "clearable": true,
+                        "postfix": "",
+                        "labelDisabledColor": "",
+                        "valueDisabledColor": "",
+                        "helperDisabledColor": "",
+                        "showSuccessIcon": false
+                    },
+                    "data": null
+                }
+            },
+            {
+                "label": "Дата рождения",
+                "path": "birth_date",
+                "type": "date",
+                "sortable": true,
+                "searchable": false,
+                "filterable": true,
+                "computed": [],
+                "editWidget": {
+                    "type": "Input",
+                    "label": "",
+                    "content": {
+                        "type": "test",
+                        "placeholder": "",
+                        "error": "",
+                        "showSuccess": false,
+                        "showFilled": true,
+                        "disabled": false,
+                        "validators": [
+                            "date"
+                        ],
+                        "helperText": "",
+                        "iconLeft": "",
+                        "iconRight": "",
+                        "size": "lg",
+                        "showError": true,
+                        "required": false,
+                        "showArrows": true,
+                        "clearable": true,
+                        "postfix": "",
+                        "labelDisabledColor": "",
+                        "valueDisabledColor": "",
+                        "helperDisabledColor": "",
+                        "showSuccessIcon": false
+                    },
+                    "data": null
+                }
+            },
+            {
+                "label": "Статус",
+                "path": "is_active",
+                "type": "boolean",
+                "sortable": true,
+                "searchable": false,
+                "filterable": false,
+                "computed": [],
+                "editWidget": {
+                    "type": "Checkbox",
+                    "label": "",
+                    "content": {
+                        "checked": false,
+                        "disabled": false,
+                        "size": "md",
+                        "checkboxRight": false,
+                        "indeterminate": false
+                    },
+                    "data": null
+                }
+            },
+            {
+                "label": "Ставка",
+                "path": "rate",
+                "type": "numeric",
+                "sortable": false,
+                "searchable": false,
+                "filterable": false,
+                "computed": [],
+                "editWidget": {
+                    "type": "Input",
+                    "label": "",
+                    "content": {
+                        "type": "test",
+                        "placeholder": "",
+                        "error": "",
+                        "showSuccess": false,
+                        "showFilled": true,
+                        "disabled": false,
+                        "validators": [],
+                        "helperText": "",
+                        "iconLeft": "",
+                        "iconRight": "",
+                        "size": "lg",
+                        "showError": true,
+                        "required": false,
+                        "showArrows": true,
+                        "clearable": true,
+                        "postfix": "",
+                        "labelDisabledColor": "",
+                        "valueDisabledColor": "",
+                        "helperDisabledColor": "",
+                        "showSuccessIcon": false
+                    },
+                    "data": null
+                }
+            },
+            {
+                "label": "Отдел",
+                "path": "departments.name",
+                "type": "string[]",
+                "sortable": false,
+                "searchable": false,
+                "filterable": true,
+                "computed": [],
+                "editWidget": {
+                    "type": "Select",
+                    "label": "",
+                    "content": {
+                        "placeholder": "",
+                        "helperText": "",
+                        "error": "",
+                        "modelValue": [],
+                        "options": [],
+                        "shownKey": "name",
+                        "validators": [],
+                        "size": "lg",
+                        "showError": true,
+                        "clearable": true,
+                        "multiple": false,
+                        "searchable": false,
+                        "searchableInput": false,
+                        "searchPlaceholder": "Search",
+                        "emptyDropdownText": "no data",
+                        "grouped": false,
+                        "isLocalOptions": true,
+                        "showMoreButtonDisplay": false,
+                        "closeDropdownAfterSelection": true,
+                        "nonLocalOptionsTotalCount": 0,
+                        "showMoreButtonText": "Show more...",
+                        "dropdownStyleConfig": "[]",
+                        "inputSearchStyleConfig": "[]",
+                        "showFilled": false,
+                        "shownBadgeKey": "",
+                        "showSuccess": false,
+                        "inputConfig": "[]",
+                        "dropdownPosition": "bottom"
+                    },
+                    "data": {
+                        "requestModel": "App\\Models\\Department"
+                    }
+                }
+            }
+        ],
+        "requestModel": "App\\Models\\User",
+        "requestRelations": [
+            "departments"
+        ],
+        "requestFilter": {},
+        "requestOrder": [
+            "full_name",
+            "desc"
+        ]
+    }
+}
+```
