@@ -14,7 +14,7 @@
 3. В открытую директорию загружаем скрипт установки:
 
 ```shell
-wget https://github.com/egal/installer/releases/download/v2.0.0-beta.15/egal-installer-v2.0.0-beta.15
+wget $(curl -s https://api.github.com/repos/egal/installer/releases/latest | jq -r '.assets[] | select(.name|match("^egal-installer")) | .browser_download_url')
 ```
 
 >Скрипт установки инициализирует кодовую базу проекта на основе фреймворка Egal.
