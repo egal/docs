@@ -41,7 +41,8 @@
 Для использования конструктора нужно инициализировать экземпляр класса (глобально либо в нужном компоненте):
 ```javascript
 import { ActionConstructor } from '@egalteam/framework'
-let constructor = new ActionConstructor(url)
+let constructor = new ActionConstructor(url, refreshTokenName)
+// refreshTokenName название микросервиса, через который будет происходить обновление токенов
 ```
 
 Вызвать какой-либо из методов можно так, передав нужные параметры в каждый из них.
